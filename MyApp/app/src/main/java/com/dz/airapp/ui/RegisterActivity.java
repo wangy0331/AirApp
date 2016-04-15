@@ -30,6 +30,7 @@ public class RegisterActivity extends BaseActivity {
     private TextView mCodeBtn;
     private Button mRegister;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

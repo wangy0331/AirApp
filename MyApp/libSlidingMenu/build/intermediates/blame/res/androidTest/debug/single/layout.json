@@ -4,12 +4,32 @@
         "source": "E:\\Java_jdk\\ShortcutBadger-master\\MyApp\\libSlidingMenu\\build\\intermediates\\bundles\\debug\\res\\layout\\shadow.xml"
     },
     {
+        "merged": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\libSlidingMenu\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\slidingmenumain.xml",
+        "source": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\libSlidingMenu\\build\\intermediates\\bundles\\debug\\res\\layout\\slidingmenumain.xml"
+    },
+    {
+        "merged": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\libSlidingMenu\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\list.xml",
+        "source": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\libSlidingMenu\\build\\intermediates\\bundles\\debug\\res\\layout\\list.xml"
+    },
+    {
         "merged": "E:\\Java_jdk\\ShortcutBadger-master\\MyApp\\libSlidingMenu\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\list.xml",
         "source": "E:\\Java_jdk\\ShortcutBadger-master\\MyApp\\libSlidingMenu\\build\\intermediates\\bundles\\debug\\res\\layout\\list.xml"
     },
     {
+        "merged": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\libSlidingMenu\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\slidingmenumainlist.xml",
+        "source": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\libSlidingMenu\\build\\intermediates\\bundles\\debug\\res\\layout\\slidingmenumainlist.xml"
+    },
+    {
         "merged": "E:\\Java_jdk\\ShortcutBadger-master\\MyApp\\libSlidingMenu\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\slidingmenumain.xml",
         "source": "E:\\Java_jdk\\ShortcutBadger-master\\MyApp\\libSlidingMenu\\build\\intermediates\\bundles\\debug\\res\\layout\\slidingmenumain.xml"
+    },
+    {
+        "merged": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\libSlidingMenu\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\slidingmenurow.xml",
+        "source": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\libSlidingMenu\\build\\intermediates\\bundles\\debug\\res\\layout\\slidingmenurow.xml"
+    },
+    {
+        "merged": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\libSlidingMenu\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\shadow.xml",
+        "source": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\libSlidingMenu\\build\\intermediates\\bundles\\debug\\res\\layout\\shadow.xml"
     },
     {
         "merged": "E:\\Java_jdk\\ShortcutBadger-master\\MyApp\\libSlidingMenu\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\slidingmenumainlist.xml",
