@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="red">#e80000</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="gray">#e1e1e1</color>
+    <color name="half_transparent">#7D000000</color>
+    <color name="blue">#00aeef</color>
+    <color name="blue_active">#00a0dc</color>
+    <color name="background">#f4f4f4</color>
+    <color name="green">#32CD32</color>
+    <color name="grey">#ADADAD</color>
+    <color name="orange">#FFA500</color>
+
+
+    <!-- 按钮颜色 -->
+    <color name="btn_blue_disable">#72c9ea</color>
+    <color name="btn_white_disable">#7D000000</color>
+
+
+    <!-- 扫描 -->
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+</resources>

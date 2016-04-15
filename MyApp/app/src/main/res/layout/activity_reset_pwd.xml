@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/background"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="right"
+            android:paddingRight="5dp"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:background="@drawable/input_white"
+            android:text="@string/phoneCode"/>
+        <EditText
+            android:id="@+id/reset_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:hint="@string/phone"
+            android:background="@drawable/input_white"
+            android:inputType="phone"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_centerVertical="true"
+        android:background="@color/background" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="right"
+            android:paddingRight="5dp"
+            android:textColor="@color/black"
+            android:background="@drawable/input_white"
+            android:textSize="18sp"
+            android:text="@string/new_pwd"/>
+        <EditText
+            android:id="@+id/reset_new_pwd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:hint="@string/password"
+            android:background="@drawable/input_white"
+            android:inputType="textPassword"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_centerVertical="true"
+        android:background="@color/background" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="right"
+            android:paddingRight="5dp"
+            android:textColor="@color/black"
+            android:background="@drawable/input_white"
+            android:textSize="18sp"
+            android:text="@string/rePassword"/>
+        <EditText
+            android:id="@+id/reset_pwd_again"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:hint="@string/password_hit"
+            android:background="@drawable/input_white"
+            android:inputType="textPassword"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_centerVertical="true"
+        android:background="@color/background" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.41"
+            android:gravity="right"
+            android:paddingRight="5dp"
+            android:textColor="@color/black"
+            android:background="@drawable/input_white"
+            android:textSize="18sp"
+            android:text="@string/code"/>
+
+
+        <EditText
+            android:id="@+id/reset_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="@string/inputCode"
+            android:background="@drawable/input_white"
+            android:inputType="textPassword"/>
+
+
+
+        <TextView
+            android:id="@+id/reset_code_send"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            style="@style/getCode"
+            android:text="@string/getCode"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_centerVertical="true"
+        android:background="@color/background" />
+
+    <Button
+        android:id="@+id/reset_submit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        style="@style/btn_blue"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/reset_pwd_btn"/>
+
+</LinearLayout>

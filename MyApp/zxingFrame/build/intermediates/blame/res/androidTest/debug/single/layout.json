@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "E:\\Java_jdk\\ShortcutBadger-master\\MyApp\\zxingFrame\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\camera.xml",
+        "source": "E:\\Java_jdk\\ShortcutBadger-master\\MyApp\\zxingFrame\\build\\intermediates\\bundles\\debug\\res\\layout\\camera.xml"
+    },
+    {
+        "merged": "E:\\Java_jdk\\ShortcutBadger-master\\MyApp\\zxingFrame\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\check_result.xml",
+        "source": "E:\\Java_jdk\\ShortcutBadger-master\\MyApp\\zxingFrame\\build\\intermediates\\bundles\\debug\\res\\layout\\check_result.xml"
+    },
+    {
+        "merged": "E:\\Java_jdk\\ShortcutBadger-master\\MyApp\\zxingFrame\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\activity_zxing_frame.xml",
+        "source": "E:\\Java_jdk\\ShortcutBadger-master\\MyApp\\zxingFrame\\build\\intermediates\\bundles\\debug\\res\\layout\\activity_zxing_frame.xml"
+    }
+]
