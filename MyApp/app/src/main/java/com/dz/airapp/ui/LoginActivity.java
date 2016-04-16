@@ -11,14 +11,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.dz.airapp.R;
 import com.dz.airapp.bean.Result;
 import com.dz.airapp.bean.User;
+import com.dz.airapp.cache.CacheCenter;
 import com.dz.airapp.kit.StringKit;
 import com.dz.airapp.service.ServiceCenter;
 import com.dz.airapp.widget.LibToast;
 import com.dz.airapp.widget.LoadProcessDialog;
-
-import com.dz.airapp.R;
 
 /**
  * 登录
@@ -54,6 +54,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (mRemember.isChecked()) {
+
                     LibToast.show("记住");
                 } else {
                     LibToast.show("忘记");
@@ -126,6 +127,13 @@ public class LoginActivity extends BaseActivity {
             if (userResult != null) {
                 if (userResult.isSuceed()) {
                     Toast.makeText(LoginActivity.this, userResult.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    User user = new User();
+                    user.setDatabaseid("AirApp");
+                    user.setUserid(mUsername);
+
+                    CacheCenter.cacheCurrentUser(user);
+
                     // 关闭页面，显示个人中心
                     LoginActivity.this.finish();
                 } else if (StringKit.isNotEmpty(userResult.getMessage())) {

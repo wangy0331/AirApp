@@ -8,4 +8,6 @@ public class Const {
 
     // 缓存
     public static final String CACHE_OBJ_USER = "CACHE_OBJ_USER";
+
+    public static final String CACHE_REMEMBER_USER = "remember";
 }
