@@ -12,6 +12,8 @@ public class User implements Serializable {
     private String userid;
     //密码
     private String userpwd;
+    //是否记住登录
+    private String type;
 
     public String getDatabaseid() {
         return databaseid;
@@ -35,5 +37,13 @@ public class User implements Serializable {
 
     public void setUserpwd(String userpwd) {
         this.userpwd = userpwd;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

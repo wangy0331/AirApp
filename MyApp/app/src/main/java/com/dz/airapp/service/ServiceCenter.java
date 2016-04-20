@@ -3,20 +3,17 @@ package com.dz.airapp.service;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.dz.airapp.bean.Device;
+import com.dz.airapp.bean.DeviceDetail;
 import com.dz.airapp.bean.Result;
 import com.dz.airapp.bean.User;
 import com.dz.airapp.net.URLCenter;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Aaron on 2016/4/6.
@@ -157,26 +154,52 @@ public class ServiceCenter {
         return result;
     }
 
+    /**
+     * 设备列表
+     * @param mCondition
+     * @return
+     */
+    public static Result<List<Device>> deviceList(String mCondition, String content) throws Exception{
 
-    public static String code() throws Exception{
-        String url2 = "http://sms.api.ums86.com:8893/sms/Api/Send.do?SpCode=230" +
-                "&LoginName=admin&Password=admin&MessageContent=你有一项编号为123456789的事务需要处理。" +
-                "&UserNumber=18662181836&SerialNumber=&ScheduleTime=&f=1 ";
+        Log.e("mCondition", mCondition);
+        Log.e("content", content);
 
-        String result = null;
+        //接口路径
+        String url = URLCenter.getApi("querysets.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", "13771768710");
+        obj.put("loginsta", "1");
+        obj.put("condition", mCondition);
+        obj.put("content", content);
+        //发送请求
+        String response = HttpService.post(url, obj);
 
-        try {
-            HttpClient httpClient = new DefaultHttpClient();
-            //指定访问的服务器地址
-            HttpGet httpGet = new HttpGet(url2);
-            HttpResponse httpResponse = httpClient.execute(httpGet);
-            if (httpResponse.getStatusLine().getStatusCode() == 200) {
-                //请求响应了成功了
-                HttpEntity entity = httpResponse.getEntity();
-                result = EntityUtils.toString(entity, "UTF-8");
-            }
-        } catch (Exception e) {
-            Log.e("catch", e.toString());
+        if (!TextUtils.isEmpty(response)) {
+            return Device.parse(response);
+        }
+        return null;
+    }
+
+
+    public static Result<DeviceDetail> getDetail(String jiqiSn) throws Exception{
+        //接口路径
+        String url = URLCenter.getApi("qsetsdata.asq");
+
+//        CacheCenter.getCurrentUser().getUserid()
+
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", "13771768710");
+        obj.put("loginsta", "1");
+        obj.put("setno", jiqiSn);
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return DeviceDetail.parse(response);
         }
         return null;
     }

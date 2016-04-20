@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import com.dz.airapp.bean.User;
 import com.dz.airapp.cache.CacheCenter;
 import com.dz.airapp.ui.BusinessFragment;
 import com.dz.airapp.ui.CustomerFragment;
@@ -108,7 +109,10 @@ public class MainActivity extends FragmentActivity {
             Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
             exitTime = System.currentTimeMillis();
         } else {
-            CacheCenter.removeCurrentUser();
+            User user = CacheCenter.getCurrentUser();
+            if ("0".equals(user.getType())) {
+                CacheCenter.removeCurrentUser();
+            }
             finish();
             System.exit(0);
             super.onBackPressed();

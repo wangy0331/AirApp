@@ -35,6 +35,9 @@ public class LoginActivity extends BaseActivity {
     private String userPhone;
     private String userPwd;
 
+    //是否记住登录（0否，1是）
+    private String type = "0";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +57,11 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (mRemember.isChecked()) {
-
-                    LibToast.show("记住");
+//                    LibToast.show("记住");
+                    type = "1";
                 } else {
-                    LibToast.show("忘记");
+//                    LibToast.show("忘记");
+                    type = "0";
                 }
             }
         });
@@ -131,8 +135,14 @@ public class LoginActivity extends BaseActivity {
                     User user = new User();
                     user.setDatabaseid("AirApp");
                     user.setUserid(mUsername);
+                    user.setType(type);
 
                     CacheCenter.cacheCurrentUser(user);
+
+
+                    CacheCenter.getCurrentUser();
+
+
 
                     // 关闭页面，显示个人中心
                     LoginActivity.this.finish();

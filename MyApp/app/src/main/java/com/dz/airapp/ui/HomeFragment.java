@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -27,13 +26,11 @@ import android.widget.Toast;
 
 import com.dz.airapp.R;
 import com.dz.airapp.bean.CarouselData;
-import com.dz.airapp.service.HttpService;
+import com.dz.airapp.cache.CacheCenter;
 import com.dz.airapp.ui.device.DeviceDetailActivity;
 import com.dz.airapp.ui.device.DeviceListActivity;
 import com.dz.airapp.ui.device.DeviceRegisterActivity;
 import com.dz.airapp.utils.Carousel;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +55,11 @@ public class HomeFragment extends Fragment {
     private Window window;
     private LinearLayout sbzcBtn;
     private LinearLayout sblbBtn;
+    private LinearLayout sbyjBtn;
+    private LinearLayout sbbjBtn;
+    private LinearLayout wbxxBtn;
+    private LinearLayout wxyjBtn;
+    private TextView mLoginText;
 
     //测试
     private Button testBtn;
@@ -71,23 +73,38 @@ public class HomeFragment extends Fragment {
         mTextView = (TextView) view.findViewById(R.id.test);
         sbzcBtn = (LinearLayout) view.findViewById(R.id.btn_sbzc);
         sblbBtn = (LinearLayout) view.findViewById(R.id.btn_sblb);
+        sbyjBtn = (LinearLayout) view.findViewById(R.id.btn_sbyj);
+        sbbjBtn = (LinearLayout) view.findViewById(R.id.btn_sbbj);
+        wbxxBtn = (LinearLayout) view.findViewById(R.id.btn_wbxx);
+        wxyjBtn = (LinearLayout) view.findViewById(R.id.btn_wxyj);
+//        mLoginText = (TextView) view.findViewById(R.id.logon_text);
 
-        testBtn = (Button) view.findViewById(R.id.test);
+//        testBtn = (Button) view.findViewById(R.id.test);
 
+        mTextView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), DeviceDetailActivity.class));
+            }
+        });
 
         sbzcBtn.setOnClickListener(click);
         sblbBtn.setOnClickListener(click);
+        sbyjBtn.setOnClickListener(click);
+        sbbjBtn.setOnClickListener(click);
+        wbxxBtn.setOnClickListener(click);
+        wxyjBtn.setOnClickListener(click);
 
         loginBtn.setOnClickListener(click);
         settingBtn.setOnClickListener(click);
 
-        testBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("123", "123");
-                startActivity(new Intent(getActivity(), DeviceDetailActivity.class));
-            }
-        });
+//        testBtn.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.e("123", "123");
+//                startActivity(new Intent(getActivity(), DeviceDetailActivity.class));
+//            }
+//        });
 
 
 
@@ -137,12 +154,15 @@ public class HomeFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btn_login:
-                    LoginActivity.open(getActivity());
-                    Toast.makeText(getContext(),"登录", Toast.LENGTH_SHORT).show();
+                    if (CacheCenter.getCurrentUser() != null) {
+                        Toast.makeText(getContext(),"已登录", Toast.LENGTH_SHORT).show();
+                    } else {
+                        LoginActivity.open(getActivity());
+                    }
                     break;
                 case R.id.btn_setting:
                     showPopupWindow(v);
-                    Toast.makeText(getContext(),"设置", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(),"设置", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.btn_sbzc:
                     startActivity(new Intent(getActivity(), DeviceRegisterActivity.class));
@@ -150,7 +170,22 @@ public class HomeFragment extends Fragment {
                 case R.id.btn_sblb:
                     startActivity(new Intent(getActivity(), DeviceListActivity.class));
                     break;
+                case R.id.btn_sbyj:
+                    Toast.makeText(getContext(), R.string.loading, Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.btn_sbbj:
+                    Toast.makeText(getContext(), R.string.loading, Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.btn_wbxx:
+                    Toast.makeText(getContext(), R.string.loading, Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.btn_wxyj:
+                    Toast.makeText(getContext(), R.string.loading, Toast.LENGTH_SHORT).show();
+                    break;
+
             }
+
+
         }
 
     };
@@ -177,13 +212,20 @@ public class HomeFragment extends Fragment {
 
         LinearLayout login = (LinearLayout) contentView.findViewById(R.id.pop_login);
 
-        login.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-                popupWindow.dismiss();
-            }
-        });
+        mLoginText = (TextView) contentView.findViewById(R.id.logon_text);
+
+        if (CacheCenter.getCurrentUser() != null) {
+            mLoginText.setText("已登录");
+        } else {
+            login.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                    popupWindow.dismiss();
+                }
+            });
+        }
+
 
         LinearLayout out = (LinearLayout) contentView.findViewById(R.id.pop_out);
 
@@ -270,74 +312,5 @@ public class HomeFragment extends Fragment {
         }
 
     }
-
-
-
-
-
-
-    String jsonTest;
-
-
-    private void sendRequestWithHttpClient() {
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-//                    String url = "http://222.92.237.43:1880/showdata.html";
-                    String url = "http://222.92.237.43:1880/showdata.asq";
-//                    String url = "http://222.92.237.43/air_ws/WS.asmx/sendSms";
-                    JSONObject obj = new JSONObject();
-
-//                    obj.put("key","");
-//                    obj.put("userid","admin");
-//                    obj.put("pwd","123");
-
-                    obj.put("sqlcommand", "select * from Users order by UserID");
-                    obj.put("databaseid", "test");
-
-                    String response = HttpService.post(url, obj);
-
-//                    String response = HttpService.sendMsg("18662181836");
-
-//                    Log.e("aaron",response);
-                    jsonTest = response;
-//                    xiaohualist = JsonParser.parseJSONWithJSONObject(response);
-//                    xiaohuaArray = new String[xiaohualist.size()];
-//                    for (int a = 0; a < xiaohualist.size(); a++) {
-//                        xiaohuaArray[a] = xiaohualist.get(a).getContent();
-//                    }
-                    myHandler.sendEmptyMessage(1);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }).start();
-    }
-
-
-
-    Handler myHandler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 1:
-                    mTextView.setText(jsonTest);
-
-
-
-
-                    Log.e("xiancheng", "走起");
-                    break;
-
-                default:
-                    break;
-            }
-        }
-    };
 
 }

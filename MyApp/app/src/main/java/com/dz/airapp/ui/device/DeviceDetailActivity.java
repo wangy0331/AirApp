@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
 import com.dz.airapp.R;
+import com.dz.airapp.bean.Device;
 import com.dz.airapp.kit.DpKit;
 import com.dz.airapp.ui.BaseActivity;
+import com.dz.airapp.utils.Const;
 import com.dz.airapp.widget.PagerSlidingTabStrip;
 
 /**
@@ -18,6 +20,9 @@ public class DeviceDetailActivity extends BaseActivity {
     DeviceDetialAdapter mAdapter;
     PagerSlidingTabStrip mIndicator;
 
+    //device
+    private Device mDevice;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,11 +32,15 @@ public class DeviceDetailActivity extends BaseActivity {
         initView();
     }
 
+
     private void initView() {
         mViewPager = (ViewPager) findViewById(R.id.device_viewpager_container);
 
+        if (getIntent().hasExtra(Const.EXTRA_DEVICE)) {
+            mDevice = (Device) getIntent().getSerializableExtra(Const.EXTRA_DEVICE);
+        }
 
-        mAdapter = new DeviceDetialAdapter(getSupportFragmentManager());
+        mAdapter = new DeviceDetialAdapter(getSupportFragmentManager(), mDevice.getJiqiSn());
 
         mViewPager.setAdapter(mAdapter);
 

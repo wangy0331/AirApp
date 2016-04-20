@@ -10,4 +10,7 @@ public class Const {
     public static final String CACHE_OBJ_USER = "CACHE_OBJ_USER";
 
     public static final String CACHE_REMEMBER_USER = "remember";
+
+    //设备详情
+    public static final String EXTRA_DEVICE = "deviceDetail";
 }

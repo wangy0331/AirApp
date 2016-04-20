@@ -1,13 +1,5 @@
 [
     {
-        "merged": "E:\\Java_jdk\\ShortcutBadger-master\\MyApp\\libSlidingMenu\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\defaultshadow.xml",
-        "source": "E:\\Java_jdk\\ShortcutBadger-master\\MyApp\\libSlidingMenu\\build\\intermediates\\bundles\\debug\\res\\drawable\\defaultshadow.xml"
-    },
-    {
-        "merged": "E:\\Java_jdk\\ShortcutBadger-master\\MyApp\\libSlidingMenu\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\defaultshadowright.xml",
-        "source": "E:\\Java_jdk\\ShortcutBadger-master\\MyApp\\libSlidingMenu\\build\\intermediates\\bundles\\debug\\res\\drawable\\defaultshadowright.xml"
-    },
-    {
         "merged": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\libSlidingMenu\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\defaultshadow.xml",
         "source": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\libSlidingMenu\\build\\intermediates\\bundles\\debug\\res\\drawable\\defaultshadow.xml"
     },

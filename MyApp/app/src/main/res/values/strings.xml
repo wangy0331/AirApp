@@ -29,6 +29,7 @@
     <string name="wxyj">维修预警</string>
     <string name="jnzj">节能专家</string>
     <string name="sbgz">设备改造</string>
+    <string name="loading">开发中</string>
 
     <!--注册/登录 -->
     <string name="invalid_phone_num">手机号码格式错误!</string>
@@ -71,5 +72,28 @@
     <string name="search">搜索</string>
     <string name="search_hit">请输入设备号</string>
     <string name="device_detial">设备详情</string>
+    <string name="device_success">列表获取成功</string>
+    <string name="device_failure">列表获取失败</string>
+    <string name="co_name">客户名称：</string>
+    <string name="jq_status">机器状态：</string>
+    <string name="jiqi_sn">设备条码：</string>
+
+    <!-- 设备详情 -->
+    <string name="air_press">空气压力</string>
+    <string name="air_temp1">排气温度</string>
+    <string name="dianji_temp">电机温度</string>
+    <string name="modle_temp">模块温度</string>
+    <string name="envi_temp">环境温度</string>
+    <string name="current_dy">设备电压</string>
+    <string name="zhuji_dl1">主机电流 A</string>
+    <string name="zhuji_dl2">主机电流 B</string>
+    <string name="zhuji_dl3">主机电流 C</string>
+    <string name="fengji_dl1">风机电流 A</string>
+    <string name="fengji_dl2">风机电流 B</string>
+    <string name="fengji_dl3">风机电流 C</string>
+    <string name="fengjiavgdl">风机平均电流 A</string>
+    <string name="fengjiavgdl1">风机平均电流 B</string>
+    <string name="data_time">机器时钟采集实时时间</string>
+
 
 </resources>

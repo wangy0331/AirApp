@@ -19,7 +19,7 @@ public class LoadProcessDialog extends Dialog {
 	public LoadProcessDialog(Context context) {
 		super(context, R.style.AppDialog);
 		//按“返回键”无法取消
-		setCancelable(false);
+		setCancelable(true);
 	}
 
 	@Override

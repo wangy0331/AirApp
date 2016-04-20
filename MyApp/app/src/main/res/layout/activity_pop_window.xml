@@ -40,6 +40,7 @@
             android:background="@drawable/login"/>
 
         <TextView
+            android:id="@+id/logon_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="5dp"
