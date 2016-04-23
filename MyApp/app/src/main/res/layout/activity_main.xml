@@ -31,36 +31,40 @@
         <ImageButton
             android:id="@+id/main_tab_1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:background="@null"
             android:layout_weight="1"
+            android:scaleType="fitCenter"
             android:onClick="tabClick"
             android:src="@drawable/dw_tab_1"/>
 
         <ImageButton
             android:id="@+id/main_tab_2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:background="@null"
+            android:scaleType="fitCenter"
             android:onClick="tabClick"
             android:src="@drawable/dw_tab_2"/>
 
         <ImageButton
             android:id="@+id/main_tab_3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:background="@null"
+            android:scaleType="fitCenter"
             android:onClick="tabClick"
             android:src="@drawable/dw_tab_3"/>
 
         <ImageButton
             android:id="@+id/main_tab_4"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:background="@null"
+            android:scaleType="fitCenter"
             android:onClick="tabClick"
             android:src="@drawable/dw_tab_4"/>
 

@@ -7,15 +7,15 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
 
-import com.dz.airapp.bean.User;
 import com.dz.airapp.cache.CacheCenter;
 import com.dz.airapp.ui.BusinessFragment;
 import com.dz.airapp.ui.CustomerFragment;
 import com.dz.airapp.ui.HomeFragment;
+import com.dz.airapp.ui.LoginActivity;
 import com.dz.airapp.ui.MemberFragment;
 import com.dz.airapp.utils.FragmentHelper;
+import com.umeng.update.UmengUpdateAgent;
 
 public class MainActivity extends FragmentActivity {
 
@@ -28,6 +28,8 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         Log.e("aaron", "MainActivity");
         setContentView(R.layout.activity_main);
+        UmengUpdateAgent.setUpdateCheckConfig(false);
+        UmengUpdateAgent.update(this);
         mContext = this;
         initView();
         // 默认选中Tab1
@@ -54,29 +56,38 @@ public class MainActivity extends FragmentActivity {
             case R.id.main_tab_1: // 首页
                 Log.e("tab1", String.valueOf(tab.getId()));
                 id = HomeFragment.class.getName();
-                intent = new Intent(getApplicationContext(), HomeFragment.class);
-                break;
-            case R.id.main_tab_2: // 客户管理
-                Log.e("tab2", String.valueOf(tab.getId()));
 //                if (CacheCenter.getCurrentUser() != null) {
-                    id = CustomerFragment.class.getName();
-                    intent = new Intent(getApplicationContext(), CustomerFragment.class);
+                    intent = new Intent(getApplicationContext(), HomeFragment.class);
 //                } else {
 //                    LoginActivity.open(MainActivity.this);
 //                }
                 break;
+            case R.id.main_tab_2: // 客户管理
+                Log.e("tab2", String.valueOf(tab.getId()));
+                id = CustomerFragment.class.getName();
+                if (CacheCenter.getCurrentUser() != null) {
+                    intent = new Intent(getApplicationContext(), CustomerFragment.class);
+                } else {
+                    LoginActivity.open(MainActivity.this);
+                }
+                break;
             case R.id.main_tab_3: // 节能商圈
                 Log.e("tab3", String.valueOf(tab.getId()));
                 id = BusinessFragment.class.getName();
-                intent = new Intent(getApplicationContext(), BusinessFragment.class);
+                if (CacheCenter.getCurrentUser() != null) {
+                    intent = new Intent(getApplicationContext(), BusinessFragment.class);
+                } else {
+                    LoginActivity.open(MainActivity.this);
+                }
                 break;
             case R.id.main_tab_4: // 我
                 Log.e("tab4", String.valueOf(tab.getId()));
                 id = MemberFragment.class.getName();
-                intent = new Intent(getApplicationContext(), MemberFragment.class);
-//                if (CacheCenter.getCurrentUser() != null) {
-////                    new CountTask().execute();
-//                }
+                if (CacheCenter.getCurrentUser() != null) {
+                    intent = new Intent(getApplicationContext(), MemberFragment.class);
+                } else {
+                    LoginActivity.open(MainActivity.this);
+                }
                 break;
             default:
                 break;
@@ -103,20 +114,27 @@ public class MainActivity extends FragmentActivity {
 
     private long exitTime = 0;
 
-    @Override
+//    @Override
+//    public void onBackPressed() {
+//        if ((System.currentTimeMillis() - exitTime) > 2000) {
+//            Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+//            exitTime = System.currentTimeMillis();
+//        } else {
+//            User user = CacheCenter.getCurrentUser();
+//            if ("0".equals(user.getType())) {
+//                CacheCenter.removeCurrentUser();
+//            }
+//            finish();
+//            System.exit(0);
+//            super.onBackPressed();
+//        }
+//    }
+
     public void onBackPressed() {
-        if ((System.currentTimeMillis() - exitTime) > 2000) {
-            Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-            exitTime = System.currentTimeMillis();
-        } else {
-            User user = CacheCenter.getCurrentUser();
-            if ("0".equals(user.getType())) {
-                CacheCenter.removeCurrentUser();
-            }
-            finish();
-            System.exit(0);
-            super.onBackPressed();
-        }
+        Intent setIntent = new Intent(Intent.ACTION_MAIN);
+        setIntent.addCategory(Intent.CATEGORY_HOME);
+        setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(setIntent);
     }
 
     private void showPopupWindow(View view) {

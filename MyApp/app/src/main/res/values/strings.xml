@@ -31,6 +31,14 @@
     <string name="sbgz">设备改造</string>
     <string name="loading">开发中</string>
 
+    <string name="callPhone">拨打客服热线</string>
+    <string name="kyjsc">空压商城</string>
+    <string name="kyjw">空压机网</string>
+    <string name="ysjw">压缩机网</string>
+    <string name="jnzx">节能之星</string>
+    <string name="service_phone">400-006-5363</string>
+
+
     <!--注册/登录 -->
     <string name="invalid_phone_num">手机号码格式错误!</string>
     <string name="login">登录</string>

@@ -3,6 +3,7 @@ package com.dz.airapp.ui.device;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -42,12 +43,15 @@ public class DeviceListActivity extends BaseActivity {
     //默认客户
     private String condition = "cust";
 
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
 
         setTitle(R.string.device_list);
+
 
         initView();
         initData();
@@ -66,6 +70,15 @@ public class DeviceListActivity extends BaseActivity {
         equipmentBtn = (RadioButton) findViewById(R.id.device_shebeihao);
         areaBtn = (RadioButton) findViewById(R.id.device_quyu);
         mListView = (ListView) findViewById(R.id.device_list_view);
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_refresh);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new DeviceListTask(mEditText.getText().toString(), condition).execute();
+            }
+        });
 
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -139,6 +152,7 @@ public class DeviceListActivity extends BaseActivity {
         protected void onPostExecute(Result<List<Device>> result) {
             super.onPostExecute(result);
             mLoadDialog.dismiss();
+            mSwipeRefreshLayout.setRefreshing(false);
             if (result != null) {
                 if (result.isSuceed()) {
                     if (mListView.getAdapter() == null) {

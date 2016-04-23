@@ -3,11 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="实时曲线"
-        />
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"/>
+    <!--<com.github.mikephil.charting.charts.LineChart-->
+        <!--android:id="@+id/chart2"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
+    <!--<com.github.mikephil.charting.charts.LineChart-->
+        <!--android:id="@+id/chart3"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
+    <!--<com.github.mikephil.charting.charts.LineChart-->
+        <!--android:id="@+id/chart4"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
 
 </LinearLayout>

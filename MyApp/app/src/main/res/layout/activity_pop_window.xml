@@ -10,11 +10,11 @@
         android:id="@+id/more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_margin="9dp">
 
         <ImageView
             android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_height="28dp"
             android:background="@drawable/more"/>
 
         <TextView
@@ -31,11 +31,11 @@
         android:id="@+id/pop_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_margin="9dp">
 
         <ImageView
             android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_height="28dp"
             android:layout_gravity="center"
             android:background="@drawable/login"/>
 
@@ -54,11 +54,11 @@
         android:id="@+id/pop_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_margin="9dp">
 
         <ImageView
             android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_height="28dp"
             android:background="@drawable/out"/>
 
         <TextView

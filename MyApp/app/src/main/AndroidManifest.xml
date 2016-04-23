@@ -11,9 +11,25 @@
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+
 
     <application
         android:name=".LibApplication"
@@ -22,6 +38,25 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+
+        </service>
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="29O2GKNeWmFR0WRcj2N2NDEzKhmtOu8l" />
+
+        <meta-data android:value="5719d40de0f55a183d000b7c" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="wy65453631" android:name="UMENG_CHANNEL"/>
+
         <activity
             android:name=".LaunchActivity"
             android:label="@string/app_name"
@@ -57,6 +92,9 @@
             android:screenOrientation="portrait"></activity>
 
         <activity android:name=".ui.device.DeviceDetailActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".ui.device.TextActivity"
             android:screenOrientation="portrait"></activity>
 
     </application>

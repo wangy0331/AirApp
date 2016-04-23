@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -27,7 +29,6 @@ import android.widget.Toast;
 import com.dz.airapp.R;
 import com.dz.airapp.bean.CarouselData;
 import com.dz.airapp.cache.CacheCenter;
-import com.dz.airapp.ui.device.DeviceDetailActivity;
 import com.dz.airapp.ui.device.DeviceListActivity;
 import com.dz.airapp.ui.device.DeviceRegisterActivity;
 import com.dz.airapp.utils.Carousel;
@@ -59,7 +60,12 @@ public class HomeFragment extends Fragment {
     private LinearLayout sbbjBtn;
     private LinearLayout wbxxBtn;
     private LinearLayout wxyjBtn;
+    private LinearLayout kyjscBtn;
+    private LinearLayout kyjwBtn;
+    private LinearLayout ysjwBtn;
+    private LinearLayout jnzxBtn;
     private TextView mLoginText;
+    private ImageView servicePhone;
 
     //测试
     private Button testBtn;
@@ -77,6 +83,12 @@ public class HomeFragment extends Fragment {
         sbbjBtn = (LinearLayout) view.findViewById(R.id.btn_sbbj);
         wbxxBtn = (LinearLayout) view.findViewById(R.id.btn_wbxx);
         wxyjBtn = (LinearLayout) view.findViewById(R.id.btn_wxyj);
+        servicePhone = (ImageView) view.findViewById(R.id.service_phone);
+        kyjscBtn = (LinearLayout) view.findViewById(R.id.btn_kyjsc);
+        kyjwBtn = (LinearLayout) view.findViewById(R.id.btn_kyjw);
+        ysjwBtn = (LinearLayout) view.findViewById(R.id.btn_ysjw);
+        jnzxBtn = (LinearLayout) view.findViewById(R.id.btn_jnzx);
+
 //        mLoginText = (TextView) view.findViewById(R.id.logon_text);
 
 //        testBtn = (Button) view.findViewById(R.id.test);
@@ -84,7 +96,6 @@ public class HomeFragment extends Fragment {
         mTextView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), DeviceDetailActivity.class));
             }
         });
 
@@ -94,6 +105,11 @@ public class HomeFragment extends Fragment {
         sbbjBtn.setOnClickListener(click);
         wbxxBtn.setOnClickListener(click);
         wxyjBtn.setOnClickListener(click);
+        servicePhone.setOnClickListener(click);
+        kyjscBtn.setOnClickListener(click);
+        kyjwBtn.setOnClickListener(click);
+        ysjwBtn.setOnClickListener(click);
+        jnzxBtn.setOnClickListener(click);
 
         loginBtn.setOnClickListener(click);
         settingBtn.setOnClickListener(click);
@@ -162,33 +178,98 @@ public class HomeFragment extends Fragment {
                     break;
                 case R.id.btn_setting:
                     showPopupWindow(v);
-//                    Toast.makeText(getContext(),"设置", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.btn_sbzc:
-                    startActivity(new Intent(getActivity(), DeviceRegisterActivity.class));
+                    if (CacheCenter.getCurrentUser() != null) {
+                        startActivity(new Intent(getActivity(), DeviceRegisterActivity.class));
+                    } else {
+                        LoginActivity.open(getActivity());
+                    }
                     break;
                 case R.id.btn_sblb:
-                    startActivity(new Intent(getActivity(), DeviceListActivity.class));
+                    if (CacheCenter.getCurrentUser() != null) {
+                        startActivity(new Intent(getActivity(), DeviceListActivity.class));
+                    } else {
+                        LoginActivity.open(getActivity());
+                    }
                     break;
                 case R.id.btn_sbyj:
-                    Toast.makeText(getContext(), R.string.loading, Toast.LENGTH_SHORT).show();
+                    if (CacheCenter.getCurrentUser() != null) {
+                        Toast.makeText(getContext(), R.string.loading, Toast.LENGTH_SHORT).show();
+                    } else {
+                        LoginActivity.open(getActivity());
+                    }
                     break;
                 case R.id.btn_sbbj:
-                    Toast.makeText(getContext(), R.string.loading, Toast.LENGTH_SHORT).show();
+                    if (CacheCenter.getCurrentUser() != null) {
+                        Toast.makeText(getContext(), R.string.loading, Toast.LENGTH_SHORT).show();
+                    } else {
+                        LoginActivity.open(getActivity());
+                    }
                     break;
                 case R.id.btn_wbxx:
-                    Toast.makeText(getContext(), R.string.loading, Toast.LENGTH_SHORT).show();
+                    if (CacheCenter.getCurrentUser() != null) {
+                        Toast.makeText(getContext(), R.string.loading, Toast.LENGTH_SHORT).show();
+                    } else {
+                        LoginActivity.open(getActivity());
+                    }
                     break;
                 case R.id.btn_wxyj:
+                    if (CacheCenter.getCurrentUser() != null) {
+                        Toast.makeText(getContext(), R.string.loading, Toast.LENGTH_SHORT).show();
+                    } else {
+                        LoginActivity.open(getActivity());
+                    }
+                    break;
+                case R.id.service_phone:
+                    showDialog();
+                    break;
+                case R.id.btn_kyjsc:
+                    Intent intent3 = new Intent();
+                    intent3.setAction("android.intent.action.VIEW");
+                    Uri content_url3 = Uri.parse("http://m.dongzetech.icoc.in/index.jsp");
+                    intent3.setData(content_url3);
+                    startActivity(intent3);
+                    break;
+                case R.id.btn_kyjw:
+                    Intent intent = new Intent();
+                    intent.setAction("android.intent.action.VIEW");
+                    Uri content_url = Uri.parse("http://m.dongzetech.icoc.in/index.jsp");
+                    intent.setData(content_url);
+                    startActivity(intent);
+                    break;
+                case R.id.btn_ysjw:
+                    Intent intent1 = new Intent();
+                    intent1.setAction("android.intent.action.VIEW");
+                    Uri content_url1 = Uri.parse("http://m.dongzetech.icoc.in/index.jsp");
+                    intent1.setData(content_url1);
+                    startActivity(intent1);
+                    break;
+                case R.id.btn_jnzx:
                     Toast.makeText(getContext(), R.string.loading, Toast.LENGTH_SHORT).show();
                     break;
-
             }
-
-
         }
 
     };
+
+
+    private void showDialog() {
+        new AlertDialog.Builder(getActivity()).setTitle(R.string.callPhone)
+                .setMessage(R.string.service_phone).setCancelable(false)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intentPhone = new Intent(Intent.ACTION_CALL,
+                                Uri.parse("tel:" + getString(R.string.service_phone)));
+                        startActivity(intentPhone);
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        }).show();
+    }
+
 
     private void showPopupWindow(View view) {
         // 一个自定义的布局，作为显示的内容
@@ -215,7 +296,14 @@ public class HomeFragment extends Fragment {
         mLoginText = (TextView) contentView.findViewById(R.id.logon_text);
 
         if (CacheCenter.getCurrentUser() != null) {
-            mLoginText.setText("已登录");
+            mLoginText.setText("登出");
+            login.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CacheCenter.removeCurrentUser();
+                    popupWindow.dismiss();
+                }
+            });
         } else {
             login.setOnClickListener(new OnClickListener() {
                 @Override

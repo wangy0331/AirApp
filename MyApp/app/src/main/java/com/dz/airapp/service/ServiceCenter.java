@@ -4,9 +4,11 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.dz.airapp.bean.Device;
+import com.dz.airapp.bean.DeviceChart;
 import com.dz.airapp.bean.DeviceDetail;
 import com.dz.airapp.bean.Result;
 import com.dz.airapp.bean.User;
+import com.dz.airapp.cache.CacheCenter;
 import com.dz.airapp.net.URLCenter;
 
 import org.json.JSONException;
@@ -141,7 +143,7 @@ public class ServiceCenter {
         //封装json
         JSONObject obj = new JSONObject();
         obj.put("databaseid", "AirApp");
-        obj.put("mobile", "18662181836");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
         obj.put("loginsta", "1");
         obj.put("setnum", scan);
         //发送请求
@@ -169,7 +171,7 @@ public class ServiceCenter {
         //封装json
         JSONObject obj = new JSONObject();
         obj.put("databaseid", "AirApp");
-        obj.put("mobile", "13771768710");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
         obj.put("loginsta", "1");
         obj.put("condition", mCondition);
         obj.put("content", content);
@@ -183,16 +185,21 @@ public class ServiceCenter {
     }
 
 
+    /**
+     * 获取详情
+     * @param jiqiSn
+     * @return
+     * @throws Exception
+     */
     public static Result<DeviceDetail> getDetail(String jiqiSn) throws Exception{
         //接口路径
         String url = URLCenter.getApi("qsetsdata.asq");
 
-//        CacheCenter.getCurrentUser().getUserid()
 
         //封装json
         JSONObject obj = new JSONObject();
         obj.put("databaseid", "AirApp");
-        obj.put("mobile", "13771768710");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
         obj.put("loginsta", "1");
         obj.put("setno", jiqiSn);
         //发送请求
@@ -200,6 +207,30 @@ public class ServiceCenter {
 
         if (!TextUtils.isEmpty(response)) {
             return DeviceDetail.parse(response);
+        }
+        return null;
+    }
+
+    /**
+     * 获取曲线图
+     * @param jiqiSn
+     * @return
+     */
+    public static Result<List<DeviceChart>> getChart(String jiqiSn) throws Exception{
+        //接口路径
+        String url = URLCenter.getApi("qsetschart.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        obj.put("loginsta", "1");
+        obj.put("setno", jiqiSn);
+        obj.put("hours", "1");
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return DeviceChart.parse(response);
         }
         return null;
     }

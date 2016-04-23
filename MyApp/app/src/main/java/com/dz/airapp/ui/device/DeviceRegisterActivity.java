@@ -53,6 +53,8 @@ public class DeviceRegisterActivity extends BaseActivity {
 
         webSettings= mWebView.getSettings();
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLoadWithOverviewMode(true);
 
         mWebView.loadUrl("file:///android_asset/reg.gif");
 

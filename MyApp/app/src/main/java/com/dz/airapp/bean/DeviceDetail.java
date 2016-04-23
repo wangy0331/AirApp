@@ -79,9 +79,25 @@ public class DeviceDetail implements Serializable {
     //机器时钟采集实时时间
     private String dataTime;
     //机器实时经度
-    private String jqJd;
+    private Double jqJd;
     //机器实时纬度
-    private String jqWd;
+    private Double jqWd;
+
+    public Double getJqJd() {
+        return jqJd;
+    }
+
+    public void setJqJd(Double jqJd) {
+        this.jqJd = jqJd;
+    }
+
+    public Double getJqWd() {
+        return jqWd;
+    }
+
+    public void setJqWd(Double jqWd) {
+        this.jqWd = jqWd;
+    }
 
     public String getAirPress() {
         return airPress;
@@ -339,21 +355,6 @@ public class DeviceDetail implements Serializable {
         this.dataTime = dataTime;
     }
 
-    public String getJqJd() {
-        return jqJd;
-    }
-
-    public void setJqJd(String jqJd) {
-        this.jqJd = jqJd;
-    }
-
-    public String getJqWd() {
-        return jqWd;
-    }
-
-    public void setJqWd(String jqWd) {
-        this.jqWd = jqWd;
-    }
 
     /**
      * 解析json
@@ -424,8 +425,8 @@ public class DeviceDetail implements Serializable {
             item.setFengjiSta2(obj.getString("Fengji_sta2"));
             item.setAlarmSta(obj.getString("Alarm_sta"));
             item.setDataTime(obj.getString("Data_time"));
-            item.setJqJd(obj.getString("JQ_JD"));
-            item.setJqWd(obj.getString("JQ_WD"));
+            item.setJqJd(obj.getDouble("JQ_JD"));
+            item.setJqWd(obj.getDouble("JQ_WD"));
         } catch (Exception e) {
             Logger.e("", "", e);
         }

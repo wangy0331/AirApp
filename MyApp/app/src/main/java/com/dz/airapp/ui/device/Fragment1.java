@@ -19,6 +19,7 @@ import com.dz.airapp.service.ServiceCenter;
 public class Fragment1 extends Fragment{
 	private TextView mAirPress;
 	private TextView mAirTemp1;
+	private TextView mDianjiTemp;
 	private TextView mModleTemp;
 	private TextView mEnviTemp;
 	private TextView mCurrentDy;
@@ -50,10 +51,14 @@ public class Fragment1 extends Fragment{
 		//获取预警类型编号
 		guid = this.getArguments().getString(GUID);
 		Log.e("fragment", guid);
-		new DeviceDetailTask(guid).execute();
 	}
 
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		new DeviceDetailTask(guid).execute();
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,6 +68,7 @@ public class Fragment1 extends Fragment{
 
 		mAirPress = (TextView) view.findViewById(R.id.air_press);
 		mAirTemp1 = (TextView) view.findViewById(R.id.air_temp1);
+		mDianjiTemp = (TextView) view.findViewById(R.id.dianji_temp);
 		mModleTemp = (TextView) view.findViewById(R.id.modle_temp);
 		mEnviTemp = (TextView) view.findViewById(R.id.envi_temp);
 		mCurrentDy = (TextView) view.findViewById(R.id.current_dy);
@@ -109,6 +115,7 @@ public class Fragment1 extends Fragment{
 
 						mAirPress.setText(item.getAirPress());
 						mAirTemp1.setText(item.getAirTemp());
+						mDianjiTemp.setText(item.getDianjiTemp());
 						mModleTemp.setText(item.getModleTemp());
 						mEnviTemp.setText(item.getEnviTemp());
 						mCurrentDy.setText(item.getCurrentDy());
@@ -122,8 +129,6 @@ public class Fragment1 extends Fragment{
 						mFengjiAvgDl1.setText(item.getFengjiAvgDl1());
 						mDataTime.setText(item.getDataTime());
 
-					} else {
-						Toast.makeText(getActivity(), "暂无数据", Toast.LENGTH_SHORT).show();
 					}
 
 				} else {
