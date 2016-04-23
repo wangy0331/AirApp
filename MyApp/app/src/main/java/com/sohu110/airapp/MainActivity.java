@@ -71,14 +71,14 @@ public class MainActivity extends FragmentActivity {
                     LoginActivity.open(MainActivity.this);
                 }
                 break;
-            case R.id.main_tab_3: // 节能商圈
+            case R.id.main_tab_3: // 地图
                 Log.e("tab3", String.valueOf(tab.getId()));
                 id = BusinessFragment.class.getName();
-                if (CacheCenter.getCurrentUser() != null) {
+//                if (CacheCenter.getCurrentUser() != null) {
                     intent = new Intent(getApplicationContext(), BusinessFragment.class);
-                } else {
-                    LoginActivity.open(MainActivity.this);
-                }
+//                } else {
+//                    LoginActivity.open(MainActivity.this);
+//                }
                 break;
             case R.id.main_tab_4: // 我
                 Log.e("tab4", String.valueOf(tab.getId()));

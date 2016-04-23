@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/blue"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_main_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            />
+
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/shou_radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <RadioButton
+            android:id="@+id/shou_device_kehu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/customer" />
+
+        <RadioButton
+            android:id="@+id/shou_device_shebeihao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/device_number"/>
+
+        <RadioButton
+            android:id="@+id/shou_device_quyu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/area"/>
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/shou_device_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:hint="@string/search_hit"
+            android:layout_weight="3"/>
+
+        <Button
+            android:id="@+id/shou_device_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/btn_blue"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:text="@string/search"/>
+
+    </LinearLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/shou_list_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    <ListView
+        android:id="@+id/shou_device_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+</LinearLayout>

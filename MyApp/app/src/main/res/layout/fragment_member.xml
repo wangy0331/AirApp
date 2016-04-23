@@ -1,12 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical" >
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="我"/>
+        android:layout_height="200dp"
+        android:background="@drawable/my_pic" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <LinearLayout
+            android:id="@+id/member_center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <!--<cn.baonajia.and.widget.CircleImageView-->
+                <!--android:id="@+id/member_icon"-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="60dp"-->
+                <!--app:civ_border_color="@color/white"-->
+                <!--app:civ_border_width="2dp" />-->
+
+            <TextView
+                android:id="@+id/member_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/member_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/member_login"
+            style="@style/btn_white"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/my_default"
+             />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/member_order_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/phone_haoma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="号码："
+            android:textSize="18sp"
+            android:paddingRight="5dp" />
+
+        <TextView
+            android:id="@+id/phone_text_haoma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:paddingRight="5dp" />
+    </LinearLayout>
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/member_wallet_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" >-->
+
+        <!--<Button-->
+            <!--android:id="@+id/member_favrite"-->
+            <!--style="@style/btn_white_left"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="1dp"-->
+            <!--android:drawableLeft="@drawable/my_icon3"-->
+            <!--android:drawablePadding="10dp"-->
+            <!--android:text="@string/my_favorite" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/favrite_num"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:paddingRight="5dp" />-->
+    <!--</RelativeLayout>-->
+
+    <!--<Button-->
+        <!--android:id="@+id/member_my_interest"-->
+        <!--style="@style/btn_white_left"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="1dp"-->
+        <!--android:drawableLeft="@drawable/icon_my_interest"-->
+        <!--android:drawablePadding="10dp"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:text="@string/my_interest" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/member_wallet"-->
+        <!--style="@style/btn_white_left"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="1dp"-->
+        <!--android:drawableLeft="@drawable/my_icon2"-->
+        <!--android:drawablePadding="10dp"-->
+        <!--android:text="@string/my_wallet"-->
+        <!--android:visibility="gone" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/member_settings"-->
+        <!--style="@style/btn_white_left"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:drawableLeft="@drawable/my_icon4"-->
+        <!--android:drawablePadding="10dp"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:text="@string/settings" />-->
 
 </LinearLayout>

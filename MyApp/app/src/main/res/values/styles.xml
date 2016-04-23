@@ -57,4 +57,14 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="btn_white">
+        <item name="android:background">@drawable/btn_background_white</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:minHeight">0dp</item>
+    </style>
+
 </resources>

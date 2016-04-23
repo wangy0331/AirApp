@@ -234,4 +234,27 @@ public class ServiceCenter {
         }
         return null;
     }
+
+//    /**
+//     * 地图发现
+//     * @return
+//     */
+//    public static Result<List<Device>> devcieMapList() throws Exception{
+//        //接口路径
+//        String url = URLCenter.getApi("querysets.asq");
+//        //封装json
+//        JSONObject obj = new JSONObject();
+//        obj.put("databaseid", "AirApp");
+//        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+//        obj.put("loginsta", "1");
+//        obj.put("condition", mCondition);
+//        obj.put("content", content);
+//        //发送请求
+//        String response = HttpService.post(url, obj);
+//
+//        if (!TextUtils.isEmpty(response)) {
+//            return Device.parse(response);
+//        }
+//        return null;
+//    }
 }

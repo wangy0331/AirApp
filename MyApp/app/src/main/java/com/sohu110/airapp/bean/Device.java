@@ -21,9 +21,9 @@ public class Device implements Serializable {
     //机器类型
     private String jqName;
     //机器经度
-    private String jqWD;
+    private Double jqWD;
     //机器纬度
-    private String jqJD;
+    private Double jqJD;
     //运行状态
     private String jqStatus;
     //机器注册日期
@@ -34,6 +34,22 @@ public class Device implements Serializable {
     private String region;
     //客户名称
     private String coName;
+
+    public Double getJqWD() {
+        return jqWD;
+    }
+
+    public void setJqWD(Double jqWD) {
+        this.jqWD = jqWD;
+    }
+
+    public Double getJqJD() {
+        return jqJD;
+    }
+
+    public void setJqJD(Double jqJD) {
+        this.jqJD = jqJD;
+    }
 
     public String getJiqiSn() {
         return jiqiSn;
@@ -57,22 +73,6 @@ public class Device implements Serializable {
 
     public void setJqName(String jqName) {
         this.jqName = jqName;
-    }
-
-    public String getJqWD() {
-        return jqWD;
-    }
-
-    public void setJqWD(String jqWD) {
-        this.jqWD = jqWD;
-    }
-
-    public String getJqJD() {
-        return jqJD;
-    }
-
-    public void setJqJD(String jqJD) {
-        this.jqJD = jqJD;
     }
 
     public String getJqStatus() {
@@ -157,8 +157,8 @@ public class Device implements Serializable {
             item.jiqiSn = obj.optString("Jiqi_sn");
             item.auth = obj.optString("Auth");
             item.jqName = obj.optString("JQ_Name");
-            item.jqWD = obj.optString("JQ_WD");
-            item.jqJD = obj.optString("JQ_JD");
+            item.jqWD = obj.optDouble("JQ_WD");
+            item.jqJD = obj.optDouble("JQ_JD");
             item.jqStatus = obj.optString("JQ_status");
             item.jiqiNewDate = obj.optString("JQ_newDate");
             item.jiqiPdate = obj.optString("JiQi_Pdate");
