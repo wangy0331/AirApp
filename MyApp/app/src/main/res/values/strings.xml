@@ -30,6 +30,8 @@
     <string name="jnzj">节能专家</string>
     <string name="sbgz">设备改造</string>
     <string name="loading">开发中</string>
+    <string name="check_true">签到成功</string>
+    <string name="check_check">您已签到，请勿重复签到</string>
 
     <string name="callPhone">拨打客服热线</string>
     <string name="kyjsc">空压商城</string>
@@ -85,6 +87,14 @@
     <string name="co_name">客户名称：</string>
     <string name="jq_status">机器状态：</string>
     <string name="jiqi_sn">设备条码：</string>
+    <string name="yujing_list">预警列表</string>
+    <string name="baojing_list">报警列表</string>
+    <string name="yujing_status">预警状态：</string>
+    <string name="baojing_status">报警状态：</string>
+    <string name="weibao_list">维保列表</string>
+    <string name="weixiu_list">维修列表</string>
+    <string name="weibao_status">维保状态</string>
+    <string name="weixiu_status">维修状态</string>
 
     <!-- 设备详情 -->
     <string name="air_press">空气压力</string>

@@ -48,7 +48,7 @@
         android:background="#FFFFFF"
         android:orientation="vertical">
 
-        <com.dz.airapp.utils.Carousel
+        <com.sohu110.airapp.utils.Carousel
             android:id="@+id/crs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -320,6 +320,7 @@
                     >
 
                     <ImageView
+                        android:id="@+id/day_Sign"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

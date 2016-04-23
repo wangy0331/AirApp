@@ -1,0 +1,176 @@
+package com.sohu110.airapp.ui.yujing;
+
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import com.sohu110.airapp.R;
+import com.sohu110.airapp.bean.Device;
+import com.sohu110.airapp.bean.Result;
+import com.sohu110.airapp.log.Logger;
+import com.sohu110.airapp.service.ServiceCenter;
+import com.sohu110.airapp.ui.BaseActivity;
+import com.sohu110.airapp.ui.device.DeviceDetailActivity;
+import com.sohu110.airapp.utils.Const;
+import com.sohu110.airapp.widget.LoadProcessDialog;
+
+import java.util.List;
+
+/**
+ * Created by Aaron on 2016/4/23.
+ */
+public class YujingListActivity extends BaseActivity{
+
+    private EditText mEditText;
+    private RadioGroup mRadioGroup;
+    private RadioButton customerBtn;
+    private RadioButton equipmentBtn;
+    private RadioButton areaBtn;
+    private Button searchBtn;
+    //列表
+    private ListView mListView;
+    //适配器
+    private YujingListAdapter mAdapter;
+    //默认客户
+    private String condition = "cust";
+
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_device_list);
+
+        setTitle(R.string.yujing_list);
+
+
+        initView();
+        initData();
+    }
+
+    private void initData() {
+        mAdapter = new YujingListAdapter(YujingListActivity.this);
+        new DeviceListTask(mEditText.getText().toString(), condition).execute();
+    }
+
+    private void initView() {
+        mEditText = (EditText) findViewById(R.id.device_content);
+        searchBtn = (Button) findViewById(R.id.device_search);
+        mRadioGroup = (RadioGroup) findViewById(R.id.radio_group);
+        customerBtn = (RadioButton) findViewById(R.id.device_kehu);
+        equipmentBtn = (RadioButton) findViewById(R.id.device_shebeihao);
+        areaBtn = (RadioButton) findViewById(R.id.device_quyu);
+        mListView = (ListView) findViewById(R.id.device_list_view);
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_refresh);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new DeviceListTask(mEditText.getText().toString(), condition).execute();
+            }
+        });
+
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == customerBtn.getId()) {
+                    condition = "cust";
+                } else if (checkedId == equipmentBtn.getId()) {
+                    condition = "setno";
+                } else if (checkedId == areaBtn.getId()) {
+                    condition = "area";
+                }
+
+                new DeviceListTask(mEditText.getText().toString(), condition).execute();
+            }
+        });
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String searchText = mEditText.getText().toString();
+                new DeviceListTask(searchText, condition).execute();
+            }
+        });
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    Device device = (Device) parent.getItemAtPosition(position);
+                    Intent intent = new Intent(YujingListActivity.this,
+                            DeviceDetailActivity.class);
+                    intent.putExtra(Const.EXTRA_DEVICE, device);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Logger.e("", "", e);
+                }
+            }
+        });
+
+    }
+
+
+    class DeviceListTask extends AsyncTask<Void, Void, Result<List<Device>>> {
+
+        String mCondition,mContent;
+        LoadProcessDialog mLoadDialog;
+
+        public DeviceListTask(String content, String condition) {
+            mContent = content;
+            mCondition = condition;
+            mLoadDialog = new LoadProcessDialog(YujingListActivity.this);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mLoadDialog.show();
+        }
+
+        @Override
+        protected Result<List<Device>> doInBackground(Void... params) {
+            try {
+                return ServiceCenter.deviceList(mCondition, mContent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Result<List<Device>> result) {
+            super.onPostExecute(result);
+            mLoadDialog.dismiss();
+            mSwipeRefreshLayout.setRefreshing(false);
+            if (result != null) {
+                if (result.isSuceed()) {
+                    if (mListView.getAdapter() == null) {
+                        mListView.setAdapter(mAdapter);
+                    }
+
+                    mAdapter.clear();
+                    if (result.getData() != null) {
+                        mAdapter.addAll(result.getData());
+                    }
+                    mAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(YujingListActivity.this, R.string.device_failure, Toast.LENGTH_SHORT).show();
+                }
+
+            } else {
+                Toast.makeText(YujingListActivity.this, R.string.member_register_network, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+}
