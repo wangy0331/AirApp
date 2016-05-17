@@ -6,6 +6,8 @@ import android.util.Log;
 import com.sohu110.airapp.bean.Device;
 import com.sohu110.airapp.bean.DeviceChart;
 import com.sohu110.airapp.bean.DeviceDetail;
+import com.sohu110.airapp.bean.Energy;
+import com.sohu110.airapp.bean.MemberDetail;
 import com.sohu110.airapp.bean.Result;
 import com.sohu110.airapp.bean.User;
 import com.sohu110.airapp.cache.CacheCenter;
@@ -171,10 +173,33 @@ public class ServiceCenter {
         //封装json
         JSONObject obj = new JSONObject();
         obj.put("databaseid", "AirApp");
-        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        if (CacheCenter.getCurrentUser() != null) {
+            obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        } else {
+            obj.put("mobile", "");
+        }
         obj.put("loginsta", "1");
         obj.put("condition", mCondition);
-        obj.put("content", content);
+        obj.put("content", new String(content.getBytes("utf-8"), "ISO-8859-1"));
+
+//        obj.put("databaseid", "AirApp");
+//        obj.put("mobile", "13771768710");
+//        obj.put("loginsta", "1");
+//        obj.put("condition", "area");
+//
+//        String t = "苏州";
+//        String utf8 = new String(t.getBytes( "UTF-8"));
+//        String unicode = new String(utf8.getBytes(),"UTF-8");
+//        String gbk = new String(unicode.getBytes("GB2312"));
+//
+//
+//        obj.put("content", "SZ");
+
+
+
+
+
+
         //发送请求
         String response = HttpService.post(url, obj);
 
@@ -213,6 +238,7 @@ public class ServiceCenter {
 
     /**
      * 获取曲线图
+     *
      * @param jiqiSn
      * @return
      */
@@ -231,6 +257,257 @@ public class ServiceCenter {
 
         if (!TextUtils.isEmpty(response)) {
             return DeviceChart.parse(response);
+        }
+        return null;
+    }
+
+    /**
+     * 每日签到
+     * @return
+     */
+    public static Result<List<Device>> daySign() throws Exception{
+        //接口路径
+        String url = URLCenter.getApi("Signday.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        obj.put("loginsta", "1");
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return Result.fromJson(response);
+        }
+        return null;
+    }
+
+    /**
+     * 关注
+     * @param jqSN
+     * @return
+     */
+    public static Result deviceSC(String jqSN) throws Exception{
+        //接口路径
+        String url = URLCenter.getApi("Follow.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        obj.put("loginsta", "1");
+        obj.put("jiqi_sn", jqSN);
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return Result.fromJson(response);
+        }
+        return null;
+    }
+
+    /**
+     * 取消关注
+     * @param jqSN
+     * @return
+     */
+    public static Result<List<Device>> deviceNSC(String jqSN) throws Exception{
+        //接口路径
+        String url = URLCenter.getApi("Canclefollow.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        obj.put("loginsta", "1");
+        obj.put("jiqi_sn", jqSN);
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return Result.fromJson(response);
+        }
+        return null;
+    }
+
+
+    /**
+     * 总能耗
+     * @param mCondition
+     * @return
+     * @throws Exception
+     */
+    public static Result<List<Energy>> getEnergy(String mCondition) throws Exception{
+        //接口路径
+        String url = URLCenter.getApi("querynh.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        obj.put("loginsta", "1");
+        obj.put("condition", mCondition);
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return Energy.parse(response);
+        }
+        return null;
+    }
+
+    /**
+     * 昨日节能
+     * @param mCondition
+     * @return
+     */
+    public static Result<Energy> getEnergyYes(String mCondition) throws Exception{
+        //接口路径
+        String url = URLCenter.getApi("querynh.asq");
+
+
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        obj.put("loginsta", "1");
+        obj.put("condition", mCondition);
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return Energy.parse1(response);
+        }
+        return null;
+    }
+
+    /**
+     * 今日节能
+     * @param mCondition
+     * @return
+     */
+    public static Result<Energy> getEnergyToday(String mCondition) throws Exception {
+        //接口路径
+        String url = URLCenter.getApi("querynh.asq");
+
+
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        obj.put("loginsta", "1");
+        obj.put("condition", mCondition);
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return Energy.parse2(response);
+        }
+        return null;
+    }
+
+    /**
+     * 修改密码
+     * @param mPwd
+     * @return
+     */
+    public static Result changePwd(String mPwd) throws Exception{
+        //接口路径
+        String url = URLCenter.getApi("editpwd.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        obj.put("loginsta", "1");
+        obj.put("newpwd", mPwd);
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return Result.fromJson(response);
+        }
+        return null;
+    }
+
+    /**
+     * 个人详情
+     * @return
+     */
+    public static Result<MemberDetail> memberDetail() throws Exception{
+        //接口路径
+        String url = URLCenter.getApi("showuser.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        obj.put("loginsta", "1");
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return MemberDetail.parse(response);
+        }
+        return null;
+    }
+
+    /**
+     * 提交用户详情
+     * @param mName
+     * @param mCname
+     * @param mAdd
+     * @param mMail
+     * @return
+     */
+    public static Result<MemberDetail> submitMember(String mName, String mCname, String mAdd, String mMail) throws Exception{
+        //接口路径
+        String url = URLCenter.getApi("fulldata.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        obj.put("loginsta", "1");
+        obj.put("user_name", new String(mName.getBytes("utf-8"), "ISO-8859-1"));
+        obj.put("user_cname", new String(mCname.getBytes("utf-8"), "ISO-8859-1"));
+        obj.put("user_mail", mMail);
+        obj.put("user_add", new String(mAdd.getBytes("utf-8"), "ISO-8859-1"));
+
+
+        Log.e("name", mName);
+        Log.e("cname", mCname);
+        Log.e("mail", mMail);
+        Log.e("add", mAdd);
+
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return Result.fromJson(response);
+        }
+        return null;
+    }
+
+    /**
+     * 关注列表
+     * @param mCondition
+     * @param s
+     * @return
+     */
+    public static Result<List<Device>> guanzhuList() throws Exception{
+
+        //接口路径
+        String url = URLCenter.getApi("qsetsfollow.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        if (CacheCenter.getCurrentUser() != null) {
+            obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        } else {
+            obj.put("mobile", "");
+        }
+        obj.put("loginsta", "1");
+
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return Device.parse(response);
         }
         return null;
     }

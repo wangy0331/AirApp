@@ -5,141 +5,119 @@
     android:background="@color/background"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@drawable/my_pic" >
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
-
-        <LinearLayout
-            android:id="@+id/member_center"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone" >
-
-            <!--<cn.baonajia.and.widget.CircleImageView-->
-                <!--android:id="@+id/member_icon"-->
-                <!--android:layout_width="60dp"-->
-                <!--android:layout_height="60dp"-->
-                <!--app:civ_border_color="@color/white"-->
-                <!--app:civ_border_width="2dp" />-->
-
-            <TextView
-                android:id="@+id/member_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/member_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:textColor="@color/white" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/member_login"
-            style="@style/btn_white"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/my_default"
-             />
-    </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/member_order_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_height="40dp"
+        android:background="@color/blue"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/phone_haoma"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="号码："
-            android:textSize="18sp"
-            android:paddingRight="5dp" />
+            style="@style/text_main_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/geren"
+            />
 
-        <TextView
-            android:id="@+id/phone_text_haoma"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:textSize="18sp"
-            android:paddingRight="5dp" />
+
     </LinearLayout>
 
-    <!--<RelativeLayout-->
-        <!--android:id="@+id/member_wallet_layout"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content" >-->
 
-        <!--<Button-->
-            <!--android:id="@+id/member_favrite"-->
-            <!--style="@style/btn_white_left"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="1dp"-->
-            <!--android:drawableLeft="@drawable/my_icon3"-->
-            <!--android:drawablePadding="10dp"-->
-            <!--android:text="@string/my_favorite" />-->
+    <Button
+        android:id="@+id/my_user"
+        style="@style/btn_white_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center|left"
+        android:drawableLeft="@drawable/user_detail"
+        android:drawablePadding="5dp"
+        android:drawableRight="@drawable/icon_right_arrow"
+        android:text="@string/user_detail" />
 
-        <!--<TextView-->
-            <!--android:id="@+id/favrite_num"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:paddingRight="5dp" />-->
-    <!--</RelativeLayout>-->
+    <Button
+        android:id="@+id/my_erweima"
+        style="@style/btn_white_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/erweima"
+        android:drawablePadding="5dp"
+        android:gravity="center|left"
+        android:drawableRight="@drawable/icon_right_arrow"
+        android:text="@string/erweima" />
 
-    <!--<Button-->
-        <!--android:id="@+id/member_my_interest"-->
-        <!--style="@style/btn_white_left"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="1dp"-->
-        <!--android:drawableLeft="@drawable/icon_my_interest"-->
-        <!--android:drawablePadding="10dp"-->
-        <!--android:gravity="center_vertical"-->
-        <!--android:text="@string/my_interest" />-->
 
-    <!--<Button-->
-        <!--android:id="@+id/member_wallet"-->
-        <!--style="@style/btn_white_left"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="1dp"-->
-        <!--android:drawableLeft="@drawable/my_icon2"-->
-        <!--android:drawablePadding="10dp"-->
-        <!--android:text="@string/my_wallet"-->
-        <!--android:visibility="gone" />-->
+    <RelativeLayout
+        android:id="@+id/layout_service_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-    <!--<Button-->
-        <!--android:id="@+id/member_settings"-->
-        <!--style="@style/btn_white_left"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:drawableLeft="@drawable/my_icon4"-->
-        <!--android:drawablePadding="10dp"-->
-        <!--android:gravity="center_vertical"-->
-        <!--android:text="@string/settings" />-->
+        <Button
+            android:id="@+id/btn_service_phone"
+            style="@style/btn_white_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="5dp"
+            android:drawableLeft="@drawable/kefu"
+            android:gravity="center|left"
+            android:text="@string/my_kefu" />
+
+        <TextView
+            android:id="@+id/text_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/btn_service_phone"
+            android:layout_alignBottom="@+id/btn_service_phone"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:text="@string/service_phone"
+            android:textColor="@color/blue" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/about_us"
+        style="@style/btn_white_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/icon_right_arrow"
+        android:drawablePadding="5dp"
+        android:drawableLeft="@drawable/about"
+        android:gravity="center|left"
+        android:layout_marginTop="1dp"
+        android:text="@string/about_us" />
+
+    <Button
+        android:id="@+id/changePwd"
+        style="@style/btn_white_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/change_pwd"
+        android:drawablePadding="5dp"
+        android:gravity="center|left"
+        android:drawableRight="@drawable/icon_right_arrow"
+        android:text="@string/changePwd" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" >
+
+        <Button
+            android:id="@+id/settings_sign_out"
+            style="@style/btn_red"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:text="@string/settings_sign_out" />
+    </RelativeLayout>
 
 </LinearLayout>

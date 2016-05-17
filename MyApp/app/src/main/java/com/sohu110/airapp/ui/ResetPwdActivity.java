@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.sohu110.airapp.bean.Result;
+import com.sohu110.airapp.cache.CacheCenter;
 import com.sohu110.airapp.kit.StringKit;
 import com.sohu110.airapp.service.ServiceCenter;
 import com.sohu110.airapp.widget.LibToast;
@@ -149,6 +150,7 @@ public class ResetPwdActivity extends BaseActivity {
             if(result != null) {
                 if(result.isSuceed()) {
                     LibToast.show(ResetPwdActivity.this, R.string.member_reset_success);
+                    CacheCenter.removeCurrentUser();
                     //关闭本页面，显示登录页面
                     ResetPwdActivity.this.finish();
                 } else if(StringKit.isNotEmpty(result.getMessage())) {

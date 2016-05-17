@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.sohu110.airapp.LibApplication;
 import com.sohu110.airapp.R;
 import com.sohu110.airapp.bean.Device;
 import com.sohu110.airapp.bean.Result;
@@ -20,6 +21,7 @@ import com.sohu110.airapp.log.Logger;
 import com.sohu110.airapp.service.ServiceCenter;
 import com.sohu110.airapp.ui.BaseActivity;
 import com.sohu110.airapp.utils.Const;
+import com.sohu110.airapp.widget.LibToast;
 import com.sohu110.airapp.widget.LoadProcessDialog;
 
 import java.util.List;
@@ -59,7 +61,11 @@ public class DeviceListActivity extends BaseActivity {
 
     private void initData() {
         mAdapter = new DeviceListAdapter(DeviceListActivity.this);
-        new DeviceListTask(mEditText.getText().toString(), condition).execute();
+        if (LibApplication.getInstance().isNetworkConnected()) {
+            new DeviceListTask(mEditText.getText().toString(), condition).execute();
+        } else {
+            LibToast.show(DeviceListActivity.this, R.string.not_network);
+        }
     }
 
     private void initView() {
@@ -71,6 +77,8 @@ public class DeviceListActivity extends BaseActivity {
         areaBtn = (RadioButton) findViewById(R.id.device_quyu);
         mListView = (ListView) findViewById(R.id.device_list_view);
 
+        mEditText.setHint(R.string.search_cust);
+
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_refresh);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -80,15 +88,20 @@ public class DeviceListActivity extends BaseActivity {
             }
         });
 
+
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == customerBtn.getId()) {
+
+                if (checkedId == customerBtn.getId()) {//客户
                     condition = "cust";
-                } else if (checkedId == equipmentBtn.getId()) {
+                    mEditText.setHint(R.string.search_cust);
+                } else if (checkedId == equipmentBtn.getId()) {//设备号
                     condition = "setno";
-                } else if (checkedId == areaBtn.getId()) {
+                    mEditText.setHint(R.string.search_hit);
+                } else if (checkedId == areaBtn.getId()) {//地区
                     condition = "area";
+                    mEditText.setHint(R.string.search_area);
                 }
 
                 new DeviceListTask(mEditText.getText().toString(), condition).execute();
@@ -99,7 +112,12 @@ public class DeviceListActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 String searchText = mEditText.getText().toString();
-                new DeviceListTask(searchText, condition).execute();
+//                new DeviceListTask(searchText, condition).execute();
+                if (LibApplication.getInstance().isNetworkConnected()) {
+                    new DeviceListTask(searchText, condition).execute();
+                } else {
+                    LibToast.show(DeviceListActivity.this, R.string.not_network);
+                }
             }
         });
 

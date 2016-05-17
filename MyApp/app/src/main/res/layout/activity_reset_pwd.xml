@@ -126,7 +126,7 @@
             android:layout_weight="3"
             android:hint="@string/inputCode"
             android:background="@drawable/input_white"
-            android:inputType="textPassword"/>
+            android:inputType="numberSigned"/>
 
 
 

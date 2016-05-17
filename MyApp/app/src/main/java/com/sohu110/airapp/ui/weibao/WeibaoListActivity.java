@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.sohu110.airapp.LibApplication;
 import com.sohu110.airapp.R;
 import com.sohu110.airapp.bean.Device;
 import com.sohu110.airapp.bean.Result;
@@ -21,6 +22,7 @@ import com.sohu110.airapp.service.ServiceCenter;
 import com.sohu110.airapp.ui.BaseActivity;
 import com.sohu110.airapp.ui.device.DeviceDetailActivity;
 import com.sohu110.airapp.utils.Const;
+import com.sohu110.airapp.widget.LibToast;
 import com.sohu110.airapp.widget.LoadProcessDialog;
 
 import java.util.List;
@@ -59,7 +61,11 @@ public class WeibaoListActivity extends BaseActivity {
 
     private void initData() {
         mAdapter = new WeibaoAdapter(WeibaoListActivity.this);
-        new DeviceListTask(mEditText.getText().toString(), condition).execute();
+        if (LibApplication.getInstance().isNetworkConnected()) {
+            new DeviceListTask(mEditText.getText().toString(), condition).execute();
+        } else {
+            LibToast.show(WeibaoListActivity.this, R.string.not_network);
+        }
     }
 
     private void initView() {
@@ -76,7 +82,11 @@ public class WeibaoListActivity extends BaseActivity {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new DeviceListTask(mEditText.getText().toString(), condition).execute();
+                if (LibApplication.getInstance().isNetworkConnected()) {
+                    new DeviceListTask(mEditText.getText().toString(), condition).execute();
+                } else {
+                    LibToast.show(WeibaoListActivity.this, R.string.not_network);
+                }
             }
         });
 
@@ -91,7 +101,12 @@ public class WeibaoListActivity extends BaseActivity {
                     condition = "area";
                 }
 
-                new DeviceListTask(mEditText.getText().toString(), condition).execute();
+
+                if (LibApplication.getInstance().isNetworkConnected()) {
+                    new DeviceListTask(mEditText.getText().toString(), condition).execute();
+                } else {
+                    LibToast.show(WeibaoListActivity.this, R.string.not_network);
+                }
             }
         });
 
@@ -99,7 +114,11 @@ public class WeibaoListActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 String searchText = mEditText.getText().toString();
-                new DeviceListTask(searchText, condition).execute();
+                if (LibApplication.getInstance().isNetworkConnected()) {
+                    new DeviceListTask(searchText, condition).execute();
+                } else {
+                    LibToast.show(WeibaoListActivity.this, R.string.not_network);
+                }
             }
         });
 

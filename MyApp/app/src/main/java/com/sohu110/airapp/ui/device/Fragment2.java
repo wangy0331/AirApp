@@ -8,13 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.sohu110.airapp.R;
-import com.sohu110.airapp.bean.DeviceChart;
-import com.sohu110.airapp.bean.Result;
-import com.sohu110.airapp.log.Logger;
-import com.sohu110.airapp.service.ServiceCenter;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -22,11 +20,17 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.sohu110.airapp.R;
+import com.sohu110.airapp.bean.DeviceChart;
+import com.sohu110.airapp.bean.Result;
+import com.sohu110.airapp.log.Logger;
+import com.sohu110.airapp.service.ServiceCenter;
+import com.sohu110.airapp.widget.LoadProcessDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fragment2 extends Fragment{
+public class Fragment2 extends Fragment {
 
 	private XAxis xAxis;         //X坐标轴
 	private YAxis yAxis;
@@ -37,7 +41,16 @@ public class Fragment2 extends Fragment{
 
 	private String guid;
 
+	private ImageButton mImageButton;
+
+	private RadioGroup mRadioGroup;
+
+	private RadioButton mTemp;
+
+	private RadioButton mPress;
+
 	LineData mLineData;
+
 
 	//y轴
 	private int num = 0;
@@ -59,14 +72,46 @@ public class Fragment2 extends Fragment{
 		Log.e("fragment", guid);
 
 
-//		new DeviceDetailTask(guid).execute();
+		new DeviceDetailTask(guid).execute();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+							 Bundle savedInstanceState) {
 
 		View view = inflater.inflate(R.layout.fragment_device_image, null);
+
+		mImageButton = (ImageButton) view.findViewById(R.id.chart_refresh);
+
+		mRadioGroup = (RadioGroup) view.findViewById(R.id.radio_group_chart);
+
+		mTemp = (RadioButton) view.findViewById(R.id.temp);
+
+		mPress = (RadioButton) view.findViewById(R.id.press);
+
+		mImageButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				Log.e("click", "fragment2");
+				new DeviceShuaxinTask(guid).execute();
+			}
+		});
+
+		mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+				if (checkedId == mTemp.getId()) {//温度
+					Log.e("temp", "temp");
+				} else if (checkedId == mPress.getId()) {//压力
+					Log.e("press", "press");
+				}
+
+//				new DeviceListTask(mEditText.getText().toString(), condition).execute();
+			}
+		});
+
 
 		chart = (LineChart) view.findViewById(R.id.chart);
 
@@ -74,11 +119,11 @@ public class Fragment2 extends Fragment{
 	}
 
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		new DeviceDetailTask(guid).execute();
-	}
+//	@Override
+//	public void onResume() {
+//		super.onResume();
+//		new DeviceDetailTask(guid).execute();
+//	}
 
 
 	// 设置显示的样式
@@ -102,7 +147,6 @@ public class Fragment2 extends Fragment{
 				getResources().getColor(R.color.lineChart_transparent));
 
 
-
 		//隐藏左边坐标轴横网格线
 		lineChart.getAxisLeft().setDrawGridLines(false);
 		//隐藏右边坐标轴横网格线
@@ -112,6 +156,8 @@ public class Fragment2 extends Fragment{
 
 		lineChart.getLegend().setEnabled(false);
 
+		lineChart.getXAxis().setTextSize(15f);
+		lineChart.getAxisLeft().setTextSize(15f);
 
 		// enable touch gestures
 		lineChart.setTouchEnabled(false); // 设置是否可以触摸
@@ -128,8 +174,8 @@ public class Fragment2 extends Fragment{
 //		lineChart.getAxisLeft().setAxisMinValue(-30f);
 
 
-			// add data
-			lineChart.setData(lineData); // 设置数据
+		// add data
+		lineChart.setData(lineData); // 设置数据
 
 //		lineChart.getAxisLeft().setAxisMaxValue(200);
 //		lineChart.getAxisLeft().setAxisMinValue(-10f);
@@ -143,16 +189,20 @@ public class Fragment2 extends Fragment{
 		// modify the legend ...
 		// mLegend.setPosition(LegendPosition.LEFT_OF_CHART);
 //		mLegend.setForm(Legend.LegendForm.CIRCLE);// 样式
-		mLegend.setForm(Legend.LegendForm.CIRCLE);
-		mLegend.setFormSize(6f);// 字体
-		mLegend.setTextColor(Color.rgb(0,178,238));// 颜色
+		mLegend.setForm(Legend.LegendForm.SQUARE);
+//		mLegend.set
+		mLegend.setFormSize(15f);// 字体
+		mLegend.setTextColor(Color.rgb(0, 0, 255));// 颜色
+		mLegend.setTextSize(15f);
 //      mLegend.setTypeface(mTf);// 字体
+
 
 		lineChart.animateX(2500); // 立即执行的动画,x轴
 	}
 
 	/**
 	 * 生成一个数据
+	 *
 	 * @param count 表示图表中有多少个坐标点
 	 * @param range 用来生成range以内的随机数
 	 * @return
@@ -161,41 +211,45 @@ public class Fragment2 extends Fragment{
 
 
 		ArrayList<String> xValues = new ArrayList<String>();
-		for (int i = 0; i < result.size(); i++) {
+		for (int i = result.size()-1; i >= 0; i--) {
 			// x轴显示的数据，这里默认使用数字下标显示
-			xValues.add("" + i);
+			xValues.add("" + result.get(i).getDatetime());
 		}
 
 
-
-
-
-		// y轴的数据
+		// y轴的数据  排气温度
 		ArrayList<Entry> yValues = new ArrayList<Entry>();
 		for (int i = 0; i < result.size(); i++) {
 			int value = result.get(i).getAirTemp();
 			yValues.add(new Entry(value, i));
 		}
 
-		// y轴的数据
+		// y轴的数据  排气温度
 		ArrayList<Entry> yValues1 = new ArrayList<Entry>();
 		for (int i = 0; i < result.size(); i++) {
 			int value = result.get(i).getAirTemp1();
 			yValues1.add(new Entry(value, i));
 		}
 
-		// y轴的数据
+		// y轴的数据  电机温度
 		ArrayList<Entry> yValues2 = new ArrayList<Entry>();
 		for (int i = 0; i < result.size(); i++) {
 			int value = result.get(i).getDianjiTmep();
 			yValues2.add(new Entry(value, i));
 		}
 
-		// y轴的数据
+		// y轴的数据  环境温度
 		ArrayList<Entry> yValues3 = new ArrayList<Entry>();
 		for (int i = 0; i < result.size(); i++) {
 			int value = result.get(i).getEnvireTemp();
 			yValues3.add(new Entry(value, i));
+		}
+
+		// y轴的数据  气压
+		ArrayList<Entry> yValues4 = new ArrayList<Entry>();
+		for (int i = 0; i < result.size(); i++) {
+			int value = result.get(i).getAirPress();
+			yValues4.add(new Entry(value, i));
 		}
 
 		// create a dataset and give it a type
@@ -221,9 +275,9 @@ public class Fragment2 extends Fragment{
 		//用y轴的集合来设置参数
 		lineDataSet1.setLineWidth(1.0f); // 线宽
 		lineDataSet1.setCircleSize(3f);// 显示的圆形大小
-		lineDataSet1.setColor(Color.rgb(255, 255, 0));// 显示颜色
-		lineDataSet1.setCircleColor(Color.rgb(255, 255, 0));// 圆形的颜色
-		lineDataSet1.setHighLightColor(Color.rgb(255, 255, 0)); // 高亮的线的颜色
+		lineDataSet1.setColor(Color.rgb(139, 0, 139));// 显示颜色
+		lineDataSet1.setCircleColor(Color.rgb(139, 0, 139));// 圆形的颜色
+		lineDataSet1.setHighLightColor(Color.rgb(139, 0, 139)); // 高亮的线的颜色
 		lineDataSet1.setDrawValues(false);
 
 		// y轴的数据集合
@@ -253,6 +307,18 @@ public class Fragment2 extends Fragment{
 		lineDataSet3.setDrawValues(false);
 
 
+		// y轴的数据集合
+		LineDataSet lineDataSet4 = new LineDataSet(yValues4, "");
+//		lineDataSet.setFillAlpha(200);
+		// mLineDataSet.setFillColor(Color.RED);
+
+		//用y轴的集合来设置参数
+		lineDataSet4.setLineWidth(1.0f); // 线宽
+		lineDataSet4.setCircleSize(3f);// 显示的圆形大小
+		lineDataSet4.setColor(Color.rgb(0, 0, 0));// 显示颜色
+		lineDataSet4.setCircleColor(Color.rgb(0, 0, 0));// 圆形的颜色
+		lineDataSet4.setHighLightColor(Color.rgb(0, 0, 0)); // 高亮的线的颜色
+		lineDataSet4.setDrawValues(false);
 
 
 		ArrayList<LineDataSet> lineDataSets = new ArrayList<LineDataSet>();
@@ -262,6 +328,7 @@ public class Fragment2 extends Fragment{
 		lineDataSets.add(lineDataSet1); // add the datasets
 		lineDataSets.add(lineDataSet2);
 		lineDataSets.add(lineDataSet3);
+		lineDataSets.add(lineDataSet4);
 
 
 		// create a data object with the datasets
@@ -282,9 +349,10 @@ public class Fragment2 extends Fragment{
 			jiqiSn = guid;
 		}
 
+
 		@Override
 		protected Result<List<DeviceChart>> doInBackground(Void... params) {
-			try{
+			try {
 				return ServiceCenter.getChart(jiqiSn);
 			} catch (Exception e) {
 				Logger.e("", "", e);
@@ -322,4 +390,65 @@ public class Fragment2 extends Fragment{
 
 	}
 
+
+	class DeviceShuaxinTask extends AsyncTask<Void, Void, Result<List<DeviceChart>>> {
+
+		private String jiqiSn;
+		LoadProcessDialog mLoadDialog;
+
+		public DeviceShuaxinTask(String guid) {
+			jiqiSn = guid;
+			mLoadDialog = new LoadProcessDialog(getContext());
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			mLoadDialog.show();
+		}
+
+
+		@Override
+		protected Result<List<DeviceChart>> doInBackground(Void... params) {
+			try {
+				return ServiceCenter.getChart(jiqiSn);
+			} catch (Exception e) {
+				Logger.e("", "", e);
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Result<List<DeviceChart>> result) {
+			super.onPostExecute(result);
+			mLoadDialog.dismiss();
+			if (result != null) {
+				if (result.isSuceed()) {
+
+
+					if (result.getData() != null) {
+
+						result.getData().size();
+
+						Log.e("个数", String.valueOf(result.getData().size()));
+
+
+						mLineData = getLineData(result.getData());
+
+						showChart(chart, mLineData, Color.rgb(255, 255, 255));
+
+					}
+
+				} else {
+					Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+				}
+			} else {
+				Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+			}
+		}
+
+
+	}
+
 }
+

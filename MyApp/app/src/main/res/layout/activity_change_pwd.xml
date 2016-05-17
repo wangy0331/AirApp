@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <EditText
+        android:id="@+id/login_pwd_old"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_white"
+        android:inputType="textPassword"
+        android:hint="@string/hint_login_pwd_old" />
+
+    <EditText
+        android:id="@+id/login_pwd_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/input_white"
+        android:inputType="textPassword"
+        android:hint="@string/hint_login_pwd_new" />
+
+    <EditText
+        android:id="@+id/login_pwd_new_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_white"
+        android:layout_marginTop="1dp"
+        android:inputType="textPassword"
+        android:hint="@string/hint_login_pwd_new_confirm" />
+
+    <Button
+        android:id="@+id/submit_ChangePwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/changePwd"
+        style="@style/btn_blue"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:visibility="invisible"
+            android:text="@string/remember"/>
+
+
+        <Button
+            android:id="@+id/find_password_change"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/background"
+            android:gravity="right"
+            android:paddingRight="20dp"
+            android:textSize="15sp"
+            android:text="@string/findPassword"/>
+    </LinearLayout>
+</LinearLayout>

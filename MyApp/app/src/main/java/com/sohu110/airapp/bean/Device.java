@@ -34,6 +34,8 @@ public class Device implements Serializable {
     private String region;
     //客户名称
     private String coName;
+    //是否关注（Y关注，N没关注）
+    private String fSta;
 
     public Double getJqWD() {
         return jqWD;
@@ -115,6 +117,14 @@ public class Device implements Serializable {
         this.coName = coName;
     }
 
+    public String getfSta() {
+        return fSta;
+    }
+
+    public void setfSta(String fSta) {
+        this.fSta = fSta;
+    }
+
     /**
      * 解析JSON数据
      * @param json
@@ -164,6 +174,7 @@ public class Device implements Serializable {
             item.jiqiPdate = obj.optString("JiQi_Pdate");
             item.region = obj.optString("Region");
             item.coName = obj.optString("CoName");
+            item.fSta = obj.optString("F_sta");
 
         } catch (Exception e) {
             Logger.e("", "", e);

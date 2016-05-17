@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -26,17 +27,24 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sohu110.airapp.LibApplication;
 import com.sohu110.airapp.R;
 import com.sohu110.airapp.bean.CarouselData;
-import com.sohu110.airapp.bean.DayCount;
+import com.sohu110.airapp.bean.Device;
+import com.sohu110.airapp.bean.Result;
 import com.sohu110.airapp.cache.CacheCenter;
+import com.sohu110.airapp.service.ServiceCenter;
 import com.sohu110.airapp.ui.baojing.BaojingListActivity;
 import com.sohu110.airapp.ui.device.DeviceListActivity;
 import com.sohu110.airapp.ui.device.DeviceRegisterActivity;
+import com.sohu110.airapp.ui.device.DevicerReformActivity;
+import com.sohu110.airapp.ui.jieneng.EnergyActivity;
 import com.sohu110.airapp.ui.weibao.WeibaoListActivity;
 import com.sohu110.airapp.ui.weixiu.WeixiuListActivity;
 import com.sohu110.airapp.ui.yujing.YujingListActivity;
 import com.sohu110.airapp.utils.Carousel;
+import com.sohu110.airapp.widget.LibToast;
+import com.sohu110.airapp.widget.LoadProcessDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,9 +77,12 @@ public class HomeFragment extends Fragment {
     private LinearLayout kyjwBtn;
     private LinearLayout ysjwBtn;
     private LinearLayout jnzxBtn;
+    private LinearLayout jnzjBtn;
+    private LinearLayout sbgzBtn;
     private TextView mLoginText;
     private ImageView servicePhone;
     private ImageView mDaySign;
+    private ImageButton mSignOut;
 
     //测试
     private Button testBtn;
@@ -81,7 +92,8 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
         loginBtn = (ImageButton) view.findViewById(R.id.btn_login);
-        settingBtn = (ImageButton) view.findViewById(R.id.btn_setting);
+        mSignOut = (ImageButton) view.findViewById(R.id.btn_out);
+//        settingBtn = (ImageButton) view.findViewById(R.id.btn_setting);
         mTextView = (TextView) view.findViewById(R.id.test);
         sbzcBtn = (LinearLayout) view.findViewById(R.id.btn_sbzc);
         sblbBtn = (LinearLayout) view.findViewById(R.id.btn_sblb);
@@ -94,11 +106,18 @@ public class HomeFragment extends Fragment {
         kyjwBtn = (LinearLayout) view.findViewById(R.id.btn_kyjw);
         ysjwBtn = (LinearLayout) view.findViewById(R.id.btn_ysjw);
         jnzxBtn = (LinearLayout) view.findViewById(R.id.btn_jnzx);
+        sbgzBtn = (LinearLayout) view.findViewById(R.id.btn_sbgz);
         mDaySign = (ImageView) view.findViewById(R.id.day_Sign);
+        jnzjBtn = (LinearLayout) view.findViewById(R.id.btn_jnzj);
+        sbgzBtn = (LinearLayout) view.findViewById(R.id.btn_sbgz);
 
 //        mLoginText = (TextView) view.findViewById(R.id.logon_text);
 
 //        testBtn = (Button) view.findViewById(R.id.test);
+
+
+
+        mSignOut.setOnClickListener(click);
 
         mTextView.setOnClickListener(new OnClickListener() {
             @Override
@@ -118,9 +137,10 @@ public class HomeFragment extends Fragment {
         ysjwBtn.setOnClickListener(click);
         jnzxBtn.setOnClickListener(click);
         mDaySign.setOnClickListener(click);
-
+        jnzjBtn.setOnClickListener(click);
+        sbgzBtn.setOnClickListener(click);
         loginBtn.setOnClickListener(click);
-        settingBtn.setOnClickListener(click);
+//        settingBtn.setOnClickListener(click);
 
 //        testBtn.setOnClickListener(new OnClickListener() {
 //            @Override
@@ -131,8 +151,7 @@ public class HomeFragment extends Fragment {
 //        });
 
 
-
-        Handler handler = new Handler();
+       Handler handler = new Handler();
 
 
         initControl();
@@ -142,7 +161,8 @@ public class HomeFragment extends Fragment {
                 "http://222.92.237.43/images/m_guanggao/1.png",
                 "http://222.92.237.43/images/m_guanggao/2.png",
                 "http://222.92.237.43/images/m_guanggao/3.png",
-                "http://222.92.237.43/images/m_guanggao/4.png"
+                "http://222.92.237.43/images/m_guanggao/4.png",
+                "http://222.92.237.43/images/m_guanggao/5.png"
         };
         for (int i = 0; i < urls.length; i++) {
             CarouselData d = new CarouselData();
@@ -162,15 +182,35 @@ public class HomeFragment extends Fragment {
             @Override
             public void perform(int id, int position) throws Throwable {
 
-                Toast.makeText(getContext(), "id:" + id + "position" + position + "title:" + data.get(position).getTitle(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getContext(), "id:" + id + "position" + position + "title:" + data.get(position).getTitle(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void initData() {
 
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        if (CacheCenter.getCurrentUser() != null) {
+//            //已登录
+//            loginBtn.setImageDrawable(getResources().getDrawable(R.drawable.sign_out));
+//        } else {
+//            //未登录
+//            loginBtn.setImageDrawable(getResources().getDrawable(R.drawable.login));
+//        }
+//    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (CacheCenter.getCurrentUser() != null) {
+            loginBtn.setVisibility(View.GONE);
+            mSignOut.setVisibility(View.VISIBLE);
+        } else {
+            loginBtn.setVisibility(View.VISIBLE);
+            mSignOut.setVisibility(View.GONE);
+        }
     }
-
 
     OnClickListener click = new OnClickListener(){
 
@@ -178,20 +218,39 @@ public class HomeFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btn_login:
-                    if (CacheCenter.getCurrentUser() != null) {
-                        Toast.makeText(getContext(),"已登录", Toast.LENGTH_SHORT).show();
-                    } else {
-                        LoginActivity.open(getActivity());
-                    }
+                    LoginActivity.open(getActivity());
                     break;
-                case R.id.btn_setting:
-                    showPopupWindow(v);
+//                case R.id.btn_setting:
+//                    showPopupWindow(v);
+//                    break;
+                case R.id.btn_out:
+
+                    // 设置对话框标题
+                    new android.app.AlertDialog.Builder(getActivity()).setTitle(R.string.tishi)
+
+                            // 设置显示的内容
+                            .setMessage(R.string.sign_out)
+
+                                    // 添加确定按钮
+                            .setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
+
+                                // 确定按钮的响应事件
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    CacheCenter.removeCurrentUser();
+                                    loginBtn.setVisibility(View.VISIBLE);
+                                    mSignOut.setVisibility(View.GONE);
+                                }
+                                // 添加返回按钮
+                            }).setNegativeButton(R.string.btnReturn, null).show();// 在按键响应事件中显示此对话框
                     break;
                 case R.id.btn_sbzc:
                     if (CacheCenter.getCurrentUser() != null) {
                         startActivity(new Intent(getActivity(), DeviceRegisterActivity.class));
                     } else {
                         LoginActivity.open(getActivity());
+                        loginBtn.setVisibility(View.GONE);
+                        mSignOut.setVisibility(View.VISIBLE);
                     }
                     break;
                 case R.id.btn_sblb:
@@ -229,18 +288,22 @@ public class HomeFragment extends Fragment {
                         LoginActivity.open(getActivity());
                     }
                     break;
+                case R.id.btn_jnzj:
+                    startActivity(new Intent(getActivity(), EnergyActivity.class));
+                    break;
+                case R.id.btn_sbgz:
+                    startActivity(new Intent(getActivity(), DevicerReformActivity.class));
+                    break;
                 case R.id.day_Sign:
-
-                    DayCount count = new DayCount();
-                    int i = count.getCount();
-                    count.setCount(i + 1);
-                    CacheCenter.cacheCurrentCount(count);
-
-                    if (CacheCenter.getCurrentCount() != null) {
-                        Toast.makeText(getContext(), R.string.check_true, Toast.LENGTH_SHORT).show();
+                    if (CacheCenter.getCurrentUser() != null) {
+                        if (LibApplication.getInstance().isNetworkConnected()) {
+                            new DaySignTask().execute();
+                        } else {
+                            LibToast.show(getActivity(),R.string.not_network);
+                        }
+                    } else {
+                        LoginActivity.open(getActivity());
                     }
-
-
                     break;
                 case R.id.service_phone:
                     showDialog();
@@ -267,7 +330,7 @@ public class HomeFragment extends Fragment {
                     startActivity(intent1);
                     break;
                 case R.id.btn_jnzx:
-                    Toast.makeText(getContext(), R.string.loading, Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getActivity(), EnergyStarActivity.class));
                     break;
             }
         }
@@ -420,6 +483,50 @@ public class HomeFragment extends Fragment {
             backgroundAlpha(1f);
         }
 
+    }
+
+
+
+    class DaySignTask extends AsyncTask<Void, Void, Result<List<Device>>> {
+
+        LoadProcessDialog mLoadDialog;
+
+        public DaySignTask() {
+            mLoadDialog = new LoadProcessDialog(getActivity());
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mLoadDialog.show();
+        }
+
+        @Override
+        protected Result<List<Device>> doInBackground(Void... params) {
+            try {
+                return ServiceCenter.daySign();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Result<List<Device>> result) {
+            super.onPostExecute(result);
+            mLoadDialog.dismiss();
+            if (result != null) {
+                if (result.isSuceed()) {
+
+                    Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            } else {
+                Toast.makeText(getActivity(), R.string.member_register_network, Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 }

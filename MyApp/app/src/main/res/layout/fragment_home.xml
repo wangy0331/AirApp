@@ -5,32 +5,77 @@
     android:background="@color/background"
     android:orientation="vertical">
 
-    <LinearLayout
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:background="@color/blue"-->
+        <!--android:orientation="horizontal">-->
+        <!--<ImageView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1.2"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:src="@drawable/dz_logo"/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="4"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<ImageButton-->
+            <!--android:id="@+id/btn_login"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="0.9"-->
+            <!--android:background="@drawable/login"-->
+            <!--/>-->
+
+    <!--</LinearLayout>-->
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/blue"
-        android:orientation="horizontal">
+        android:background="@color/blue" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/dz_logo"/>
+
+        <!--<TextView-->
+            <!--style="@style/text_main_title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:layout_marginLeft="50dp"-->
+            <!--android:layout_marginRight="50dp"-->
+            <!--android:text="@string/baidu_map"-->
+            <!--/>-->
+
         <ImageButton
             android:id="@+id/btn_login"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/user"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="7"
-            android:layout_height="wrap_content" />
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/login"
+            android:visibility="gone"
+            android:padding="10dp" />
 
         <ImageButton
-            android:id="@+id/btn_setting"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/setting"
-            />
+            android:id="@+id/btn_out"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/sign_out"
+            android:visibility="gone"
+            android:padding="10dp" />
 
-    </LinearLayout>
+    </RelativeLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"

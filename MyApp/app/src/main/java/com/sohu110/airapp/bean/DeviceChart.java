@@ -35,6 +35,8 @@ public class DeviceChart implements Serializable {
     private int zhujiDlc;
     //模块温度
     private int modleTemp;
+    //时间
+    private String datetime;
 
 
     public int getSetDl() {
@@ -125,6 +127,14 @@ public class DeviceChart implements Serializable {
         this.modleTemp = modleTemp;
     }
 
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
+
     public static Result<List<DeviceChart>> parse(String json) {
         Result<List<DeviceChart>> deviceList = null;
         List<DeviceChart> list = null;
@@ -166,6 +176,8 @@ public class DeviceChart implements Serializable {
             item.zhujiDlb = obj.optInt("Zhuji_dlb");
             item.zhujiDlc = obj.optInt("Zhuji_dlc");
             item.modleTemp = obj.optInt("modle_temp");
+            String time = obj.optString("Get_datetime");
+            item.datetime = time.substring(9, time.length()-3);
 
         } catch (Exception e) {
             Logger.e("", "", e);

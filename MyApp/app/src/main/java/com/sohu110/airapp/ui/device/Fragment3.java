@@ -65,6 +65,8 @@ public class Fragment3 extends Fragment {
 		View view = inflater.inflate(R.layout.activity_baidu_map,null );
 		mMapView = (MapView) view.findViewById(R.id.bmapView);
 		mBaiduMap = mMapView.getMap();
+
+
 		// 开启定位图层
 		mBaiduMap.setMyLocationEnabled(true);
 		return view;
@@ -128,8 +130,31 @@ public class Fragment3 extends Fragment {
 						mBaiduMap.setMapStatus(mMapStatusUpdate);
 
 
+
 						//在地图上添加Marker，并显示
 						mBaiduMap.addOverlay(option);
+
+//						mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+//							@Override
+//							public boolean onMarkerClick(Marker marker) {
+//								Toast.makeText(getActivity(), "点击", Toast.LENGTH_SHORT).show();
+//								return false;
+//							}
+//						});
+//
+//
+//						mBaiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
+//							@Override
+//							public void onMapClick(LatLng latLng) {
+//								Toast.makeText(getActivity(), "点击", Toast.LENGTH_SHORT).show();
+//							}
+//
+//							@Override
+//							public boolean onMapPoiClick(MapPoi mapPoi) {
+//								Toast.makeText(getActivity(), "点击", Toast.LENGTH_SHORT).show();
+//								return false;
+//							}
+//						});
 
 
 

@@ -16,4 +16,9 @@ public class Const {
 
     //每日签到
     public static final String EXTRA_COUNT = "COUNT";
+
+    //手机
+    public static final String EXTRA_PHONE = "MEMBER_PHONE";
+    //积分
+    public static final String EXTRA_SCORE = "MEMBER_SCORE";
 }

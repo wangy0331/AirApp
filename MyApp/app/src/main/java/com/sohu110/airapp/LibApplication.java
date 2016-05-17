@@ -1,8 +1,11 @@
 package com.sohu110.airapp;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.sohu110.airapp.log.Logger;
 
@@ -41,5 +44,11 @@ public class LibApplication extends Application {
      */
     public static LibApplication getInstance() {
         return instance;
+    }
+
+    public boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        return ni != null && ni.isConnectedOrConnecting();
     }
 }

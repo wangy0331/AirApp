@@ -135,6 +135,7 @@ public class LoginActivity extends BaseActivity {
                     User user = new User();
                     user.setDatabaseid("AirApp");
                     user.setUserid(mUsername);
+                    user.setUserpwd(mPassword);
                     user.setType(type);
 
                     CacheCenter.cacheCurrentUser(user);
@@ -144,7 +145,7 @@ public class LoginActivity extends BaseActivity {
 
 
 
-                    // 关闭页面，显示个人中心
+                    // 关闭页面
                     LoginActivity.this.finish();
                 } else if (StringKit.isNotEmpty(userResult.getMessage())) {
                     Toast.makeText(LoginActivity.this, userResult.getMessage(), Toast.LENGTH_SHORT).show();

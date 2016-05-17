@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        >
+        <RadioButton
+            android:id="@+id/btn_0"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="最新信息"
+            android:textSize="17.0sp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:checked="true"
+            android:button="@null"
+            android:background="@drawable/radio"
+            />
+        <RadioButton
+            android:id="@+id/btn_1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="在线专家"
+            android:textSize="17.0sp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:button="@null"
+            android:background="@drawable/radio"
+            />
+        <RadioButton
+            android:id="@+id/btn_2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="预约服务"
+            android:textSize="17.0sp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:button="@null"
+            android:background="@drawable/radio"
+            />
+    </RadioGroup>
+
+</LinearLayout>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">E助手</string>
+    <string name="app_name">空压机e助手</string>
     <string name="action_settings">Settings</string>
     <string name="phone">请输入注册手机号码</string>
     <string name="password">请输入密码</string>
@@ -20,6 +20,9 @@
     <string name="sign_out">确认退出吗?</string>
     <string name="sure">确定</string>
     <string name="btnReturn">返回</string>
+    <string name="submit_tijiaoxiugai">提交信息</string>
+
+    <string name="quxiaoguanzhu">确认取消关注吗？</string>
 
     <string name="sbzc">设备注册</string>
     <string name="sbyj">设备预警</string>
@@ -32,6 +35,7 @@
     <string name="loading">开发中</string>
     <string name="check_true">签到成功</string>
     <string name="check_check">您已签到，请勿重复签到</string>
+    <string name="not_network">没有连接网络！</string>
 
     <string name="callPhone">拨打客服热线</string>
     <string name="kyjsc">空压商城</string>
@@ -40,7 +44,16 @@
     <string name="jnzx">节能之星</string>
     <string name="service_phone">400-006-5363</string>
     <string name="shoucang_list">收藏列表</string>
+    <string name="baidu_map">地图</string>
+    <string name="geren">个人</string>
 
+    <!-- 折线图 -->
+    <string name="air_temp_tu1">排气温度1</string>
+    <string name="air_temp_tu2">排气温度2</string>
+    <string name="dianji_wendu">电机温度</string>
+    <string name="huanjing_wendu">环境温度</string>
+    <string name="kongqi_yali">空气压力</string>
+    <string name="shuoming">备注：压力单位MPa,温度为℃</string>
 
     <!--注册/登录 -->
     <string name="invalid_phone_num">手机号码格式错误!</string>
@@ -52,13 +65,28 @@
     <string name="hint_phone_for_reset_password">请输入手机号</string>
     <string name="hint_code_for_reset_password">请输入验证码</string>
     <string name="hint_pwd_for_reset_password">请输入新密码</string>
+    <string name="hint_old_pwd_not">旧密码不能为空</string>
+    <string name="hint_old_pwd_error">新密码输入错误</string>
     <string name="hint_new_pwd_for_reset_password">请重复新密码</string>
     <string name="hint_pwd_not_match">两次密码输入不一致</string>
     <string name="hint_pwd_too_short">密码至少六位</string>
     <string name="member_register_success">用户注册成功！</string>
     <string name="member_register_failure">用户注册失败！</string>
+    <string name="change_pwd_success">密码修改成功！</string>
+    <string name="change_pwd_failure">密码修改失败！</string>
     <string name="member_reset_success">密码重置成功！</string>
     <string name="member_reset_failure">密码重置失败！</string>
+    <string name="settings_sign_out">退出登录</string>
+
+    <string name="member_edit_success">编辑成功</string>
+    <string name="member_detail_failure">编辑失败</string>
+
+    <!-- 个人中心 -->
+    <string name="user_detail">用户详情</string>
+    <string name="erweima">我的二维码</string>
+    <string name="setting">设置</string>
+    <string name="my_kefu">我的客服</string>
+    <string name="about_us">关于</string>
 
     <!-- 短信 -->
     <string name="sms_captcha_success">短信发送成功！</string>
@@ -66,14 +94,35 @@
 
     <string name="device_register">请在此处注册您的Mg2C空压机智能驱动一体机</string>
     <string name="start">开始扫描</string>
-    <string name="customer_phone">客服电话：400-626-0806</string>
+    <string name="customer_phone">客服电话：400-006-5363</string>
     <string name="device">设备注册</string>
+
+    <string name="member_detail">用户详情</string>
+    <string name="member_edit">编辑用户</string>
+    <string name="member_beizhu">注：手机号和积分不能修改</string>
 
     <!-- 扫描 -->
     <string name="scan_text">将二维码放入框内, 即可自动扫描</string>
     <!-- 设备注册 -->
     <string name="device_register_success">设备注册成功！</string>
     <string name="device_register_failure">设备注册失败！</string>
+    <string name="kyjcs">空压机厂商（品牌）：</string>
+    <string name="ytj">一体机（功率）：</string>
+    <string name="jqxlh">机器序列号：</string>
+    <string name="khmc">客户名称</string>
+    <string name="jjlxdh">紧急联系电话</string>
+    <string name="rcwhdh">日常维护电话</string>
+    <string name="zhuce">注册</string>
+    <string name="qsrjjlxdh">请输入紧急联系电话</string>
+    <string name="qsrrcwhdh">请输入日常维护电话</string>
+    <string name="rl">容量</string>
+    <string name="bh">编号</string>
+    <string name="ccrq">空压机出厂日期</string>
+    <string name="pp">机器品牌</string>
+    <string name="qsrrl">请输入容量</string>
+    <string name="qsrbh">请输入编号</string>
+    <string name="qsrccrq">请输入出厂日期</string>
+    <string name="qsrpp">请输入机器品牌</string>
 
     <!-- 设备列表 -->
     <string name="device_list">设备列表</string>
@@ -82,11 +131,15 @@
     <string name="area">地区</string>
     <string name="search">搜索</string>
     <string name="search_hit">请输入设备号</string>
+    <string name="search_area">请输入地区</string>
+    <string name="search_cust">请输入客户</string>
     <string name="device_detial">设备详情</string>
     <string name="device_success">列表获取成功</string>
     <string name="device_failure">列表获取失败</string>
+    <string name="energy_success">信息获取成功</string>
+    <string name="energy_failure">信息获取失败</string>
     <string name="co_name">客户名称：</string>
-    <string name="jq_status">机器状态：</string>
+    <string name="jq_status">设备状态：</string>
     <string name="jiqi_sn">设备条码：</string>
     <string name="yujing_list">预警列表</string>
     <string name="baojing_list">报警列表</string>
@@ -96,9 +149,16 @@
     <string name="weixiu_list">维修列表</string>
     <string name="weibao_status">维保状态</string>
     <string name="weixiu_status">维修状态</string>
+    <string name="change_pwd">修改密码</string>
+
+    <string name="hint_login_pwd_old">请输入旧密码</string>
+    <string name="hint_login_pwd_new">请输入新密码</string>
+    <string name="hint_login_pwd_new_confirm">请重复新密码</string>
 
     <!-- 设备详情 -->
     <string name="air_press">空气压力</string>
+    <string name="press">压力</string>
+    <string name="temp">温度</string>
     <string name="air_temp1">排气温度</string>
     <string name="dianji_temp">电机温度</string>
     <string name="modle_temp">模块温度</string>
@@ -113,6 +173,51 @@
     <string name="fengjiavgdl">风机平均电流 A</string>
     <string name="fengjiavgdl1">风机平均电流 B</string>
     <string name="data_time">机器时钟采集实时时间</string>
+    <string name="sbgz_btn">设备改造</string>
+
+
+    <string name="jieneng_zhixing">节能之星</string>
+
+    <string name="jnzx_zrjn">昨日节能（KW）</string>
+    <string name="jnzx_zjn">总实际耗能（KW）</string>
+    <string name="jnl">节能率（%）</string>
+    <string name="ljjn">累计节能（KW）</string>
+    <string name="week_jn">七日节能统计（KW）</string>
+
+    <string name="shoucang">关注</string>
+    <string name="not_shoucang">取消</string>
+
+    <string name="changePwd">修改密码</string>
+
+    <!-- 个人资料 -->
+    <string name="member_phone">手机号</string>
+    <string name="member_name">姓名</string>
+    <string name="member_cname">昵称</string>
+    <string name="member_mail">邮箱</string>
+    <string name="member_score">积分</string>
+    <string name="member_add">地址</string>
+
+    <string name="wenben">扫描二维码，您的好友也可以安装空压机e助手！</string>
+    <string name="guanyuwomen">关于我们：</string>1
+    <string name="guanfang">官方微信</string>
+    <string name="weixin">空压机e助手微信</string>
+    <string name="myerweima">我的二维码</string>
+
+    <!-- 设备改造 -->
+    <string name="xcdz">现场地址</string>
+    <string name="kyjsbxx">空压机设备信息</string>
+    <string name="pqwdcgq">排气温度传感器</string>
+    <string name="jzf">加载阀</string>
+    <string name="yf">油阀</string>
+    <string name="djdhlw">电机吊环螺纹</string>
+    <string name="ylcgq">压力传感器</string>
+    <string name="azpcc">安装盘尺寸</string>
+    <string name="xsqazcc">显示器安装尺寸</string>
+    <string name="djxxj">电机线线经</string>
+    <string name="dyxxj">电源线线经</string>
+    <string name="kongxiang">填空项</string>
+    <string name="fjgl">风机功率、数量</string>
+
 
 
 </resources>

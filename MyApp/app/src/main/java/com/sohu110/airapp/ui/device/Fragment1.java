@@ -3,6 +3,7 @@ package com.sohu110.airapp.ui.device;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,8 @@ public class Fragment1 extends Fragment{
 	private TextView mDataTime;
 
 	private static String GUID = "guid";
+
+	private SwipeRefreshLayout mSwipeRefreshLayout;
 
 	private String guid;
 
@@ -81,6 +84,14 @@ public class Fragment1 extends Fragment{
 		mFengjiAvgDl = (TextView) view.findViewById(R.id.fengjiavgdl);
 		mFengjiAvgDl1 = (TextView) view.findViewById(R.id.fengjiavgdl1);
 		mDataTime = (TextView) view.findViewById(R.id.data_time);
+		mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.detail_list_refresh);
+
+		mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				new DeviceDetailTask(guid).execute();
+			}
+		});
 
 		return view;
 	}
@@ -106,6 +117,7 @@ public class Fragment1 extends Fragment{
 		@Override
 		protected void onPostExecute(Result<DeviceDetail> result) {
 			super.onPostExecute(result);
+			mSwipeRefreshLayout.setRefreshing(false);
 			if (result != null) {
 				if (result.isSuceed()) {
 

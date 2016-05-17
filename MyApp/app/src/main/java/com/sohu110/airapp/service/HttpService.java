@@ -32,10 +32,14 @@ public class HttpService {
             HttpPost httpPost = new HttpPost(url);
 //            HttpGet httpGet = new HttpGet(url);
 
+//            HttpClientParam params = httpClient.getParams();
+//            params.setContentCharset("UTF-8");
+
             StringEntity se = new StringEntity(obj.toString());
-            se.setContentEncoding("UTF-8");
+            se.setContentEncoding("utf-8");
             se.setContentType("application/json");
             httpPost.setEntity(se);
+
 
             HttpResponse httpResponse = httpClient.execute(httpPost);
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
@@ -54,6 +58,8 @@ public class HttpService {
 
         try {
             HttpClient httpClient = new DefaultHttpClient();
+
+
             //指定访问的服务器地址
             HttpGet httpGet = new HttpGet(url1);
             HttpResponse httpResponse = httpClient.execute(httpGet);

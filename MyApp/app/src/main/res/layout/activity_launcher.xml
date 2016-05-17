@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/launcher"
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/launcher"
     />
 
-</LinearLayout>
+    <!--<ImageView-->
+        <!--android:id="@+id/view1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/launcher2"-->
+       <!--/>-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/view2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/launcher3"-->
+        <!--android:layout_below="@id/view1"-->
+        <!--android:src="3" />-->
+
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="60dp"-->
+        <!--android:background="@drawable/launcher1"-->
+        <!--android:layout_below="@id/view2"-->
+        <!--/>-->
+</RelativeLayout>

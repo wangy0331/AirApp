@@ -56,7 +56,7 @@ public class DeviceRegisterActivity extends BaseActivity {
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
 
-        mWebView.loadUrl("file:///android_asset/reg.gif");
+        mWebView.loadUrl("file:///android_asset/gif.html");
 
 
 
@@ -76,6 +76,8 @@ public class DeviceRegisterActivity extends BaseActivity {
                     String scanResult = bundle.getString("result");
 
                     new DeviceTask(scanResult).execute();
+
+                    startActivity(new Intent(DeviceRegisterActivity.this, DeviceRegisterDetialActivity.class));
 
                     Log.e("扫描", "扫描成功");
                 } else if (resultCode == RESULT_CANCELED) {
