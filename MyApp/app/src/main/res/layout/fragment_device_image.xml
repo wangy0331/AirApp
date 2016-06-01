@@ -2,47 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/bg_color"
     android:orientation="vertical">
 
-
-
-    <RadioGroup
-        android:id="@+id/radio_group_chart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal">
-
-        <RadioButton
-            android:id="@+id/temp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@null"
-            style="@style/btn_qiehuan"
-            android:layout_margin="10dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:checked="true"
-            android:text="@string/temp" />
-
-        <RadioButton
-            android:id="@+id/press"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@null"
-            style="@style/btn_qiehuan"
-            android:layout_margin="10dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:text="@string/press"/>
-
-
-    </RadioGroup>
 
 
 
@@ -57,19 +19,202 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        >
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart"
-        android:layout_width="match_parent"
-        android:layout_gravity="center"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        />
+        <RadioGroup
+            android:id="@+id/radio_group_chart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal">
+
+            <RadioButton
+                android:id="@+id/shishi_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:checked="true"
+                android:button="@null"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/radio"
+                android:text="@string/shishi" />
+
+            <RadioButton
+                android:id="@+id/ri_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:button="@null"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/radio"
+                android:text="@string/ri"/>
+
+            <RadioButton
+                android:id="@+id/zhou_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:button="@null"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/radio"
+                android:layout_marginRight="2dp"
+                android:text="@string/zhou"/>
+
+            <RadioButton
+                android:id="@+id/yue_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:button="@null"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/radio"
+                android:layout_marginRight="2dp"
+                android:text="@string/yue"/>
+
+            <RadioButton
+                android:id="@+id/bannian_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:button="@null"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/radio"
+                android:text="@string/bannian"/>
+
+            <RadioButton
+                android:id="@+id/nian_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:button="@null"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/radio"
+                android:text="@string/nian"/>
+
+
+        </RadioGroup>
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="300dp"-->
+        <!-->-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/zhexiantu"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="2dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pqwdqx"
+                android:paddingTop="5dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="5dp"
+                />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chartPQWD"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_height="150dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/zhexiantu"
+            android:orientation="vertical"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/djwdqx"
+                android:paddingTop="5dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="5dp"
+                />
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chartDJWD"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_height="150dp"
+                android:background="@drawable/zhexiantu"
+                />
+            </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/zhexiantu"
+            android:orientation="vertical"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hjwdqx"
+                android:paddingTop="5dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="5dp"
+                />
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chartHJWD"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_height="150dp"
+                    android:background="@drawable/zhexiantu"
+                    />
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/zhexiantu"
+            android:orientation="vertical"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/kqwdqx"
+                android:paddingTop="5dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="5dp"
+                />
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chartKQYL"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_height="150dp"
+                    android:background="@drawable/zhexiantu"
+                    />
+            </LinearLayout>
 
     <ImageButton
         android:id="@+id/chart_refresh"
@@ -78,15 +223,17 @@
         android:background="@drawable/chart_refresh3"
         android:layout_marginRight="10dp"
         android:layout_alignParentRight="true"
+        android:visibility="gone"
         />
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:visibility="gone"
         >
         <LinearLayout
             android:layout_width="match_parent"

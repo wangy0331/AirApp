@@ -46,7 +46,7 @@
     <string name="shoucang_list">收藏列表</string>
     <string name="baidu_map">地图</string>
     <string name="geren">个人</string>
-
+    <string name="wanshan">完善设备信息</string>
     <!-- 折线图 -->
     <string name="air_temp_tu1">排气温度1</string>
     <string name="air_temp_tu2">排气温度2</string>
@@ -106,23 +106,36 @@
     <!-- 设备注册 -->
     <string name="device_register_success">设备注册成功！</string>
     <string name="device_register_failure">设备注册失败！</string>
-    <string name="kyjcs">空压机厂商（品牌）：</string>
-    <string name="ytj">一体机（功率）：</string>
-    <string name="jqxlh">机器序列号：</string>
-    <string name="khmc">客户名称</string>
-    <string name="jjlxdh">紧急联系电话</string>
-    <string name="rcwhdh">日常维护电话</string>
+    <string name="kyjcs">品牌：</string>
+    <string name="ytj">功率：</string>
+    <string name="jqxlh">序列号：</string>
+    <string name="khmc">客户名称：</string>
+    <string name="khdz">客户地址：</string>
+    <string name="jjlxdh">紧急电话：</string>
+    <string name="rcwhdh">维护电话：</string>
     <string name="zhuce">注册</string>
+    <string name="submit_info">提交设备信息</string>
     <string name="qsrjjlxdh">请输入紧急联系电话</string>
     <string name="qsrrcwhdh">请输入日常维护电话</string>
     <string name="rl">容量</string>
-    <string name="bh">编号</string>
-    <string name="ccrq">空压机出厂日期</string>
-    <string name="pp">机器品牌</string>
+    <string name="bh">空压机编号：</string>
+    <string name="ccrq">空压机出厂日期：</string>
+    <string name="pp">空压机品牌：</string>
     <string name="qsrrl">请输入容量</string>
     <string name="qsrbh">请输入编号</string>
-    <string name="qsrccrq">请输入出厂日期</string>
+    <string name="qsrccrq">请选择出厂日期</string>
     <string name="qsrpp">请输入机器品牌</string>
+    <string name="khmc_hit">请填写</string>
+    <string name="edit_device_info">修改设备信息</string>
+    <string name="wanshan_info">是否完善设备信息</string>
+
+    <string name="jieneng">节能</string>
+    <string name="shouyi">收益</string>
+
+    <string name="yali">压力：</string>
+    <string name="wendu">温度：</string>
+    <string name="yunxing">运行</string>
+    <string name="stop">停止</string>
 
     <!-- 设备列表 -->
     <string name="device_list">设备列表</string>
@@ -134,6 +147,8 @@
     <string name="search_area">请输入地区</string>
     <string name="search_cust">请输入客户</string>
     <string name="device_detial">设备详情</string>
+    <string name="yjxq">预警详情</string>
+    <string name="bjxq">报警详情</string>
     <string name="device_success">列表获取成功</string>
     <string name="device_failure">列表获取失败</string>
     <string name="energy_success">信息获取成功</string>
@@ -141,6 +156,7 @@
     <string name="co_name">客户名称：</string>
     <string name="jq_status">设备状态：</string>
     <string name="jiqi_sn">设备条码：</string>
+    <string name="kyjbh">空压机编号：</string>
     <string name="yujing_list">预警列表</string>
     <string name="baojing_list">报警列表</string>
     <string name="yujing_status">预警状态：</string>
@@ -150,6 +166,25 @@
     <string name="weibao_status">维保状态</string>
     <string name="weixiu_status">维修状态</string>
     <string name="change_pwd">修改密码</string>
+    <string name="shishi">实时</string>
+    <string name="ri">日</string>
+    <string name="zhou">周</string>
+    <string name="yue">月</string>
+    <string name="bannian">半年</string>
+    <string name="nian">年</string>
+
+    <string name="ybkhmc">客户名称</string>
+    <string name="ybkhdz">客户地址</string>
+    <string name="ybkyjpp">空压机品牌</string>
+    <string name="ybkyjbh">空压机编号</string>
+    <string name="ybjjdh">紧急电话</string>
+    <string name="ybwhdh">维护电话</string>
+
+    <string name="pqwdqx">供气压力曲线</string>
+    <string name="djwdqx">电机电源曲线</string>
+    <string name="hjwdqx">电机温度曲线</string>
+    <string name="kqwdqx">排气温度曲线</string>
+
 
     <string name="hint_login_pwd_old">请输入旧密码</string>
     <string name="hint_login_pwd_new">请输入新密码</string>
@@ -174,15 +209,70 @@
     <string name="fengjiavgdl1">风机平均电流 B</string>
     <string name="data_time">机器时钟采集实时时间</string>
     <string name="sbgz_btn">设备改造</string>
-
+    <string name="djzt">电机状态</string>
+    <string name="kyjzt">空压机状态</string>
+    <string name="fj1zt">风机1#状态</string>
+    <string name="fj2zt">风机2#状态</string>
+    <string name="pqyl">排气压力</string>
+    <string name="jtwd">机头温度</string>
+    <string name="zjdl">主机电流</string>
+    <string name="djwd">电机温度</string>
+    <string name="dqwd">电气温度</string>
+    <string name="pl">频率</string>
+    <string name="jndn">节能电能</string>
+    <string name="sjhn">实际耗能</string>
+    <string name="sbyx">设备运行</string>
+    <string name="txzk">通讯状况</string>
+    <string name="fj1dl">风机1#电流</string>
+    <string name="fj2dl">风机2#电流</string>
+    <string name="sbdy">设备电压</string>
+    <string name="jzcs">加载次数</string>
+    <string name="yxsj">累积运行时间</string>
+    <string name="jzsj">累积加载时间</string>
+    <string name="bcyx">本次运行时间</string>
+    <string name="bcjz">本次加载时间</string>
+    <string name="cpbb">产品版本</string>
+    <string name="snh">SN号</string>
+    <string name="kyjpp">空压机品牌</string>
+    <string name="gzyl">工作压力</string>
+    <string name="ylsj">油滤时间</string>
+    <string name="yfsj">油封时间</string>
+    <string name="klsj">空滤时间</string>
+    <string name="rysj">润油时间</string>
+    <string name="yzsj">油脂时间</string>
+    <string name="pdsj">皮带时间</string>
+    <string name="ylwbcs">油滤维保次数</string>
+    <string name="yfwbcs">油封维保次数</string>
+    <string name="klwbcs">空滤维保次数</string>
+    <string name="rywbcs">润油维保次数</string>
+    <string name="yzwbcs">油脂维保次数</string>
+    <string name="pdwbcs">皮带维保次数</string>
+    <string name="ljyxsj">累计运行时间</string>
+    <string name="ljjzsj">累计加载时间</string>
+    <string name="bcyxsj">本次运行时间</string>
+    <string name="bcjzsj">本次加载时间</string>
+    <string name="sjcjsj">数据采集时间</string>
+    <string name="jnl_text">节能率</string>
+    <string name="sbgl">设备功率</string>
+    <string name="dypl">电源频率</string>
+    <string name="mtpjyxsj">每天平均运行时间</string>
+    <string name="khmc_text">客户名称</string>
+    <string name="kyjbh_text">空压机编号</string>
+    <string name="zjrjbb">主机软件版本</string>
+    <string name="zjyjbb">主机硬件版本</string>
 
     <string name="jieneng_zhixing">节能之星</string>
 
     <string name="jnzx_zrjn">昨日节能（KW）</string>
     <string name="jnzx_zjn">总实际耗能（KW）</string>
+    <string name="zsjyd">总实际用电（元）</string>
     <string name="jnl">节能率（%）</string>
+    <string name="syl">收益率（%）</string>
     <string name="ljjn">累计节能（KW）</string>
+    <string name="ljsy">累计收益（元）</string>
     <string name="week_jn">七日节能统计（KW）</string>
+    <string name="kwh">kWh</string>
+    <string name="yuan">元</string>
 
     <string name="shoucang">关注</string>
     <string name="not_shoucang">取消</string>
@@ -205,7 +295,7 @@
 
     <!-- 设备改造 -->
     <string name="xcdz">现场地址</string>
-    <string name="kyjsbxx">空压机设备信息</string>
+    <string name="kyjsbxx">空压机设备改造信息</string>
     <string name="pqwdcgq">排气温度传感器</string>
     <string name="jzf">加载阀</string>
     <string name="yf">油阀</string>

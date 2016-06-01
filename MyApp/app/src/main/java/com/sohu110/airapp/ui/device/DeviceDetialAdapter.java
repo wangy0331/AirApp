@@ -11,17 +11,12 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 public class DeviceDetialAdapter extends FragmentPagerAdapter {
 
-//    String[] names = new String[]
-//            { "实时监测", "预警信息", "设备管理", "周边地图"};
-
-    String[] names = new String[] {"实时监测", "实时曲线", "周边地图"};
-
-
-//    private List<Fragment> fragments;
+    String[] names = new String[] {"实时监测", "实时曲线", "周边地图", "设备信息"};
 
     private Fragment1 fragment1;
     private Fragment2 fragment2;
     private Fragment3 fragment3;
+    private Fragment4 fragment4;
 
     private String deviceId;
 
@@ -47,7 +42,9 @@ public class DeviceDetialAdapter extends FragmentPagerAdapter {
             case 2:
                 fragment3 = Fragment3.newInstance(deviceId);
                 return fragment3;
-
+            case 3:
+                fragment4 = Fragment4.newInstance(deviceId);
+                return fragment4;
             default:
                 return null;
         }

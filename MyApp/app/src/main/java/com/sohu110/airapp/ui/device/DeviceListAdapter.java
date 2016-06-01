@@ -39,12 +39,15 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_device_item, null);
             holder = new ViewHolder();
-//            holder.jqName = (TextView) convertView.findViewById(R.id.jq_name);
             holder.coName = (TextView) convertView.findViewById(R.id.co_name);
-            holder.icon = (ImageView) convertView.findViewById(R.id.jq_icon);
+            holder.icon = (TextView) convertView.findViewById(R.id.jq_icon);
             holder.jiqiSn = (TextView) convertView.findViewById(R.id.jiqi_sn);
             holder.scBtn = (Button) convertView.findViewById(R.id.shoucang_btn);
             holder.nscBtn = (Button) convertView.findViewById(R.id.not_shoucang_btn);
+            holder.mImageBiaoshi = (ImageView) convertView.findViewById(R.id.tupian);
+            holder.mTemp = (TextView) convertView.findViewById(R.id.wendu);
+            holder.mPress = (TextView) convertView.findViewById(R.id.yali);
+            holder.mAirSn = (TextView) convertView.findViewById(R.id.kyj_sn);
 
             guanzhuBtn = (Button) convertView.findViewById(R.id.shoucang_btn);
             quxiaoBtn = (Button) convertView.findViewById(R.id.not_shoucang_btn);
@@ -55,17 +58,11 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
         }
 
         final Device item = getItem(position);
-//        holder.coName.setText(item.getCoName());
         int id = position + 1;
 
         holder.coName.setText(id + "." + item.getCoName());
         holder.jiqiSn.setText(item.getJiqiSn());
 
-        if ("F".equals(item.getJqStatus())) {
-            holder.icon.setImageResource(R.drawable.device_f);
-        } else if ("T".equals(item.getJqStatus())) {
-            holder.icon.setImageResource(R.drawable.device_t);
-        }
 
         if ("Y".equals(item.getfSta())) {
             holder.scBtn.setVisibility(View.GONE);
@@ -75,6 +72,21 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
             holder.nscBtn.setVisibility(View.GONE);
         }
 
+        holder.icon.setText(item.getJqStatus());
+
+        if (!"".equals(item.getPress())) {
+            holder.mPress.setText(item.getPress() + " MPa");
+        } else {
+            holder.mPress.setText("0 MPa");
+        }
+
+
+        if (!"".equals(item.getTemp())) {
+            holder.mTemp.setText(item.getTemp() + " ℃");
+        } else {
+            holder.mTemp.setText("0 ℃");
+        }
+        holder.mAirSn.setText(item.getAirSn());
 
         final String jqid = item.getJiqiSn();
 
@@ -99,31 +111,24 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
     class ViewHolder {
         //机器序列号
         TextView jiqiSn;
-//        //权限（C为控制，R为显示）
-//        TextView auth;
-        //机器类型名称
-//        TextView jqName;
-//        //机器经度
-//        TextView jqWD;
-//        //机器纬度
-//        TextView jqJD;
         //运行状态
         TextView jqStatus;
-//        //机器注册日期
-//        TextView jiqiNewDate;
-//        //机器生产日期
-//        TextView jiqiPdate;
-//        //归属地区
-//        TextView region;
         //客户名称
         TextView coName;
-        //图片
-        ImageView icon;
+        //运行状态
+        TextView icon;
         //关注
         Button scBtn;
         //取消关注
         Button nscBtn;
-
+        //图片
+        ImageView mImageBiaoshi;
+        //温度
+        TextView mTemp;
+        //压力
+        TextView mPress;
+        //空压机编号
+        TextView mAirSn;
     }
 
     class ShoucangTask extends AsyncTask<Void, Void, Result> {

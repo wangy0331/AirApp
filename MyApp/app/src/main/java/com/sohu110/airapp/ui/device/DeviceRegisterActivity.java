@@ -1,5 +1,7 @@
 package com.sohu110.airapp.ui.device;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 
 import com.sohu110.airapp.R;
+import com.sohu110.airapp.bean.DeviceThree;
 import com.sohu110.airapp.bean.Result;
 import com.sohu110.airapp.kit.StringKit;
 import com.sohu110.airapp.service.ServiceCenter;
@@ -77,7 +80,8 @@ public class DeviceRegisterActivity extends BaseActivity {
 
                     new DeviceTask(scanResult).execute();
 
-                    startActivity(new Intent(DeviceRegisterActivity.this, DeviceRegisterDetialActivity.class));
+
+//                    startActivity(new Intent(DeviceRegisterActivity.this, DeviceRegisterDetialActivity.class));
 
                     Log.e("扫描", "扫描成功");
                 } else if (resultCode == RESULT_CANCELED) {
@@ -90,7 +94,7 @@ public class DeviceRegisterActivity extends BaseActivity {
         }
     }
 
-    class DeviceTask extends  AsyncTask<Void, Void, Result> {
+    class DeviceTask extends  AsyncTask<Void, Void, Result<DeviceThree>> {
 
         private String scan;
         LoadProcessDialog mLoadDialog;
@@ -107,7 +111,7 @@ public class DeviceRegisterActivity extends BaseActivity {
         }
 
         @Override
-        protected Result doInBackground(Void... params) {
+        protected Result<DeviceThree> doInBackground(Void... params) {
             try {
                 return ServiceCenter.deviceRegister(scan);
             } catch (Exception e) {
@@ -118,13 +122,18 @@ public class DeviceRegisterActivity extends BaseActivity {
 
 
         @Override
-        protected void onPostExecute(Result result) {
+        protected void onPostExecute(Result<DeviceThree> result) {
             super.onPostExecute(result);
             mLoadDialog.dismiss();
             if(result != null) {
                 if(result.isSuceed()) {
                     LibToast.show(DeviceRegisterActivity.this, R.string.member_register_success);
                     //关闭本页面，显示登录页面
+                    Intent intent = new Intent(DeviceRegisterActivity.this, DeviceRegisterDetialActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("deviceThree", result.getData());
+                    intent.putExtras(bundle);
+                    showDialog(intent);
 //                    DeviceRegisterActivity.this.finish();
                 } else if(StringKit.isNotEmpty(result.getMessage())) {
                     LibToast.show(DeviceRegisterActivity.this, result.getMessage());
@@ -135,5 +144,23 @@ public class DeviceRegisterActivity extends BaseActivity {
                 LibToast.show(DeviceRegisterActivity.this, R.string.member_register_network);
             }
         }
+
+    }
+
+
+    private void showDialog(final Intent intent) {
+        new AlertDialog.Builder(DeviceRegisterActivity.this).setTitle(R.string.tishi)
+                .setMessage(R.string.wanshan_info).setCancelable(false)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        startActivity(intent);
+
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        }).show();
     }
 }

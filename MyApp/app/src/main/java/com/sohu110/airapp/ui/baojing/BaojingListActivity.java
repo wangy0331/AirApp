@@ -20,7 +20,6 @@ import com.sohu110.airapp.bean.Result;
 import com.sohu110.airapp.log.Logger;
 import com.sohu110.airapp.service.ServiceCenter;
 import com.sohu110.airapp.ui.BaseActivity;
-import com.sohu110.airapp.ui.device.DeviceDetailActivity;
 import com.sohu110.airapp.utils.Const;
 import com.sohu110.airapp.widget.LibToast;
 import com.sohu110.airapp.widget.LoadProcessDialog;
@@ -93,13 +92,26 @@ public class BaojingListActivity extends BaseActivity {
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == customerBtn.getId()) {
+                if (checkedId == customerBtn.getId()) {//客户
                     condition = "cust";
-                } else if (checkedId == equipmentBtn.getId()) {
+                    mEditText.setHint(R.string.search_cust);
+                    customerBtn.setTextColor(getResources().getColor(R.color.blue));
+                    equipmentBtn.setTextColor(getResources().getColor(R.color.grey));
+                    areaBtn.setTextColor(getResources().getColor(R.color.grey));
+                } else if (checkedId == equipmentBtn.getId()) {//设备号
                     condition = "setno";
-                } else if (checkedId == areaBtn.getId()) {
+                    mEditText.setHint(R.string.search_hit);
+                    customerBtn.setTextColor(getResources().getColor(R.color.grey));
+                    equipmentBtn.setTextColor(getResources().getColor(R.color.blue));
+                    areaBtn.setTextColor(getResources().getColor(R.color.grey));
+                } else if (checkedId == areaBtn.getId()) {//地区
                     condition = "area";
+                    mEditText.setHint(R.string.search_area);
+                    customerBtn.setTextColor(getResources().getColor(R.color.grey));
+                    equipmentBtn.setTextColor(getResources().getColor(R.color.grey));
+                    areaBtn.setTextColor(getResources().getColor(R.color.blue));
                 }
+
 
                 if (LibApplication.getInstance().isNetworkConnected()) {
                     new DeviceListTask(mEditText.getText().toString(), condition).execute();
@@ -127,7 +139,7 @@ public class BaojingListActivity extends BaseActivity {
                 try {
                     Device device = (Device) parent.getItemAtPosition(position);
                     Intent intent = new Intent(BaojingListActivity.this,
-                            DeviceDetailActivity.class);
+                            BaojingDetailActivity.class);
                     intent.putExtra(Const.EXTRA_DEVICE, device);
                     startActivity(intent);
                 } catch (Exception e) {
@@ -159,7 +171,7 @@ public class BaojingListActivity extends BaseActivity {
         @Override
         protected Result<List<Device>> doInBackground(Void... params) {
             try {
-                return ServiceCenter.deviceList(mCondition, "dongzejieneng");
+                return ServiceCenter.deviceBj(mCondition, mContent);
             } catch (Exception e) {
                 e.printStackTrace();
             }

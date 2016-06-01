@@ -12,33 +12,38 @@ public final class R {
     }
     public static final class color {
         public static int bg_color=0x7f070000;
-        public static int contents_text=0x7f070001;
-        public static int encode_view=0x7f070002;
-        public static int grgray=0x7f070003;
-        public static int header=0x7f070004;
-        public static int help_button_view=0x7f070005;
-        public static int help_view=0x7f070006;
-        public static int lineChart_transparent=0x7f070007;
-        public static int possible_result_points=0x7f070008;
-        public static int result_image_border=0x7f070009;
-        public static int result_minor_text=0x7f07000a;
-        public static int result_points=0x7f07000b;
-        public static int result_text=0x7f07000c;
-        public static int result_view=0x7f07000d;
-        public static int sbc_header_text=0x7f07000e;
-        public static int sbc_header_view=0x7f07000f;
-        public static int sbc_layout_view=0x7f070010;
-        public static int sbc_list_item=0x7f070011;
-        public static int sbc_page_number_text=0x7f070012;
-        public static int sbc_snippet_text=0x7f070013;
-        public static int share_text=0x7f070014;
-        public static int share_view=0x7f070015;
-        public static int status_text=0x7f070016;
-        public static int status_view=0x7f070017;
-        public static int transparent=0x7f070018;
-        public static int viewfinder_frame=0x7f070019;
-        public static int viewfinder_laser=0x7f07001a;
-        public static int viewfinder_mask=0x7f07001b;
+        public static int blue=0x7f070001;
+        public static int contents_text=0x7f070002;
+        public static int encode_view=0x7f070003;
+        public static int gray=0x7f070004;
+        public static int green=0x7f070005;
+        public static int grgray=0x7f070006;
+        public static int header=0x7f070007;
+        public static int help_button_view=0x7f070008;
+        public static int help_view=0x7f070009;
+        public static int lightgreen=0x7f07000a;
+        public static int lineChart_transparent=0x7f07000b;
+        public static int possible_result_points=0x7f07000c;
+        public static int result_image_border=0x7f07000d;
+        public static int result_minor_text=0x7f07000e;
+        public static int result_points=0x7f07000f;
+        public static int result_text=0x7f070010;
+        public static int result_view=0x7f070011;
+        public static int sbc_header_text=0x7f070012;
+        public static int sbc_header_view=0x7f070013;
+        public static int sbc_layout_view=0x7f070014;
+        public static int sbc_list_item=0x7f070015;
+        public static int sbc_page_number_text=0x7f070016;
+        public static int sbc_snippet_text=0x7f070017;
+        public static int share_text=0x7f070018;
+        public static int share_view=0x7f070019;
+        public static int status_text=0x7f07001a;
+        public static int status_view=0x7f07001b;
+        public static int transparent=0x7f07001c;
+        public static int viewfinder_frame=0x7f07001d;
+        public static int viewfinder_laser=0x7f07001e;
+        public static int viewfinder_mask=0x7f07001f;
+        public static int white=0x7f070020;
     }
     public static final class dimen {
         public static int activity_horizontal_margin=0x7f050000;
@@ -46,22 +51,28 @@ public final class R {
     }
     public static final class drawable {
         public static int ic_launcher=0x7f020000;
-        public static int navbar=0x7f020001;
+        public static int icon_head_back=0x7f020001;
+        public static int navbar=0x7f020002;
+        public static int no=0x7f020003;
+        public static int off=0x7f020004;
+        public static int zx_code_line=0x7f020005;
     }
     public static final class id {
-        public static int action_settings=0x7f080014;
+        public static int action_settings=0x7f080017;
         public static int auto_focus=0x7f080000;
         public static int bt_bigin_scan=0x7f08000c;
-        public static int btn_cancel_scan=0x7f080012;
         public static int decode=0x7f080001;
         public static int decode_failed=0x7f080002;
         public static int decode_succeeded=0x7f080003;
         public static int encode_failed=0x7f080004;
         public static int encode_succeeded=0x7f080005;
+        public static int header_background=0x7f080011;
+        public static int header_btn_back=0x7f080012;
+        public static int header_btn_settings=0x7f080013;
         public static int iv_qr_image=0x7f08000e;
         public static int launch_product_query=0x7f080006;
-        public static int myweb=0x7f080013;
-        public static int openLight=0x7f080011;
+        public static int myweb=0x7f080016;
+        public static int openLight=0x7f080015;
         public static int preview_view=0x7f08000f;
         public static int quit=0x7f080007;
         public static int restart_preview=0x7f080008;
@@ -69,6 +80,7 @@ public final class R {
         public static int scan_result=0x7f08000d;
         public static int search_book_contents_failed=0x7f08000a;
         public static int search_book_contents_succeeded=0x7f08000b;
+        public static int text=0x7f080014;
         public static int viewfinder_view=0x7f080010;
     }
     public static final class layout {

@@ -14,40 +14,49 @@ import java.util.List;
  * Created by Aaron on 2016/5/3.
  */
 public class Energy implements Serializable {
-    //计算耗能
-    private int jshn;
     //实际耗能
-    private int sjhn;
+    private double sjhn;
     //节约能耗
-    private int jyhn;
+    private double jyhn;
+    //昨日节能
+    private double zrjn;
+    //今日节能
+    private double jrjn;
     //用户
     private String userAccount;
     //Sday
     private int sDay;
 
-
-    public int getSjhn() {
+    public double getSjhn() {
         return sjhn;
     }
 
-    public void setSjhn(int sjhn) {
+    public void setSjhn(double sjhn) {
         this.sjhn = sjhn;
     }
 
-    public int getJshn() {
-        return jshn;
-    }
-
-    public void setJshn(int jshn) {
-        this.jshn = jshn;
-    }
-
-    public int getJyhn() {
+    public double getJyhn() {
         return jyhn;
     }
 
-    public void setJyhn(int jyhn) {
+    public void setJyhn(double jyhn) {
         this.jyhn = jyhn;
+    }
+
+    public double getZrjn() {
+        return zrjn;
+    }
+
+    public void setZrjn(double zrjn) {
+        this.zrjn = zrjn;
+    }
+
+    public double getJrjn() {
+        return jrjn;
+    }
+
+    public void setJrjn(double jrjn) {
+        this.jrjn = jrjn;
     }
 
     public String getUserAccount() {
@@ -96,9 +105,10 @@ public class Energy implements Serializable {
         Energy item = null;
         try {
             item = new Energy();
-            item.jshn = obj.optInt("jshn");
-            item.sjhn = obj.optInt("sjhn");
-            item.jyhn = obj.optInt("jyhn");
+            item.sjhn = obj.optDouble("sjhn");
+            item.jyhn = obj.optDouble("jyhn");
+            item.zrjn = obj.optDouble("zrjn");
+            item.jrjn = obj.optDouble("jrjn");
             item.sDay = obj.optInt("Sday");
 
         } catch (Exception e) {
@@ -142,7 +152,7 @@ public class Energy implements Serializable {
             result.setCode(1);
 
 
-            JSONArray array = obj.optJSONArray("Today data");
+            JSONArray array = obj.optJSONArray("day data");
             if (array != null) {
                 list = new ArrayList<Energy>();
                 for (int i = 0; i < array.length(); i++) {

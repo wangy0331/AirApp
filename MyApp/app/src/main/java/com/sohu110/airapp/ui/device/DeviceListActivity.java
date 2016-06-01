@@ -78,6 +78,9 @@ public class DeviceListActivity extends BaseActivity {
         mListView = (ListView) findViewById(R.id.device_list_view);
 
         mEditText.setHint(R.string.search_cust);
+        customerBtn.setTextColor(getResources().getColor(R.color.blue));
+        equipmentBtn.setTextColor(getResources().getColor(R.color.grey));
+        areaBtn.setTextColor(getResources().getColor(R.color.grey));
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_refresh);
 
@@ -96,12 +99,21 @@ public class DeviceListActivity extends BaseActivity {
                 if (checkedId == customerBtn.getId()) {//客户
                     condition = "cust";
                     mEditText.setHint(R.string.search_cust);
+                    customerBtn.setTextColor(getResources().getColor(R.color.blue));
+                    equipmentBtn.setTextColor(getResources().getColor(R.color.grey));
+                    areaBtn.setTextColor(getResources().getColor(R.color.grey));
                 } else if (checkedId == equipmentBtn.getId()) {//设备号
                     condition = "setno";
                     mEditText.setHint(R.string.search_hit);
+                    customerBtn.setTextColor(getResources().getColor(R.color.grey));
+                    equipmentBtn.setTextColor(getResources().getColor(R.color.blue));
+                    areaBtn.setTextColor(getResources().getColor(R.color.grey));
                 } else if (checkedId == areaBtn.getId()) {//地区
                     condition = "area";
                     mEditText.setHint(R.string.search_area);
+                    customerBtn.setTextColor(getResources().getColor(R.color.grey));
+                    equipmentBtn.setTextColor(getResources().getColor(R.color.grey));
+                    areaBtn.setTextColor(getResources().getColor(R.color.blue));
                 }
 
                 new DeviceListTask(mEditText.getText().toString(), condition).execute();

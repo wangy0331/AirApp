@@ -14,89 +14,99 @@ import java.util.List;
  * Created by Aaron on 2016/4/20.
  */
 public class DeviceDetail implements Serializable {
-    //空气压力
+    //机器序列号
+    private String jqQiSn;
+    //排气压力
     private String airPress;
-    //排气温度
+    //机头温度
     private String airTemp;
     //电机温度
     private String dianjiTemp;
-    //模块温度
+    //电气温度
     private String modleTemp;
     //环境温度
     private String enviTemp;
-    //延时
-    private String delayDisplay;
-    //设备电压
-    private String currentDy;
+    //电机状态
+    private String dianjiSta;
+    //空压机状态
+    private String airSta;
+    //风机1状态
+    private String fengjiSta1;
+    //风机2状态
+    private String fengjiSta2;
+    //节能率
+    private String jienengLv;
+    //节能电能
+    private String jienengDianneng;
+    //实际耗能
+    private String sjHaoneng;
+    //设备运行
+    private String deviceSta;
+    //通讯状况
+    private String tongxunSta;
     //主机电流A   电流*10
     private String zhujiDl1;
     //主机电流B
     private String zhujiDl2;
     //主机电流C
     private String zhujiDl3;
-    //风机电流A
-    private String fengjiDl1;
-    //风机电流B
-    private String fengjiDl2;
-    //风机电流C
-    private String fengjiDl3;
-    //能耗高位
-    private String nenghaoH;
-    //能耗低位
-    private String nenghaoL;
-    //实际能耗高位
-    private String nenghaoAH;
-    //节能高位
-    private String saveH;
-    //节能低位
-    private String saveL;
-    //分离器水位
-    private String fengliqi;
-    //外部水箱水位
-    private String shuixiang;
-    //进水阀
-    private String jinshui;
-    //出水阀
-    private String chushui;
-    //风机平均电流A
-    private String fengjiAvgDl;
-    //风机平均电流B
-    private String fengjiAvgDl1;
-    //出厂日期
-    private String jiqiPdate;
-    //质保状态
-    private String jiqiQa;
-    //电机状态
-    private String dianjiSta;
-    //空压机状态
-    private String airSta;
-    //风机状态A
-    private String fengjiSta1;
-    //风机状态B
-    private String fengjiSta2;
-    //预警状态
-    private String alarmSta;
-    //机器时钟采集实时时间
-    private String dataTime;
+    //风机1电流A
+    private String fengji1Dl1;
+    //风机1电流B
+    private String fengji1Dl2;
+    //风机1电流C
+    private String fengji1Dl3;
+    //风机2电流A
+    private String fengji2Dl1;
+    //风机2电流B
+    private String fengji2Dl2;
+    //风机2电流C
+    private String fengji2Dl3;
+    //设备电压
+    private String currentDy;
+    //加载次数
+    private String jiazaiCs;
+    //累积运行时间
+    private String leijiYx;
+    //累积加载时间
+    private String leijiJz;
+    //本次运行时间
+    private String benciYx;
+    //本次加载时间
+    private String benciJz;
+    //电源频率
+    private String dianyuanPl;
+    //设备功率
+    private String deviceGl;
+    //每天平均运行时间
+    private String dayPjSj;
+    //客户名称
+    private String kehuMc;
+    //空压机编号
+    private String kyjBianhao;
+    //空压机品牌
+    private String kyjPp;
+    //主机软件版本
+    private String rjbb;
+    //主机硬件版本
+    private String yjbb;
+    //空压机序列号
+    private String kyjSn;
     //机器实时经度
     private Double jqJd;
     //机器实时纬度
     private Double jqWd;
+    //采集时间
+    private String nowTime;
+    //状态
+    private String status;
 
-    public Double getJqJd() {
-        return jqJd;
+    public String getJqQiSn() {
+        return jqQiSn;
     }
 
-    public void setJqJd(Double jqJd) {
-        this.jqJd = jqJd;
-    }
-
-    public Double getJqWd() {
-        return jqWd;
-    }
-
-    public void setJqWd(Double jqWd) {
-        this.jqWd = jqWd;
+    public void setJqQiSn(String jqQiSn) {
+        this.jqQiSn = jqQiSn;
     }
 
     public String getAirPress() {
@@ -139,174 +149,6 @@ public class DeviceDetail implements Serializable {
         this.enviTemp = enviTemp;
     }
 
-    public String getDelayDisplay() {
-        return delayDisplay;
-    }
-
-    public void setDelayDisplay(String delayDisplay) {
-        this.delayDisplay = delayDisplay;
-    }
-
-    public String getCurrentDy() {
-        return currentDy;
-    }
-
-    public void setCurrentDy(String currentDy) {
-        this.currentDy = currentDy;
-    }
-
-    public String getZhujiDl1() {
-        return zhujiDl1;
-    }
-
-    public void setZhujiDl1(String zhujiDl1) {
-        this.zhujiDl1 = zhujiDl1;
-    }
-
-    public String getZhujiDl2() {
-        return zhujiDl2;
-    }
-
-    public void setZhujiDl2(String zhujiDl2) {
-        this.zhujiDl2 = zhujiDl2;
-    }
-
-    public String getZhujiDl3() {
-        return zhujiDl3;
-    }
-
-    public void setZhujiDl3(String zhujiDl3) {
-        this.zhujiDl3 = zhujiDl3;
-    }
-
-    public String getFengjiDl1() {
-        return fengjiDl1;
-    }
-
-    public void setFengjiDl1(String fengjiDl1) {
-        this.fengjiDl1 = fengjiDl1;
-    }
-
-    public String getFengjiDl2() {
-        return fengjiDl2;
-    }
-
-    public void setFengjiDl2(String fengjiDl2) {
-        this.fengjiDl2 = fengjiDl2;
-    }
-
-    public String getFengjiDl3() {
-        return fengjiDl3;
-    }
-
-    public void setFengjiDl3(String fengjiDl3) {
-        this.fengjiDl3 = fengjiDl3;
-    }
-
-    public String getNenghaoH() {
-        return nenghaoH;
-    }
-
-    public void setNenghaoH(String nenghaoH) {
-        this.nenghaoH = nenghaoH;
-    }
-
-    public String getNenghaoL() {
-        return nenghaoL;
-    }
-
-    public void setNenghaoL(String nenghaoL) {
-        this.nenghaoL = nenghaoL;
-    }
-
-    public String getNenghaoAH() {
-        return nenghaoAH;
-    }
-
-    public void setNenghaoAH(String nenghaoAH) {
-        this.nenghaoAH = nenghaoAH;
-    }
-
-    public String getSaveH() {
-        return saveH;
-    }
-
-    public void setSaveH(String saveH) {
-        this.saveH = saveH;
-    }
-
-    public String getSaveL() {
-        return saveL;
-    }
-
-    public void setSaveL(String saveL) {
-        this.saveL = saveL;
-    }
-
-    public String getFengliqi() {
-        return fengliqi;
-    }
-
-    public void setFengliqi(String fengliqi) {
-        this.fengliqi = fengliqi;
-    }
-
-    public String getShuixiang() {
-        return shuixiang;
-    }
-
-    public void setShuixiang(String shuixiang) {
-        this.shuixiang = shuixiang;
-    }
-
-    public String getJinshui() {
-        return jinshui;
-    }
-
-    public void setJinshui(String jinshui) {
-        this.jinshui = jinshui;
-    }
-
-    public String getChushui() {
-        return chushui;
-    }
-
-    public void setChushui(String chushui) {
-        this.chushui = chushui;
-    }
-
-    public String getFengjiAvgDl() {
-        return fengjiAvgDl;
-    }
-
-    public void setFengjiAvgDl(String fengjiAvgDl) {
-        this.fengjiAvgDl = fengjiAvgDl;
-    }
-
-    public String getFengjiAvgDl1() {
-        return fengjiAvgDl1;
-    }
-
-    public void setFengjiAvgDl1(String fengjiAvgDl1) {
-        this.fengjiAvgDl1 = fengjiAvgDl1;
-    }
-
-    public String getJiqiPdate() {
-        return jiqiPdate;
-    }
-
-    public void setJiqiPdate(String jiqiPdate) {
-        this.jiqiPdate = jiqiPdate;
-    }
-
-    public String getJiqiQa() {
-        return jiqiQa;
-    }
-
-    public void setJiqiQa(String jiqiQa) {
-        this.jiqiQa = jiqiQa;
-    }
-
     public String getDianjiSta() {
         return dianjiSta;
     }
@@ -339,22 +181,269 @@ public class DeviceDetail implements Serializable {
         this.fengjiSta2 = fengjiSta2;
     }
 
-    public String getAlarmSta() {
-        return alarmSta;
+    public String getJienengLv() {
+        return jienengLv;
     }
 
-    public void setAlarmSta(String alarmSta) {
-        this.alarmSta = alarmSta;
+    public void setJienengLv(String jienengLv) {
+        this.jienengLv = jienengLv;
     }
 
-    public String getDataTime() {
-        return dataTime;
+    public String getJienengDianneng() {
+        return jienengDianneng;
     }
 
-    public void setDataTime(String dataTime) {
-        this.dataTime = dataTime;
+    public void setJienengDianneng(String jienengDianneng) {
+        this.jienengDianneng = jienengDianneng;
     }
 
+    public String getSjHaoneng() {
+        return sjHaoneng;
+    }
+
+    public void setSjHaoneng(String sjHaoneng) {
+        this.sjHaoneng = sjHaoneng;
+    }
+
+    public String getDeviceSta() {
+        return deviceSta;
+    }
+
+    public void setDeviceSta(String deviceSta) {
+        this.deviceSta = deviceSta;
+    }
+
+    public String getTongxunSta() {
+        return tongxunSta;
+    }
+
+    public void setTongxunSta(String tongxunSta) {
+        this.tongxunSta = tongxunSta;
+    }
+
+    public String getZhujiDl1() {
+        return zhujiDl1;
+    }
+
+    public void setZhujiDl1(String zhujiDl1) {
+        this.zhujiDl1 = zhujiDl1;
+    }
+
+    public String getZhujiDl2() {
+        return zhujiDl2;
+    }
+
+    public void setZhujiDl2(String zhujiDl2) {
+        this.zhujiDl2 = zhujiDl2;
+    }
+
+    public String getZhujiDl3() {
+        return zhujiDl3;
+    }
+
+    public void setZhujiDl3(String zhujiDl3) {
+        this.zhujiDl3 = zhujiDl3;
+    }
+
+    public String getFengji1Dl1() {
+        return fengji1Dl1;
+    }
+
+    public void setFengji1Dl1(String fengji1Dl1) {
+        this.fengji1Dl1 = fengji1Dl1;
+    }
+
+    public String getFengji1Dl2() {
+        return fengji1Dl2;
+    }
+
+    public void setFengji1Dl2(String fengji1Dl2) {
+        this.fengji1Dl2 = fengji1Dl2;
+    }
+
+    public String getFengji1Dl3() {
+        return fengji1Dl3;
+    }
+
+    public void setFengji1Dl3(String fengji1Dl3) {
+        this.fengji1Dl3 = fengji1Dl3;
+    }
+
+    public String getFengji2Dl1() {
+        return fengji2Dl1;
+    }
+
+    public void setFengji2Dl1(String fengji2Dl1) {
+        this.fengji2Dl1 = fengji2Dl1;
+    }
+
+    public String getFengji2Dl2() {
+        return fengji2Dl2;
+    }
+
+    public void setFengji2Dl2(String fengji2Dl2) {
+        this.fengji2Dl2 = fengji2Dl2;
+    }
+
+    public String getFengji2Dl3() {
+        return fengji2Dl3;
+    }
+
+    public void setFengji2Dl3(String fengji2Dl3) {
+        this.fengji2Dl3 = fengji2Dl3;
+    }
+
+    public String getCurrentDy() {
+        return currentDy;
+    }
+
+    public void setCurrentDy(String currentDy) {
+        this.currentDy = currentDy;
+    }
+
+    public String getJiazaiCs() {
+        return jiazaiCs;
+    }
+
+    public void setJiazaiCs(String jiazaiCs) {
+        this.jiazaiCs = jiazaiCs;
+    }
+
+    public String getLeijiYx() {
+        return leijiYx;
+    }
+
+    public void setLeijiYx(String leijiYx) {
+        this.leijiYx = leijiYx;
+    }
+
+    public String getLeijiJz() {
+        return leijiJz;
+    }
+
+    public void setLeijiJz(String leijiJz) {
+        this.leijiJz = leijiJz;
+    }
+
+    public String getBenciYx() {
+        return benciYx;
+    }
+
+    public void setBenciYx(String benciYx) {
+        this.benciYx = benciYx;
+    }
+
+    public String getBenciJz() {
+        return benciJz;
+    }
+
+    public void setBenciJz(String benciJz) {
+        this.benciJz = benciJz;
+    }
+
+    public String getDianyuanPl() {
+        return dianyuanPl;
+    }
+
+    public void setDianyuanPl(String dianyuanPl) {
+        this.dianyuanPl = dianyuanPl;
+    }
+
+    public String getDeviceGl() {
+        return deviceGl;
+    }
+
+    public void setDeviceGl(String deviceGl) {
+        this.deviceGl = deviceGl;
+    }
+
+    public String getDayPjSj() {
+        return dayPjSj;
+    }
+
+    public void setDayPjSj(String dayPjSj) {
+        this.dayPjSj = dayPjSj;
+    }
+
+    public String getKehuMc() {
+        return kehuMc;
+    }
+
+    public void setKehuMc(String kehuMc) {
+        this.kehuMc = kehuMc;
+    }
+
+    public String getKyjBianhao() {
+        return kyjBianhao;
+    }
+
+    public void setKyjBianhao(String kyjBianhao) {
+        this.kyjBianhao = kyjBianhao;
+    }
+
+    public String getKyjPp() {
+        return kyjPp;
+    }
+
+    public void setKyjPp(String kyjPp) {
+        this.kyjPp = kyjPp;
+    }
+
+    public String getRjbb() {
+        return rjbb;
+    }
+
+    public void setRjbb(String rjbb) {
+        this.rjbb = rjbb;
+    }
+
+    public String getYjbb() {
+        return yjbb;
+    }
+
+    public void setYjbb(String yjbb) {
+        this.yjbb = yjbb;
+    }
+
+    public String getKyjSn() {
+        return kyjSn;
+    }
+
+    public void setKyjSn(String kyjSn) {
+        this.kyjSn = kyjSn;
+    }
+
+    public Double getJqJd() {
+        return jqJd;
+    }
+
+    public void setJqJd(Double jqJd) {
+        this.jqJd = jqJd;
+    }
+
+    public Double getJqWd() {
+        return jqWd;
+    }
+
+    public void setJqWd(Double jqWd) {
+        this.jqWd = jqWd;
+    }
+
+    public String getNowTime() {
+        return nowTime;
+    }
+
+    public void setNowTime(String nowTime) {
+        this.nowTime = nowTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     /**
      * 解析json
@@ -393,40 +482,49 @@ public class DeviceDetail implements Serializable {
         DeviceDetail item = null;
         try {
             item = new DeviceDetail();
-            item.setAirPress(obj.getString("Air_press"));
-            item.setAirTemp(obj.getString("air_temp1"));
-            item.setDianjiTemp(obj.getString("dianji_temp"));
-            item.setModleTemp(obj.getString("Modle_temp"));
-            item.setEnviTemp(obj.getString("Envi_temp"));
-            item.setDelayDisplay(obj.getString("Delay_display"));
-            item.setCurrentDy(obj.getString("Current_dy"));
-            item.setZhujiDl1(obj.getString("Zhuji_dl1"));
-            item.setZhujiDl2(obj.getString("Zhuji_dl2"));
-            item.setZhujiDl3(obj.getString("Zhuji_dl3"));
-            item.setFengjiDl1(obj.getString("Fengji_dl1"));
-            item.setFengjiDl2(obj.getString("Fengji_dl2"));
-            item.setFengjiDl3(obj.getString("Fengji_dl3"));
-            item.setNenghaoH(obj.getString("Nenghao_h"));
-            item.setNenghaoL(obj.getString("Nenghao_l"));
-            item.setNenghaoAH(obj.getString("Nenghao_ah"));
-            item.setSaveH(obj.getString("Save_h"));
-            item.setSaveL(obj.getString("Save_L"));
-            item.setFengliqi(obj.getString("Fengliqi"));
-            item.setShuixiang(obj.getString("Shuixiang"));
-            item.setJinshui(obj.getString("Jinshui"));
-            item.setChushui(obj.getString("Chushui"));
-            item.setFengjiAvgDl(obj.getString("Fengjiavgdl"));
-            item.setFengjiAvgDl1(obj.getString("Fengjiavgdl1"));
-            item.setJiqiPdate(obj.getString("JiQi_Pdate"));
-            item.setJiqiQa(obj.getString("JiQi_qa"));
-            item.setDianjiSta(obj.getString("Dianji_sta"));
-            item.setAirSta(obj.getString("Air_sta"));
-            item.setFengjiSta1(obj.getString("Fengji_sta1"));
-            item.setFengjiSta2(obj.getString("Fengji_sta2"));
-            item.setAlarmSta(obj.getString("Alarm_sta"));
-            item.setDataTime(obj.getString("Data_time"));
-            item.setJqJd(obj.getDouble("JQ_JD"));
-            item.setJqWd(obj.getDouble("JQ_WD"));
+            item.setJqQiSn(obj.getString("机器序列号"));
+            item.setAirPress(obj.getString("排气压力"));
+            item.setAirTemp(obj.getString("机头温度"));
+            item.setDianjiTemp(obj.getString("电机温度"));
+            item.setModleTemp(obj.getString("电气温度"));
+            item.setEnviTemp(obj.getString("环境温度"));
+            item.setDianjiSta(obj.getString("电机状态"));
+            item.setAirSta(obj.getString("空压机状态"));
+            item.setFengjiSta1(obj.getString("风机1状态"));
+            item.setFengjiSta2(obj.getString("风机2状态"));
+            item.setJienengLv(obj.getString("节能率"));
+            item.setJienengDianneng(obj.getString("节能电能"));
+            item.setSjHaoneng(obj.getString("实际耗能"));
+            item.setDeviceSta(obj.getString("设备运行"));
+            item.setTongxunSta(obj.getString("通讯状况"));
+            item.setZhujiDl1(obj.getString("主机电流A"));
+            item.setZhujiDl2(obj.getString("主机电流B"));
+            item.setZhujiDl3(obj.getString("主机电流C"));
+            item.setFengji1Dl1(obj.getString("风机1#电流A"));
+            item.setFengji1Dl2(obj.getString("风机1#电流B"));
+            item.setFengji1Dl3(obj.getString("风机1#电流C"));
+            item.setFengji2Dl1(obj.getString("风机2#电流A"));
+            item.setFengji2Dl2(obj.getString("风机2#电流B"));
+            item.setFengji2Dl3(obj.getString("风机2#电流C"));
+            item.setCurrentDy(obj.getString("设备电压"));
+            item.setJiazaiCs(obj.getString("加载次数"));
+            item.setLeijiYx(obj.getString("累积运行时间"));
+            item.setLeijiJz(obj.getString("累积加载时间"));
+            item.setBenciYx(obj.getString("本次运行时间"));
+            item.setBenciJz(obj.getString("本次加载时间"));
+            item.setDianyuanPl(obj.getString("电源频率"));
+            item.setDeviceGl(obj.getString("设备功率"));
+            item.setDayPjSj(obj.getString("每天平均运行时间"));
+            item.setKehuMc(obj.getString("客户名称"));
+            item.setKyjBianhao(obj.getString("空压机编号"));
+            item.setKyjPp(obj.getString("空压机品牌"));
+            item.setRjbb(obj.getString("主机软件版本"));
+            item.setYjbb(obj.getString("主机硬件版本"));
+            item.setKyjSn(obj.getString("空压机序列号"));
+            item.setJqJd(obj.getDouble("经度"));
+            item.setJqWd(obj.getDouble("纬度"));
+            item.setNowTime(obj.getString("采集日期"));
+            item.setStatus(obj.getString("预/报警状态"));
         } catch (Exception e) {
             Logger.e("", "", e);
         }

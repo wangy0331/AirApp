@@ -16,9 +16,6 @@
 
 package com.zxing.view;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -32,10 +29,12 @@ import com.androidzhang.zxingframe.R;
 import com.google.zxing.ResultPoint;
 import com.zxing.camera.CameraManager;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 /**
  * This view is overlaid on top of the camera preview. It adds the viewfinder
  * rectangle and partial transparency outside it, as well as the laser scanner
- * animation and result points. �Զ����View������ʱ�м���ʾ��
  */
 public final class ViewfinderView extends View {
 
@@ -66,8 +65,8 @@ public final class ViewfinderView extends View {
 		maskColor = resources.getColor(R.color.viewfinder_mask);
 		resultColor = resources.getColor(R.color.result_view);
 		frameColor = resources.getColor(R.color.viewfinder_frame);
-		laserColor = resources.getColor(R.color.viewfinder_laser);
-		resultPointColor = resources.getColor(R.color.possible_result_points);
+		laserColor = resources.getColor(R.color.blue);
+		resultPointColor = resources.getColor(R.color.transparent);
 		scannerAlpha = 0;
 		possibleResultPoints = new HashSet<ResultPoint>(5);
 	}
@@ -99,17 +98,40 @@ public final class ViewfinderView extends View {
 			canvas.drawBitmap(resultBitmap, frame.left, frame.top, paint);
 		} else {
 
-			//画扫描框边上的角，总共8个部分 
-			// Draw a two pixel solid black border inside the framing rect
-			paint.setColor(frameColor);
-			canvas.drawRect(frame.left, frame.top, frame.right + 1,
-					frame.top + 2, paint);
-			canvas.drawRect(frame.left, frame.top + 2, frame.left + 2,
-					frame.bottom - 1, paint);
-			canvas.drawRect(frame.right - 1, frame.top, frame.right + 1,
-					frame.bottom - 1, paint);
-			canvas.drawRect(frame.left, frame.bottom - 1, frame.right + 1,
-					frame.bottom + 1, paint);
+//			//画扫描框边上的角，总共8个部分
+//			// Draw a two pixel solid black border inside the framing rect
+//			paint.setColor(frameColor);
+//			canvas.drawRect(frame.left, frame.top, frame.right + 1,
+//					frame.top + 2, paint);
+//			canvas.drawRect(frame.left, frame.top + 2, frame.left + 2,
+//					frame.bottom - 1, paint);
+//			canvas.drawRect(frame.right - 1, frame.top, frame.right + 1,
+//					frame.bottom - 1, paint);
+//			canvas.drawRect(frame.left, frame.bottom - 1, frame.right + 1,
+//					frame.bottom + 1, paint);
+
+			// 画出四个角
+			paint.setColor(getResources().getColor(R.color.blue));
+			// 左上角
+			canvas.drawRect(frame.left, frame.top, frame.left + 15,
+					frame.top + 5, paint);
+			canvas.drawRect(frame.left, frame.top, frame.left + 5,
+					frame.top + 15, paint);
+			// 右上角
+			canvas.drawRect(frame.right - 15, frame.top, frame.right,
+					frame.top + 5, paint);
+			canvas.drawRect(frame.right - 5, frame.top, frame.right,
+					frame.top + 15, paint);
+			// 左下角
+			canvas.drawRect(frame.left, frame.bottom - 5, frame.left + 15,
+					frame.bottom, paint);
+			canvas.drawRect(frame.left, frame.bottom - 15, frame.left + 5,
+					frame.bottom, paint);
+			// 右下角
+			canvas.drawRect(frame.right - 15, frame.bottom - 5, frame.right,
+					frame.bottom, paint);
+			canvas.drawRect(frame.right - 5, frame.bottom - 15, frame.right,
+					frame.bottom, paint);
 
 			// Draw a red "laser scanner" line through the middle to show
 			// decoding is active

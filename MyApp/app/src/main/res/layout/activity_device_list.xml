@@ -8,28 +8,50 @@
 
     <RadioGroup
         android:id="@+id/radio_group"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:layout_gravity="center_horizontal">
 
         <RadioButton
             android:id="@+id/device_kehu"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:checked="true"
+            android:button="@null"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/radio"
             android:text="@string/customer" />
 
         <RadioButton
             android:id="@+id/device_shebeihao"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:button="@null"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/radio"
             android:text="@string/device_number"/>
 
         <RadioButton
             android:id="@+id/device_quyu"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:button="@null"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="@drawable/radio"
             android:text="@string/area"/>
 
     </RadioGroup>

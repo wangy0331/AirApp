@@ -21,8 +21,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.androidzhang.zxingframe.R;
@@ -63,7 +63,9 @@ public class CaptureActivity extends Activity implements Callback {
 	private boolean playBeep;
 	private static final float BEEP_VOLUME = 0.10f;
 	private boolean vibrate;
-	private Button cancelScanButton;
+	private ImageButton cancelScanButton;
+
+	private Button mLightSta;
 
 	int ifOpenLight = 0; // 判断是否开启闪光灯
 
@@ -76,9 +78,25 @@ public class CaptureActivity extends Activity implements Callback {
 		// R.string.scan_card);
 		CameraManager.init(getApplication());
 		viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
-		cancelScanButton = (Button) this.findViewById(R.id.btn_cancel_scan);
+		cancelScanButton = (ImageButton) this.findViewById(R.id.header_btn_back);
+		mLightSta = (Button) findViewById(R.id.openLight);
+
+		if (ifOpenLight == 0) {
+			mLightSta.setBackgroundResource(R.drawable.off);
+		} else {
+			mLightSta.setBackgroundResource(R.drawable.no);
+		}
+
 		hasSurface = false;
 		inactivityTimer = new InactivityTimer(this);
+
+		cancelScanButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 	}
 
 	@Override
@@ -104,13 +122,13 @@ public class CaptureActivity extends Activity implements Callback {
 		vibrate = true;
 
 		// quit the scan view
-		cancelScanButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				CaptureActivity.this.finish();
-			}
-		});
+//		cancelScanButton.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				CaptureActivity.this.finish();
+//			}
+//		});
 	}
 
 	@Override
@@ -314,11 +332,14 @@ public class CaptureActivity extends Activity implements Callback {
 		case 0:
 			// 关闭
 			CameraManager.get().closeLight();
+			mLightSta.setBackgroundResource(R.drawable.off);
 			break;
 
 		case 1:
 			// 打开
 			CameraManager.get().openLight(); // 开闪光灯
+			mLightSta.setBackgroundResource(R.drawable.no
+			);
 			break;
 		default:
 			break;

@@ -51,7 +51,7 @@
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
-        </activity>
+         </activity>
 
 
         <meta-data
@@ -140,6 +140,15 @@
             android:screenOrientation="portrait"></activity>
 
         <activity android:name=".ui.device.DeviceRegisterDetialActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".ui.ThermometerActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".ui.yujing.YujingDetialActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".ui.baojing.BaojingDetailActivity"
             android:screenOrientation="portrait"></activity>
 
     </application>

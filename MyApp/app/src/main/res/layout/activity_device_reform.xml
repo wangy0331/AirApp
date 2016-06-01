@@ -3,7 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    android:paddingTop="12dp"
     android:focusable="true"
     android:focusableInTouchMode="true"
     >
@@ -15,19 +14,17 @@
         >
 
     <LinearLayout
+        android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-
-
-
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="10dp"
+            android:paddingTop="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -68,6 +65,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:background="@drawable/input_feform"
+            android:maxLines="1"
+            android:text=""
+            android:singleLine="true"
             android:hint="@string/kongxiang"/>
 
     </LinearLayout>
@@ -98,6 +98,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:background="@drawable/input_feform"
+            android:text=""
+            android:maxLines="1"
+            android:singleLine="true"
             android:hint="@string/kongxiang"/>
 
     </LinearLayout>
@@ -128,6 +131,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:background="@drawable/input_feform"
+            android:text=""
+            android:maxLines="1"
+            android:singleLine="true"
             android:hint="@string/kongxiang"/>
 
     </LinearLayout>
@@ -158,6 +164,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:background="@drawable/input_feform"
+            android:text=""
+            android:maxLines="1"
+            android:singleLine="true"
             android:hint="@string/kongxiang"/>
 
     </LinearLayout>
@@ -188,6 +197,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:background="@drawable/input_feform"
+            android:text=""
+            android:maxLines="1"
+            android:singleLine="true"
             android:hint="@string/kongxiang"/>
 
     </LinearLayout>
@@ -218,6 +230,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:background="@drawable/input_feform"
+            android:text=""
+            android:maxLines="1"
+            android:singleLine="true"
             android:hint="@string/kongxiang"/>
 
     </LinearLayout>
@@ -248,6 +263,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:background="@drawable/input_feform"
+            android:text=""
+            android:maxLines="1"
+            android:singleLine="true"
             android:hint="@string/kongxiang"/>
 
     </LinearLayout>
@@ -278,36 +296,42 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:background="@drawable/input_feform"
+                android:text=""
+                android:maxLines="1"
+                android:singleLine="true"
                 android:hint="@string/kongxiang"/>
 
         </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/push_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/photo"
-        android:layout_marginTop="20dp"
-        />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
 
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        <ImageButton
+            android:id="@+id/push_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/photo"
+            android:layout_marginTop="20dp"
+            />
 
-        android:drawableLeft="@drawable/dianhua"
-        style="@style/btn_blue"
-        android:text="@string/customer_phone"/>
+        <Button
+            android:id="@+id/device_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:drawableLeft="@drawable/dianhua"
+            style="@style/btn_blue"
+            android:text="@string/customer_phone"/>
 
     </LinearLayout>
+
+
 
     </ScrollView>
 </LinearLayout>

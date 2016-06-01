@@ -1,11 +1,15 @@
 package com.sohu110.airapp.ui.jieneng;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +17,7 @@ import android.widget.Toast;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -26,7 +31,6 @@ import com.sohu110.airapp.utils.SortComparator;
 import com.sohu110.airapp.widget.LibToast;
 import com.sohu110.airapp.widget.LoadProcessDialog;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,7 +40,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 节能之星
+ * 节能砖家
  * Created by Aaron on 2016/4/26.
  */
 public class EnergyActivity extends BaseActivity {
@@ -46,6 +50,8 @@ public class EnergyActivity extends BaseActivity {
     private LineChart mLineChart;
     //昨日节能
     private TextView mZrjn;
+    //昨日节能
+    private TextView mJrjn;
     //总实际耗能
     private TextView mMaxHN;
     //累计节能
@@ -53,8 +59,26 @@ public class EnergyActivity extends BaseActivity {
     //节能率
     private TextView mJnl;
 
+    private TextView mJieneng;
+
+    private TextView mShouyi;
+
+    private TextView mDanwei;
+
+    private TextView mJiage;
+
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
+    private double jrjn;
+    private double zrjn;
+    private double sjjn;
+    private double ljjn;
+
+    private TextView zsjText;
+    private TextView lText;
+    private TextView ljText;
+
+    private double jiage = 0.8;
 
     LineData mLineData;
 
@@ -69,7 +93,9 @@ public class EnergyActivity extends BaseActivity {
 
         mLineChart = (LineChart) findViewById(R.id.jn_chart);
 
-        mZrjn = (TextView) findViewById(R.id.zrjn_text);
+        mZrjn = (TextView) findViewById(R.id.zrjn);
+
+        mJrjn = (TextView) findViewById(R.id.jrjn);
 
         mMaxHN = (TextView) findViewById(R.id.maxJn);
 
@@ -77,16 +103,116 @@ public class EnergyActivity extends BaseActivity {
 
         mJnl = (TextView) findViewById(R.id.jnl);
 
+        mJieneng = (TextView) findViewById(R.id.jieneng);
+
+        mShouyi = (TextView) findViewById(R.id.shouyi);
+
+        mDanwei = (TextView) findViewById(R.id.danwei);
+
+        zsjText = (TextView) findViewById(R.id.zsj_text);
+
+        ljText = (TextView) findViewById(R.id.lj_text);
+
+        lText = (TextView) findViewById(R.id.l_text);
+
+        mJiage = (TextView) findViewById(R.id.jiage);
+
+        mJiage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(EnergyActivity.this);
+                final EditText inputServer = new EditText(EnergyActivity.this);
+                builder.setTitle("请输入每度电的价格(元/度)").setView(inputServer)
+                        .setNegativeButton("取消", null);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        inputServer.getText().toString();
+                        mJiage.setText(inputServer.getText().toString());
+                    }
+                });
+                builder.show();
+            }
+        });
+
+        mJieneng.setTextColor(getResources().getColor(R.color.check));
+
+        mShouyi.setTextColor(getResources().getColor(R.color.notCheck));
+
+        mDanwei.setText(getResources().getString(R.string.kwh));
+        zsjText.setText(getResources().getString(R.string.jnzx_zjn));
+        ljText.setText(getResources().getString(R.string.ljjn));
+        lText.setText(getResources().getString(R.string.jnl));
+
+        //节能
+        mJieneng.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mJieneng.setTextColor(getResources().getColor(R.color.check));
+                mShouyi.setTextColor(getResources().getColor(R.color.notCheck));
+
+                mZrjn.setText(String.valueOf(zrjn));
+
+                mZrjn.setText("昨日节能 " + String.valueOf(zrjn) + "(kWh)");
+
+                mDanwei.setText(getResources().getString(R.string.kwh));
+                zsjText.setText(getResources().getString(R.string.jnzx_zjn));
+                ljText.setText(getResources().getString(R.string.ljjn));
+                lText.setText(getResources().getString(R.string.jnl));
+
+                mJrjn.setText(String.valueOf(jrjn));
+                mMaxHN.setText(String.valueOf(sjjn));
+                mLeiji.setText(String.valueOf(ljjn));
+
+                double a = ljjn;
+                double b = sjjn;
+                double db = a/b;
+
+                String lv = String .format("%.2f", db*100);
+
+                mJnl.setText(lv);
+            }
+        });
+        //收益
+        mShouyi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mJieneng.setTextColor(getResources().getColor(R.color.notCheck));
+                mShouyi.setTextColor(getResources().getColor(R.color.check));
+
+                mZrjn.setText(String.valueOf(zrjn));
+
+                mZrjn.setText("昨日收益 " + String.format("%.2f", zrjn * jiage) + "(元)");
+
+                mDanwei.setText(getResources().getString(R.string.yuan));
+                zsjText.setText(getResources().getString(R.string.zsjyd));
+                ljText.setText(getResources().getString(R.string.ljsy));
+                lText.setText(getResources().getString(R.string.syl));
+
+                mJrjn.setText(String.format("%.2f", jrjn * jiage));
+                mMaxHN.setText(String.format("%.2f", sjjn * jiage));
+                mLeiji.setText(String.format("%.2f", ljjn * jiage));
+
+                double a = ljjn;
+                double b = sjjn;
+
+                double db = a/b;
+
+                String lv = String.format("%.2f", db * 100);
+
+                mJnl.setText(lv);
+            }
+        });
+
+
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.energy_refresh);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 if (LibApplication.getInstance().isNetworkConnected()) {
-                    //昨日
-                    new EnergyYesterTask("yester").execute();
                     //今日
-                    new EnergyTodayTask("today").execute();
+                    new EnergyTodayTask("day").execute();
                     //七日
                     new EnergySdayTask("sday").execute();
                 } else {
@@ -95,17 +221,10 @@ public class EnergyActivity extends BaseActivity {
             }
         });
 
-        GradientDrawable grad = new GradientDrawable(//渐变色
-                GradientDrawable.Orientation.TOP_BOTTOM,
-                new int[]{getResources().getColor(R.color.bg_jieneng1), getResources().getColor(R.color.bg_jieneng2)}
-        );
-        mLinearLayout.setBackgroundDrawable(grad);//设置渐变颜色
 
         if (LibApplication.getInstance().isNetworkConnected()) {
-            //昨日
-            new EnergyYesterTask("yester").execute();
             //今日
-            new EnergyTodayTask("today").execute();
+            new EnergyTodayTask("day").execute();
             //七日
             new EnergySdayTask("sday").execute();
         } else {
@@ -114,61 +233,6 @@ public class EnergyActivity extends BaseActivity {
 
 
     }
-
-
-    class EnergyYesterTask extends AsyncTask<Void, Void, Result<Energy>> {
-
-        String mCondition;
-        LoadProcessDialog mLoadDialog;
-
-        public EnergyYesterTask(String condition) {
-            mCondition = condition;
-            mLoadDialog = new LoadProcessDialog(EnergyActivity.this);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mLoadDialog.show();
-        }
-
-        @Override
-        protected Result<Energy> doInBackground(Void... params) {
-            try {
-                return ServiceCenter.getEnergyYes(mCondition);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Result<Energy> result) {
-            super.onPostExecute(result);
-            mLoadDialog.dismiss();
-            if (result != null) {
-                if (result.isSuceed()) {
-
-                    if (result != null) {
-                        if (result.getData() != null) {
-                            mZrjn.setText(String.valueOf(result.getData().getJyhn()));
-                        } else {
-                            mZrjn.setText("0.0");
-                        }
-                    } else {
-                        mZrjn.setText("0.0");
-                    }
-
-                } else {
-                    Toast.makeText(EnergyActivity.this, R.string.energy_failure, Toast.LENGTH_SHORT).show();
-                }
-
-            } else {
-                Toast.makeText(EnergyActivity.this, R.string.member_register_network, Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
 
     class EnergyTodayTask extends AsyncTask<Void, Void, Result<Energy>> {
 
@@ -205,19 +269,31 @@ public class EnergyActivity extends BaseActivity {
 
                     if (result != null) {
                         if (result.getData() != null) {
+
+
+                            zrjn = result.getData().getZrjn();
+                            jrjn = result.getData().getJrjn();
+                            sjjn = result.getData().getSjhn();
+                            ljjn = result.getData().getJyhn();
+
+                            mJieneng.setTextColor(getResources().getColor(R.color.check));
+                            mShouyi.setTextColor(getResources().getColor(R.color.notCheck));
+
+                            mZrjn.setText("昨日节能 " + String.valueOf(result.getData().getZrjn()) + "(kWh)");
+
+                            mDanwei.setText(getResources().getString(R.string.kwh));
+                            zsjText.setText(getResources().getString(R.string.jnzx_zjn));
+                            ljText.setText(getResources().getString(R.string.ljjn));
+                            lText.setText(getResources().getString(R.string.jnl));
+
+                            mJrjn.setText(String.valueOf(result.getData().getJrjn()));
                             mMaxHN.setText(String.valueOf(result.getData().getSjhn()));
                             mLeiji.setText(String.valueOf(result.getData().getJyhn()));
 
-                            int a = result.getData().getJyhn();
-                            int b = result.getData().getSjhn();
+                            double a = result.getData().getJyhn();
+                            double b = result.getData().getSjhn();
 
-                            Log.e("a", String.valueOf(a));
-                            Log.e("b", String.valueOf(b));
-
-                            double db = (double)a/b;
-
-
-                            String sal = new DecimalFormat("#.00").format(db*100);
+                            double db = a/b;
 
                             String lv = String .format("%.2f", db*100);
 
@@ -315,7 +391,8 @@ public class EnergyActivity extends BaseActivity {
         lineChart.getXAxis().setGridColor(
                 getResources().getColor(R.color.lineChart_transparent));
 
-
+        lineChart.getAxisLeft().setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        lineChart.getAxisLeft().setStartAtZero(false);
 
         //隐藏左边坐标轴横网格线
         lineChart.getAxisLeft().setDrawGridLines(false);
@@ -331,6 +408,12 @@ public class EnergyActivity extends BaseActivity {
 
         // enable touch gestures
         lineChart.setTouchEnabled(false); // 设置是否可以触摸
+
+
+//        lineChart.getXAxis().resetLabelsToSkip();
+//        lineChart.getXAxis().setSpaceBetweenLabels(3);
+        lineChart.getXAxis().setLabelsToSkip(0);
+//        xAxis.resetLabelsToSkip(); setSpaceBetweenLabels(int characters)
 
         // enable scaling and dragging
         lineChart.setDragEnabled(true);// 是否可以拖拽
@@ -424,8 +507,8 @@ public class EnergyActivity extends BaseActivity {
             // y轴的数据
             ArrayList<Entry> yValues = new ArrayList<Entry>();
             for (int i = 0; i < result.size(); i++) {
-                int value = result.get(i).getJyhn();
-                yValues.add(new Entry(value, i));
+                double value = result.get(i).getJyhn();
+                yValues.add(new Entry((float)value, i));
             }
 
             // create a dataset and give it a type
@@ -435,11 +518,14 @@ public class EnergyActivity extends BaseActivity {
             // mLineDataSet.setFillColor(Color.RED);
 
         //用y轴的集合来设置参数
-        lineDataSet.setLineWidth(3f); // 线宽
-        lineDataSet.setCircleSize(3f);// 显示的圆形大小
-        lineDataSet.setColor(Color.rgb(255, 51, 0));// 显示颜色
-        lineDataSet.setCircleColor(Color.rgb(255, 51, 0));// 圆形的颜色
-        lineDataSet.setHighLightColor(Color.rgb(255, 51, 0)); // 高亮的线的颜色
+        lineDataSet.setDrawCircles(false);
+        lineDataSet.setLineWidth(2f); // 线宽
+//        lineDataSet.setCircleSize(3f);// 显示的圆形大小
+        lineDataSet.setColor(Color.rgb(0, 174, 239));// 显示颜色
+//        lineDataSet.setCircleColor(Color.rgb(255, 51, 0));// 圆形的颜色
+//        lineDataSet.setHighLightColor(Color.rgb(255, 51, 0)); // 高亮的线的颜色
+        lineDataSet.setDrawFilled(true);
+        lineDataSet.setFillColor(Color.rgb(164, 194, 244));
         lineDataSet.setDrawValues(false);
 
 

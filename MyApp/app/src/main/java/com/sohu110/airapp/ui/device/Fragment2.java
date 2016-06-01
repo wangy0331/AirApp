@@ -20,11 +20,13 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.sohu110.airapp.LibApplication;
 import com.sohu110.airapp.R;
 import com.sohu110.airapp.bean.DeviceChart;
 import com.sohu110.airapp.bean.Result;
 import com.sohu110.airapp.log.Logger;
 import com.sohu110.airapp.service.ServiceCenter;
+import com.sohu110.airapp.widget.LibToast;
 import com.sohu110.airapp.widget.LoadProcessDialog;
 
 import java.util.ArrayList;
@@ -35,7 +37,14 @@ public class Fragment2 extends Fragment {
 	private XAxis xAxis;         //X坐标轴
 	private YAxis yAxis;
 
-	private LineChart chart;
+	//排气温度
+	private LineChart pqwdChart;
+	//电机温度
+	private LineChart djwdChart;
+	//环境温度
+	private LineChart hjwdChart;
+	//空气温度
+	private LineChart kqylChart;
 
 	private static String GUID = "guid";
 
@@ -45,11 +54,16 @@ public class Fragment2 extends Fragment {
 
 	private RadioGroup mRadioGroup;
 
-	private RadioButton mTemp;
+	private RadioButton mRadionBtn;
 
 	private RadioButton mPress;
 
-	LineData mLineData;
+
+
+	LineData mLineDataPQ;
+	LineData mLineDataDJ;
+	LineData mLineDataHJ;
+	LineData mLineDataKQ;
 
 
 	//y轴
@@ -83,11 +97,33 @@ public class Fragment2 extends Fragment {
 
 		mImageButton = (ImageButton) view.findViewById(R.id.chart_refresh);
 
+//		mRadioGroup = (RadioGroup) view.findViewById(R.id.radio_group_chart);
+//
+//		mTemp = (RadioButton) view.findViewById(R.id.temp);
+//
+//		mPress = (RadioButton) view.findViewById(R.id.press);
+
 		mRadioGroup = (RadioGroup) view.findViewById(R.id.radio_group_chart);
 
-		mTemp = (RadioButton) view.findViewById(R.id.temp);
+		mRadionBtn = (RadioButton) view.findViewById(mRadioGroup.getCheckedRadioButtonId());
 
-		mPress = (RadioButton) view.findViewById(R.id.press);
+		Log.e("chart_radion", mRadionBtn.getText().toString());
+
+//		mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//			@Override
+//			public void onCheckedChanged(RadioGroup group, int checkedId) {
+//				if (checkedId == mRadionBtn.getId()) {
+//					Log.e("chart_radion", mRadionBtn.getText().toString());
+//				}
+//
+//
+////				if (LibApplication.getInstance().isNetworkConnected()) {
+////					new DeviceListTask(mEditText.getText().toString(), condition).execute();
+////				} else {
+////					LibToast.show(BaojingListActivity.this, R.string.not_network);
+////				}
+//			}
+//		});
 
 		mImageButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -98,22 +134,25 @@ public class Fragment2 extends Fragment {
 			}
 		});
 
-		mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(RadioGroup group, int checkedId) {
+//		mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//			@Override
+//			public void onCheckedChanged(RadioGroup group, int checkedId) {
+//
+//				if (checkedId == mTemp.getId()) {//温度
+//					Log.e("temp", "temp");
+//				} else if (checkedId == mPress.getId()) {//压力
+//					Log.e("press", "press");
+//				}
+//
+////				new DeviceListTask(mEditText.getText().toString(), condition).execute();
+//			}
+//		});
 
-				if (checkedId == mTemp.getId()) {//温度
-					Log.e("temp", "temp");
-				} else if (checkedId == mPress.getId()) {//压力
-					Log.e("press", "press");
-				}
 
-//				new DeviceListTask(mEditText.getText().toString(), condition).execute();
-			}
-		});
-
-
-		chart = (LineChart) view.findViewById(R.id.chart);
+		pqwdChart = (LineChart) view.findViewById(R.id.chartPQWD);
+		djwdChart = (LineChart) view.findViewById(R.id.chartDJWD);
+		hjwdChart = (LineChart) view.findViewById(R.id.chartHJWD);
+		kqylChart = (LineChart) view.findViewById(R.id.chartKQYL);
 
 		return view;
 	}
@@ -140,11 +179,20 @@ public class Fragment2 extends Fragment {
 		lineChart.setGridBackgroundColor(Color.WHITE & 0x70FFFFFF); // 表格的的颜色，在这里是是给颜色设置一个透明度
 
 
+		lineChart.getAxisLeft().setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);//让Y轴的刻度在右边
+		lineChart.getAxisLeft().setStartAtZero(false);//刻度不从0开始
+
 		lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM); // 让x轴在下面
 		lineChart.getAxisRight().setEnabled(false);
 
 		lineChart.getXAxis().setGridColor(
 				getResources().getColor(R.color.lineChart_transparent));
+
+		//刻度颜色
+		lineChart.getXAxis().setTextColor(Color.rgb(255, 255, 255));
+		lineChart.getAxisLeft().setTextColor(Color.rgb(255, 255, 255));
+		lineChart.getXAxis().setAxisLineColor(Color.rgb(255, 255, 255));
+		lineChart.getAxisLeft().setAxisLineColor(Color.rgb(255, 255, 255));
 
 
 		//隐藏左边坐标轴横网格线
@@ -156,8 +204,8 @@ public class Fragment2 extends Fragment {
 
 		lineChart.getLegend().setEnabled(false);
 
-		lineChart.getXAxis().setTextSize(15f);
-		lineChart.getAxisLeft().setTextSize(15f);
+		lineChart.getXAxis().setTextSize(10f);
+		lineChart.getAxisLeft().setTextSize(10f);
 
 		// enable touch gestures
 		lineChart.setTouchEnabled(false); // 设置是否可以触摸
@@ -169,7 +217,7 @@ public class Fragment2 extends Fragment {
 		// if disabled, scaling can be done on x- and y-axis separately
 		lineChart.setPinchZoom(false);//
 
-		lineChart.setBackgroundColor(color);// 设置背景
+//		lineChart.setBackgroundColor(color);// 设置背景
 
 //		lineChart.getAxisLeft().setAxisMinValue(-30f);
 
@@ -192,7 +240,7 @@ public class Fragment2 extends Fragment {
 		mLegend.setForm(Legend.LegendForm.SQUARE);
 //		mLegend.set
 		mLegend.setFormSize(15f);// 字体
-		mLegend.setTextColor(Color.rgb(0, 0, 255));// 颜色
+		mLegend.setTextColor(Color.rgb(255, 255, 255));// 颜色
 		mLegend.setTextSize(15f);
 //      mLegend.setTypeface(mTf);// 字体
 
@@ -207,7 +255,7 @@ public class Fragment2 extends Fragment {
 	 * @param range 用来生成range以内的随机数
 	 * @return
 	 */
-	private LineData getLineData(List<DeviceChart> result) {
+	private LineData getLineData1(List<DeviceChart> result) {
 
 
 		ArrayList<String> xValues = new ArrayList<String>();
@@ -220,114 +268,191 @@ public class Fragment2 extends Fragment {
 		// y轴的数据  排气温度
 		ArrayList<Entry> yValues = new ArrayList<Entry>();
 		for (int i = 0; i < result.size(); i++) {
-			int value = result.get(i).getAirTemp();
+			int value = result.get(i).getGqYl();
 			yValues.add(new Entry(value, i));
 		}
 
-		// y轴的数据  排气温度
-		ArrayList<Entry> yValues1 = new ArrayList<Entry>();
-		for (int i = 0; i < result.size(); i++) {
-			int value = result.get(i).getAirTemp1();
-			yValues1.add(new Entry(value, i));
-		}
-
-		// y轴的数据  电机温度
-		ArrayList<Entry> yValues2 = new ArrayList<Entry>();
-		for (int i = 0; i < result.size(); i++) {
-			int value = result.get(i).getDianjiTmep();
-			yValues2.add(new Entry(value, i));
-		}
-
-		// y轴的数据  环境温度
-		ArrayList<Entry> yValues3 = new ArrayList<Entry>();
-		for (int i = 0; i < result.size(); i++) {
-			int value = result.get(i).getEnvireTemp();
-			yValues3.add(new Entry(value, i));
-		}
-
-		// y轴的数据  气压
-		ArrayList<Entry> yValues4 = new ArrayList<Entry>();
-		for (int i = 0; i < result.size(); i++) {
-			int value = result.get(i).getAirPress();
-			yValues4.add(new Entry(value, i));
-		}
 
 		// create a dataset and give it a type
 		// y轴的数据集合
-		LineDataSet lineDataSet = new LineDataSet(yValues, "");
+		LineDataSet lineDataSet = new LineDataSet(yValues, "供气压力折线图");
 //		lineDataSet.setFillAlpha(200);
 		// mLineDataSet.setFillColor(Color.RED);
 
 
 		//用y轴的集合来设置参数
 		lineDataSet.setLineWidth(1.0f); // 线宽
-		lineDataSet.setCircleSize(3f);// 显示的圆形大小
-		lineDataSet.setColor(Color.rgb(0, 178, 238));// 显示颜色
-		lineDataSet.setCircleColor(Color.rgb(0, 178, 238));// 圆形的颜色
-		lineDataSet.setHighLightColor(Color.rgb(0, 178, 238)); // 高亮的线的颜色
+		lineDataSet.setColor(Color.rgb(255, 255, 255));// 显示颜色
+		lineDataSet.setCircleColor(Color.rgb(255, 255, 255));// 圆形的颜色
+		lineDataSet.setHighLightColor(Color.rgb(255, 255, 255)); // 高亮的线的颜色
 		lineDataSet.setDrawValues(false);
 
-		// y轴的数据集合
-		LineDataSet lineDataSet1 = new LineDataSet(yValues1, "");
-//		lineDataSet.setFillAlpha(200);
-		// mLineDataSet.setFillColor(Color.RED);
+		lineDataSet.setDrawCircles(false);
 
-		//用y轴的集合来设置参数
-		lineDataSet1.setLineWidth(1.0f); // 线宽
-		lineDataSet1.setCircleSize(3f);// 显示的圆形大小
-		lineDataSet1.setColor(Color.rgb(139, 0, 139));// 显示颜色
-		lineDataSet1.setCircleColor(Color.rgb(139, 0, 139));// 圆形的颜色
-		lineDataSet1.setHighLightColor(Color.rgb(139, 0, 139)); // 高亮的线的颜色
-		lineDataSet1.setDrawValues(false);
+
+		ArrayList<LineDataSet> lineDataSets = new ArrayList<LineDataSet>();
+
+		lineDataSets.add(lineDataSet);
+
+		// create a data object with the datasets
+
+		LineData lineData = new LineData(xValues, lineDataSets);
+
+
+		return lineData;
+	}
+
+
+	/**
+	 * 生成一个数据
+	 *
+	 * @param count 表示图表中有多少个坐标点
+	 * @param range 用来生成range以内的随机数
+	 * @return
+	 */
+	private LineData getLineData2(List<DeviceChart> result) {
+
+
+		ArrayList<String> xValues = new ArrayList<String>();
+		for (int i = result.size()-1; i >= 0; i--) {
+			// x轴显示的数据，这里默认使用数字下标显示
+			xValues.add("" + result.get(i).getDatetime());
+		}
+
+
+
+		// y轴的数据  电机温度
+		ArrayList<Entry> yValues2 = new ArrayList<Entry>();
+		for (int i = 0; i < result.size(); i++) {
+			int value = result.get(i).getDjdl();
+			yValues2.add(new Entry(value, i));
+		}
+
+
+
 
 		// y轴的数据集合
-		LineDataSet lineDataSet2 = new LineDataSet(yValues2, "");
+		LineDataSet lineDataSet2 = new LineDataSet(yValues2, "电机电流折线图");
 //		lineDataSet.setFillAlpha(200);
 		// mLineDataSet.setFillColor(Color.RED);
 
 		//用y轴的集合来设置参数
 		lineDataSet2.setLineWidth(1.0f); // 线宽
-		lineDataSet2.setCircleSize(3f);// 显示的圆形大小
-		lineDataSet2.setColor(Color.rgb(255, 0, 0));// 显示颜色
-		lineDataSet2.setCircleColor(Color.rgb(255, 0, 0));// 圆形的颜色
-		lineDataSet2.setHighLightColor(Color.rgb(255, 0, 0)); // 高亮的线的颜色
+		lineDataSet2.setColor(Color.rgb(255, 255, 255));// 显示颜色
+		lineDataSet2.setCircleColor(Color.rgb(255, 255, 255));// 圆形的颜色
+		lineDataSet2.setHighLightColor(Color.rgb(255, 255, 255)); // 高亮的线的颜色
 		lineDataSet2.setDrawValues(false);
 
+		lineDataSet2.setDrawCircles(false);
+
+		ArrayList<LineDataSet> lineDataSets = new ArrayList<LineDataSet>();
+
+		lineDataSets.add(lineDataSet2);
+
+
+		// create a data object with the datasets
+
+		LineData lineData = new LineData(xValues, lineDataSets);
+
+
+		return lineData;
+	}
+
+	/**
+	 * 生成一个数据
+	 *
+	 * @param count 表示图表中有多少个坐标点
+	 * @param range 用来生成range以内的随机数
+	 * @return
+	 */
+	private LineData getLineData3(List<DeviceChart> result) {
+
+
+		ArrayList<String> xValues = new ArrayList<String>();
+		for (int i = result.size()-1; i >= 0; i--) {
+			// x轴显示的数据，这里默认使用数字下标显示
+			xValues.add("" + result.get(i).getDatetime());
+		}
+
+
+
+		// y轴的数据  环境温度
+		ArrayList<Entry> yValues3 = new ArrayList<Entry>();
+		for (int i = 0; i < result.size(); i++) {
+			int value = result.get(i).getDjwd();
+			yValues3.add(new Entry(value, i));
+		}
+
 		// y轴的数据集合
-		LineDataSet lineDataSet3 = new LineDataSet(yValues3, "");
+		LineDataSet lineDataSet3 = new LineDataSet(yValues3, "电机温度折线图");
 //		lineDataSet.setFillAlpha(200);
 		// mLineDataSet.setFillColor(Color.RED);
 
 		//用y轴的集合来设置参数
 		lineDataSet3.setLineWidth(1.0f); // 线宽
-		lineDataSet3.setCircleSize(3f);// 显示的圆形大小
-		lineDataSet3.setColor(Color.rgb(0, 205, 102));// 显示颜色
-		lineDataSet3.setCircleColor(Color.rgb(0, 205, 102));// 圆形的颜色
-		lineDataSet3.setHighLightColor(Color.rgb(0, 205, 102)); // 高亮的线的颜色
+		lineDataSet3.setColor(Color.rgb(255, 255, 255));// 显示颜色
+		lineDataSet3.setCircleColor(Color.rgb(255, 255, 255));// 圆形的颜色
+		lineDataSet3.setHighLightColor(Color.rgb(255, 255, 255)); // 高亮的线的颜色
 		lineDataSet3.setDrawValues(false);
 
+		lineDataSet3.setDrawCircles(false);
+
+		ArrayList<LineDataSet> lineDataSets = new ArrayList<LineDataSet>();
+
+		lineDataSets.add(lineDataSet3);
+
+		// create a data object with the datasets
+
+		LineData lineData = new LineData(xValues, lineDataSets);
+
+
+		return lineData;
+	}
+
+
+	/**
+	 * 生成一个数据
+	 *
+	 * @param count 表示图表中有多少个坐标点
+	 * @param range 用来生成range以内的随机数
+	 * @return
+	 */
+	private LineData getLineData4(List<DeviceChart> result) {
+
+
+		ArrayList<String> xValues = new ArrayList<String>();
+		for (int i = result.size()-1; i >= 0; i--) {
+			// x轴显示的数据，这里默认使用数字下标显示
+			xValues.add("" + result.get(i).getDatetime());
+		}
+
+
+
+
+		// y轴的数据  气压
+		ArrayList<Entry> yValues4 = new ArrayList<Entry>();
+		for (int i = 0; i < result.size(); i++) {
+			int value = result.get(i).getPqwd();
+			yValues4.add(new Entry(value, i));
+		}
 
 		// y轴的数据集合
-		LineDataSet lineDataSet4 = new LineDataSet(yValues4, "");
+		LineDataSet lineDataSet4 = new LineDataSet(yValues4, "排气温度折线图");
 //		lineDataSet.setFillAlpha(200);
 		// mLineDataSet.setFillColor(Color.RED);
 
 		//用y轴的集合来设置参数
 		lineDataSet4.setLineWidth(1.0f); // 线宽
-		lineDataSet4.setCircleSize(3f);// 显示的圆形大小
-		lineDataSet4.setColor(Color.rgb(0, 0, 0));// 显示颜色
-		lineDataSet4.setCircleColor(Color.rgb(0, 0, 0));// 圆形的颜色
-		lineDataSet4.setHighLightColor(Color.rgb(0, 0, 0)); // 高亮的线的颜色
+		lineDataSet4.setColor(Color.rgb(255, 255, 255));// 显示颜色
+		lineDataSet4.setCircleColor(Color.rgb(255, 255, 255));// 圆形的颜色
+		lineDataSet4.setHighLightColor(Color.rgb(255, 255, 255)); // 高亮的线的颜色
 		lineDataSet4.setDrawValues(false);
 
 
+		lineDataSet4.setDrawCircles(false);
+
 		ArrayList<LineDataSet> lineDataSets = new ArrayList<LineDataSet>();
 
-
-		lineDataSets.add(lineDataSet);
-		lineDataSets.add(lineDataSet1); // add the datasets
-		lineDataSets.add(lineDataSet2);
-		lineDataSets.add(lineDataSet3);
 		lineDataSets.add(lineDataSet4);
 
 
@@ -374,9 +499,15 @@ public class Fragment2 extends Fragment {
 						Log.e("个数", String.valueOf(result.getData().size()));
 
 
-						mLineData = getLineData(result.getData());
+						mLineDataPQ = getLineData1(result.getData());
+						mLineDataDJ = getLineData2(result.getData());
+						mLineDataHJ = getLineData3(result.getData());
+						mLineDataKQ = getLineData4(result.getData());
 
-						showChart(chart, mLineData, Color.rgb(255, 255, 255));
+						showChart(pqwdChart, mLineDataPQ, Color.rgb(255, 255, 255));
+						showChart(djwdChart, mLineDataDJ, Color.rgb(255, 255, 255));
+						showChart(hjwdChart, mLineDataHJ, Color.rgb(255, 255, 255));
+						showChart(kqylChart, mLineDataKQ, Color.rgb(255, 255, 255));
 
 					}
 
@@ -433,17 +564,17 @@ public class Fragment2 extends Fragment {
 						Log.e("个数", String.valueOf(result.getData().size()));
 
 
-						mLineData = getLineData(result.getData());
-
-						showChart(chart, mLineData, Color.rgb(255, 255, 255));
+//						mLineData = getLineData(result.getData());
+//
+//						showChart(chart, mLineData, Color.rgb(255, 255, 255));
 
 					}
 
 				} else {
-					Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+//					Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
 				}
 			} else {
-				Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
 			}
 		}
 

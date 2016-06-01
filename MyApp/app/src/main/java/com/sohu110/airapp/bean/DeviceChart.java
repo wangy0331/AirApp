@@ -13,118 +13,57 @@ import java.util.List;
  * Created by Aaron on 2016/4/21.
  */
 public class DeviceChart implements Serializable {
-    //设备电流
-    private int setDl;
-    //设备电压
-    private int setDy;
-    //空气压力
-    private int airPress;
-    //排气温度
-    private int airTemp;
-    //排气温度1
-    private int airTemp1;
-    //环境温度
-    private int envireTemp;
+    //机器序列号
+    private String jiqiSn;
+    //供气压力
+    private int gqYl;
+    //电机电流
+    private int djdl;
     //电机温度
-    private int dianjiTmep;
-    //主机电流A
-    private int zhujiDla;
-    //主机电流B
-    private int zhujiDlb;
-    //主机电流C
-    private int zhujiDlc;
-    //模块温度
-    private int modleTemp;
+    private int djwd;
+    //排气温度
+    private int pqwd;
     //时间
     private String datetime;
 
-
-    public int getSetDl() {
-        return setDl;
+    public String getJiqiSn() {
+        return jiqiSn;
     }
 
-    public void setSetDl(int setDl) {
-        this.setDl = setDl;
+    public void setJiqiSn(String jiqiSn) {
+        this.jiqiSn = jiqiSn;
     }
 
-    public int getSetDy() {
-        return setDy;
+    public int getGqYl() {
+        return gqYl;
     }
 
-    public void setSetDy(int setDy) {
-        this.setDy = setDy;
+    public void setGqYl(int gqYl) {
+        this.gqYl = gqYl;
     }
 
-    public int getAirPress() {
-        return airPress;
+    public int getDjdl() {
+        return djdl;
     }
 
-    public void setAirPress(int airPress) {
-        this.airPress = airPress;
+    public void setDjdl(int djdl) {
+        this.djdl = djdl;
     }
 
-    public int getAirTemp() {
-        return airTemp;
+    public int getDjwd() {
+        return djwd;
     }
 
-    public void setAirTemp(int airTemp) {
-        this.airTemp = airTemp;
+    public void setDjwd(int djwd) {
+        this.djwd = djwd;
     }
 
-    public int getAirTemp1() {
-        return airTemp1;
+    public int getPqwd() {
+        return pqwd;
     }
 
-    public void setAirTemp1(int airTemp1) {
-        this.airTemp1 = airTemp1;
-    }
-
-    public int getEnvireTemp() {
-        return envireTemp;
-    }
-
-    public void setEnvireTemp(int envireTemp) {
-        this.envireTemp = envireTemp;
-    }
-
-    public int getDianjiTmep() {
-        return dianjiTmep;
-    }
-
-    public void setDianjiTmep(int dianjiTmep) {
-        this.dianjiTmep = dianjiTmep;
-    }
-
-    public int getZhujiDla() {
-        return zhujiDla;
-    }
-
-    public void setZhujiDla(int zhujiDla) {
-        this.zhujiDla = zhujiDla;
-    }
-
-    public int getZhujiDlb() {
-        return zhujiDlb;
-    }
-
-    public void setZhujiDlb(int zhujiDlb) {
-        this.zhujiDlb = zhujiDlb;
-    }
-
-    public int getZhujiDlc() {
-        return zhujiDlc;
-    }
-
-    public void setZhujiDlc(int zhujiDlc) {
-        this.zhujiDlc = zhujiDlc;
-    }
-
-    public int getModleTemp() {
-        return modleTemp;
-    }
-
-    public void setModleTemp(int modleTemp) {
-        this.modleTemp = modleTemp;
+    public void setPqwd(int pqwd) {
+        this.pqwd = pqwd;
     }
 
     public String getDatetime() {
@@ -165,18 +104,12 @@ public class DeviceChart implements Serializable {
         DeviceChart item = null;
         try {
             item = new DeviceChart();
-            item.setDl = obj.optInt("Set_dl");
-            item.setDy = obj.optInt("Set_dy");
-            item.airPress = obj.optInt("Air_press");
-            item.airTemp = obj.optInt("Air_temp");
-            item.airTemp1 = obj.optInt("Air_temp1");
-            item.envireTemp = obj.optInt("Envire_temp");
-            item.dianjiTmep = obj.optInt("Dianji_temp");
-            item.zhujiDla = obj.optInt("Zhuji_dla");
-            item.zhujiDlb = obj.optInt("Zhuji_dlb");
-            item.zhujiDlc = obj.optInt("Zhuji_dlc");
-            item.modleTemp = obj.optInt("modle_temp");
-            String time = obj.optString("Get_datetime");
+            item.jiqiSn = obj.optString("机器序列号");
+            item.gqYl = obj.optInt("供气压力");
+            item.djdl = obj.optInt("电机电流");
+            item.djwd = obj.optInt("电机温度");
+            item.pqwd = obj.optInt("排气温度");
+            String time = obj.optString("采集时间");
             item.datetime = time.substring(9, time.length()-3);
 
         } catch (Exception e) {

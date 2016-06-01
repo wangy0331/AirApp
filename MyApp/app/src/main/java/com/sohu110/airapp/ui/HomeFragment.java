@@ -330,7 +330,7 @@ public class HomeFragment extends Fragment {
                     startActivity(intent1);
                     break;
                 case R.id.btn_jnzx:
-                    startActivity(new Intent(getActivity(), EnergyStarActivity.class));
+                    startActivity(new Intent(getActivity(), ThermometerActivity.class));
                     break;
             }
         }

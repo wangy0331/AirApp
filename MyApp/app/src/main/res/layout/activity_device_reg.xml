@@ -9,9 +9,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="30dp"
         >
 
         <TextView
@@ -32,9 +35,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp">
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -54,9 +59,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp">
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -88,8 +95,7 @@
             android:background="@color/white"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:layout_marginTop="20dp"
             >
 
             <TextView
@@ -99,10 +105,12 @@
                 android:layout_marginRight="10dp"
                 android:text="@string/khmc"/>
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
+                android:hint="@string/khmc_hit"
+                android:background="@drawable/input_white"
                 />
 
         </LinearLayout>
@@ -113,8 +121,6 @@
             android:background="@color/white"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:layout_marginTop="2dp"
             >
 
@@ -125,11 +131,12 @@
                 android:layout_marginRight="10dp"
                 android:text="@string/jjlxdh"/>
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/input_white"
                 android:textSize="15sp"
-                android:hint="@string/qsrjjlxdh"/>
+                android:hint="@string/khmc_hit"/>
 
         </LinearLayout>
 
@@ -139,8 +146,6 @@
             android:background="@color/white"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:layout_marginTop="2dp"
             >
 
@@ -151,11 +156,12 @@
                 android:layout_marginRight="10dp"
                 android:text="@string/rcwhdh"/>
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/input_white"
                 android:textSize="15sp"
-                android:hint="@string/qsrrcwhdh"/>
+                android:hint="@string/khmc_hit"/>
 
         </LinearLayout>
 
@@ -165,8 +171,6 @@
             android:background="@color/white"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:layout_marginTop="2dp"
             >
 
@@ -175,15 +179,17 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:layout_marginRight="10dp"
-                android:text="@string/rl"/>
+                android:text="@string/pp"/>
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/input_white"
                 android:textSize="15sp"
-                android:hint="@string/qsrrl"/>
+                android:hint="@string/qsrpp"/>
 
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -191,8 +197,6 @@
             android:background="@color/white"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:layout_marginTop="2dp"
             >
 
@@ -203,9 +207,10 @@
                 android:layout_marginRight="10dp"
                 android:text="@string/bh"/>
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/input_white"
                 android:textSize="15sp"
                 android:hint="@string/qsrbh"/>
 
@@ -217,8 +222,6 @@
             android:background="@color/white"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:layout_marginTop="2dp"
             >
 
@@ -229,39 +232,15 @@
                 android:layout_marginRight="10dp"
                 android:text="@string/ccrq"/>
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/input_white"
                 android:textSize="15sp"
                 android:hint="@string/qsrccrq"/>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_marginTop="2dp"
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:layout_marginRight="10dp"
-                android:text="@string/pp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:hint="@string/qsrpp"/>
-
-        </LinearLayout>
 
 
         <Button
@@ -269,7 +248,7 @@
             android:layout_height="40dp"
             style="@style/btn_blue"
             android:layout_marginTop="20dp"
-            android:text="@string/zhuce"/>
+            android:text="@string/submit_info"/>
 
     </LinearLayout>
 

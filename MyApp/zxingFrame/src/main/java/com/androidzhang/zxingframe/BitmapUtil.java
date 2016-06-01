@@ -1,6 +1,5 @@
 package com.androidzhang.zxingframe;
 
-import java.util.Hashtable;
 
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -11,6 +10,9 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+
+import java.util.Hashtable;
+
 
 public class BitmapUtil {
 

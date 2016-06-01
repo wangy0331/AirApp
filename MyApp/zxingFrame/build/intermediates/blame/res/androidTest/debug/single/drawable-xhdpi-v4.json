@@ -1,5 +1,21 @@
 [
     {
+        "merged": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\zxingFrame\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\zx_code_line.png",
+        "source": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\zxingFrame\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\zx_code_line.png"
+    },
+    {
+        "merged": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\zxingFrame\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\no.png",
+        "source": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\zxingFrame\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\no.png"
+    },
+    {
+        "merged": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\zxingFrame\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\off.png",
+        "source": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\zxingFrame\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\off.png"
+    },
+    {
+        "merged": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\zxingFrame\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\icon_head_back.png",
+        "source": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\zxingFrame\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\icon_head_back.png"
+    },
+    {
         "merged": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\zxingFrame\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\ic_launcher.png",
         "source": "C:\\Users\\Aaron\\Documents\\AirApp\\MyApp\\zxingFrame\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\ic_launcher.png"
     }

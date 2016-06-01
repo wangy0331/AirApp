@@ -154,7 +154,22 @@ public class BusinessFragment extends Fragment {
                         List<OverlayOptions> list = new ArrayList<OverlayOptions>();
 
                         if (result.getData() != null) {
+
+
+
+
+
+
+
+
+
+
+
                             for (int i = 0; i < result.getData().size(); i++) {
+
+                                Log.e("纬度", result.getData().get(i).getJqWD().toString());
+                                Log.e("经度", result.getData().get(i).getJqJD().toString());
+
                                 pts.add(new LatLng(result.getData().get(i).getJqWD(),result.getData().get(i).getJqJD()));
                                 //构建MarkerOption，用于在地图上添加Marker
                                 OverlayOptions option = new MarkerOptions()

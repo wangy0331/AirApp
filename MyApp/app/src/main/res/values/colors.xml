@@ -9,12 +9,16 @@
     <color name="black">#000000</color>
     <color name="gray">#e1e1e1</color>
     <color name="half_transparent">#7D000000</color>
+    <color name="huise">#666666</color>
     <color name="blue">#00aeef</color>
     <color name="blue_active">#00a0dc</color>
     <color name="background">#f4f4f4</color>
     <color name="green">#32CD32</color>
     <color name="grey">#ADADAD</color>
     <color name="orange">#FFA500</color>
+    <color name="white_active">#D1D1D1</color>
+    <color name="check">#ffffff</color>
+    <color name="notCheck">#E0E0E0</color>
     
     <!-- 折线图 -->
     <color name="paiqiwendu1">#00b2ee</color>
@@ -32,6 +36,10 @@
     <!-- 节能之星 -->
     <color name="bg_jieneng1">#ff9900</color>
     <color name="bg_jieneng2">#ff3300</color>
+
+    <color name="blue_active1">#00a0dc</color>
+    <color name="btn_blue_disable1">#72c9ea</color>
+
 
     <!-- 扫描 -->
     <color name="result_view">#b0000000</color>
