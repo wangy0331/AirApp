@@ -95,7 +95,7 @@ public class BaojingFragment extends Fragment {
 
         ytj = (TextView) view.findViewById(R.id.tjsj);
         mYy = (TextView) view.findViewById(R.id.bjyy);
-        mTime = (TextView) view.findViewById(R.id.bjcjsj);
+        mTime = (TextView) view.findViewById(R.id.bjtjsj);
         khmc = (TextView) view.findViewById(R.id.bj_khmc);
         khmcdz = (TextView) view.findViewById(R.id.bj_khdz);
         kyjpp = (TextView) view.findViewById(R.id.bj_kyjpp);
@@ -147,7 +147,7 @@ public class BaojingFragment extends Fragment {
                         if (!"".equals(item.getYjzt())) {
                             mYy.setText(item.getYjzt().substring(5, item.getYjzt().length()).trim());
                         }
-                        mTime.setText(item.getCjrq().trim());
+                        mTime.setText("停机时间：" + item.getCjrq().trim());
                         khmc.setText(item.getKhmc().trim());
                         khmcdz.setText(item.getKhmcdz().trim());
                         kyjpp.setText(item.getKyjpp().trim());

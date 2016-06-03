@@ -47,7 +47,8 @@ public class WeibaoAdapter extends ArrayAdapter<Device> {
             holder.mTemp = (TextView) convertView.findViewById(R.id.wendu_wb);
             holder.mPress = (TextView) convertView.findViewById(R.id.yali_wb);
             holder.mAirSn = (TextView) convertView.findViewById(R.id.kyj_sn_wb);
-            holder.mSta = (TextView) convertView.findViewById(R.id.bjzt_wb);
+            holder.mBysj = (TextView) convertView.findViewById(R.id.bjsj_wb);
+
 
             guanzhuBtn = (Button) convertView.findViewById(R.id.shoucang_btn);
             quxiaoBtn = (Button) convertView.findViewById(R.id.not_shoucang_btn);
@@ -59,6 +60,7 @@ public class WeibaoAdapter extends ArrayAdapter<Device> {
         final Device item = getItem(position);
         holder.coName.setText(item.getCoName());
         int id = position + 1;
+
 
         holder.coName.setText(id + "." + item.getCoName());
         holder.jiqiSn.setText(item.getJiqiSn());
@@ -74,9 +76,10 @@ public class WeibaoAdapter extends ArrayAdapter<Device> {
 
         holder.icon.setText(item.getJqStatus());
 
-        holder.mPress.setText(item.getPress());
+        holder.mPress.setText(item.getPress() + "MPa");
         holder.mTemp.setText(item.getTemp());
         holder.mAirSn.setText(item.getAirSn());
+        holder.mBysj.setText(item.getXcbysq());
 
         holder.scBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +121,8 @@ public class WeibaoAdapter extends ArrayAdapter<Device> {
         TextView mAirSn;
         //状态
         TextView mSta;
+        //保养日期
+        TextView mBysj;
     }
 
     class ShoucangTask extends AsyncTask<Void, Void, Result> {

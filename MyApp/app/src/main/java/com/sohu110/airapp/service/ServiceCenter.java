@@ -10,6 +10,7 @@ import com.sohu110.airapp.bean.DeviceInfo;
 import com.sohu110.airapp.bean.DeviceLog;
 import com.sohu110.airapp.bean.DeviceReform;
 import com.sohu110.airapp.bean.DeviceThree;
+import com.sohu110.airapp.bean.DeviceWBDetail;
 import com.sohu110.airapp.bean.DeviceYBDetail;
 import com.sohu110.airapp.bean.Energy;
 import com.sohu110.airapp.bean.MemberDetail;
@@ -380,7 +381,8 @@ public class ServiceCenter {
         obj.put("databaseid", "AirApp");
         obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
         obj.put("loginsta", "1");
-        obj.put("condition", mCondition);
+        obj.put("" +
+                "", mCondition);
         //发送请求
         String response = HttpService.post(url, obj);
 
@@ -826,6 +828,136 @@ public class ServiceCenter {
 
         if (!TextUtils.isEmpty(response)) {
             return DeviceYBDetail.parseYJ(response);
+        }
+        return null;
+    }
+
+    /**
+     * 维保列表
+     * @param mCondition
+     * @param content
+     * @return
+     */
+    public static Result<List<Device>> deviceWB(String mCondition, String content) throws Exception{
+        Log.e("mCondition", mCondition);
+        Log.e("content", content);
+
+        //接口路径
+        String url = URLCenter.getApi("qsetwblist.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        if (CacheCenter.getCurrentUser() != null) {
+            obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        } else {
+            obj.put("mobile", "");
+        }
+        obj.put("loginsta", "1");
+        obj.put("condition", mCondition);
+        obj.put("content", new String(content.getBytes("utf-8"), "ISO-8859-1"));
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return Device.parseWB(response);
+        }
+        return null;
+    }
+
+    /**
+     * 维保信息
+     * @param jiqiSn
+     * @return
+     */
+    public static Result<DeviceWBDetail> getDetailWb(String jiqiSn) throws Exception{
+        //接口路径
+        String url = URLCenter.getApi("qsetwbxq.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        obj.put("loginsta", "1");
+        obj.put("setno", jiqiSn);
+        obj.put("wydata", "wb");
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return DeviceWBDetail.parseWB(response);
+        }
+        return null;
+    }
+
+    /**
+     * 维保预警信息
+     * @param jiqiSn
+     * @return
+     */
+    public static Result<DeviceWBDetail> getDetailWx(String jiqiSn) throws Exception{
+        //接口路径
+        String url = URLCenter.getApi("qsetybxq.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        obj.put("loginsta", "1");
+        obj.put("setno", jiqiSn);
+        obj.put("ybdata", "yj");
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return DeviceWBDetail.parseWB(response);
+        }
+        return null;
+    }
+
+    /**
+     * 历史数据 --- 维保
+     * @param jiqiSn
+     * @return
+     */
+    public static Result<List<DeviceLog>> getDetailLishiWB(String jiqiSn) throws Exception{
+
+        //接口路径
+        String url = URLCenter.getApi("qsetwblog.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        obj.put("loginsta", "1");
+        obj.put("setno", jiqiSn);
+//        obj.put("ybdata", "bj");
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return DeviceLog.parseWB(response);
+        }
+        return null;
+    }
+
+    /**
+     * 历史数据 --- 维修
+     * @param jiqiSn
+     * @return
+     */
+    public static Result<List<DeviceLog>> getDetailLishiWX(String jiqiSn) throws Exception{
+
+        //接口路径
+        String url = URLCenter.getApi("qsetyblog.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        obj.put("loginsta", "1");
+        obj.put("setno", jiqiSn);
+        obj.put("ybdata", "bj");
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return DeviceLog.parseBJ(response);
         }
         return null;
     }

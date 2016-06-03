@@ -108,7 +108,56 @@ public class DeviceLog implements Serializable {
     }
 
     /**
+     * 解析JSON数据---维保
+     * @param json
+     * @return
+     */
+    public static Result<List<DeviceLog>> parseWB(String json) {
+        Result<List<DeviceLog>> deviceList = null;
+        List<DeviceLog> list = null;
+
+        try {
+
+            JSONObject obj = new JSONObject(json);
+            deviceList = new Result<List<DeviceLog>>();
+            deviceList.setCode(1);
+
+            JSONArray array = obj.optJSONArray("保养记录");
+            if (array != null) {
+                list = new ArrayList<DeviceLog>();
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject arrItem = array.getJSONObject(i);
+                    list.add(fromJsonWB(arrItem));
+                }
+                deviceList.setData(list);
+            }
+        } catch (Exception e) {
+            Logger.e("", "", e);
+        }
+
+        return deviceList;
+    }
+
+    /**
      * 解析item---报警
+     * @return
+     */
+    public static DeviceLog fromJsonWB(JSONObject obj) {
+        DeviceLog item = null;
+        try {
+            item = new DeviceLog();
+            item.sj = obj.optString("保养日期");
+            item.zt = obj.optString("保养项目");
+            item.xlh = obj.optString("机器序列号");
+
+        } catch (Exception e) {
+            Logger.e("", "", e);
+        }
+        return item;
+    }
+
+    /**
+     * 解析item---维保
      * @return
      */
     public static DeviceLog fromJsonBJ(JSONObject obj) {

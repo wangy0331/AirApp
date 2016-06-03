@@ -6,6 +6,17 @@
     android:background="@color/bg_color"
     >
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/wx_list_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +26,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:background="@drawable/bg_weixiu"
+            android:background="@drawable/bg_wbyj_icon"
             >
 
             <TextView
@@ -27,12 +38,14 @@
                 android:textColor="@color/white"
                 android:id="@+id/textView" />
 
-            <!--<ImageView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:src="@drawable/weibao_quan"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--android:layout_alignParentTop="true" />-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/wbyj_icon"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentTop="true" />
 
             <!--<TextView-->
                 <!--android:layout_width="match_parent"-->
@@ -43,6 +56,15 @@
                 <!--android:text="72"-->
                 <!--/>-->
 
+            <TextView
+                android:id="@+id/wx_xcsj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:paddingBottom="2dp"
+                android:text="预计下次保养日期：2016-2-23"/>
 
         </RelativeLayout>
 
@@ -63,10 +85,12 @@
                 android:text="@string/ylsj" />
 
             <TextView
+                android:id="@+id/wx_ylsj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="12h"
                 />
@@ -78,10 +102,12 @@
                 android:text="@string/yfsj" />
 
             <TextView
+                android:id="@+id/wx_yfsj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="11h"
                 />
@@ -105,10 +131,12 @@
                 android:text="@string/klsj" />
 
             <TextView
+                android:id="@+id/wx_klsj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="296h"
                 />
@@ -120,10 +148,12 @@
                 android:text="@string/rysj" />
 
             <TextView
+                android:id="@+id/wx_rysj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="10h"
                 />
@@ -147,10 +177,12 @@
                 android:text="@string/yzsj" />
 
             <TextView
+                android:id="@+id/wx_yzsj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="10h℃"
                 />
@@ -162,10 +194,12 @@
                 android:text="@string/pdsj" />
 
             <TextView
+                android:id="@+id/wx_pdsj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="10h"
                 />
@@ -189,10 +223,12 @@
                 android:text="@string/ylwbcs" />
 
             <TextView
+                android:id="@+id/wx_ylcs"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="11次"
                 />
@@ -204,10 +240,12 @@
                 android:text="@string/yfwbcs" />
 
             <TextView
+                android:id="@+id/wx_yfcs"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="10次"
                 />
@@ -231,10 +269,12 @@
                 android:text="@string/klwbcs" />
 
             <TextView
+                android:id="@+id/wx_klcs"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="11次"
                 />
@@ -246,10 +286,12 @@
                 android:text="@string/rywbcs" />
 
             <TextView
+                android:id="@+id/wx_rycs"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="10次"
                 />
@@ -273,10 +315,12 @@
                 android:text="@string/yzwbcs" />
 
             <TextView
+                android:id="@+id/wx_yzcs"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="11次"
                 />
@@ -288,10 +332,12 @@
                 android:text="@string/pdwbcs" />
 
             <TextView
+                android:id="@+id/wx_pdcs"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="10次"
                 />
@@ -315,10 +361,12 @@
                 android:text="@string/ljyxsj" />
 
             <TextView
+                android:id="@+id/wx_ljyxsj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="11h"
                 />
@@ -330,10 +378,12 @@
                 android:text="@string/ljjzsj" />
 
             <TextView
+                android:id="@+id/wx_ljjzsj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="10h"
                 />
@@ -358,10 +408,12 @@
                 android:text="@string/bcyxsj" />
 
             <TextView
+                android:id="@+id/wx_bcyxsj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="11h"
                 />
@@ -373,10 +425,12 @@
                 android:text="@string/ljjzsj" />
 
             <TextView
+                android:id="@+id/wx_bcjzsj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="10h"
                 />
@@ -391,6 +445,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:paddingLeft="15dp"
+            android:layout_marginBottom="20dp"
             android:background="@color/white"
             android:orientation="horizontal">
 
@@ -401,7 +456,7 @@
                 android:text="@string/sjcjsj" />
 
             <TextView
-                android:id="@+id/fengjiavgdl1"
+                android:id="@+id/wx_cjsj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -414,5 +469,7 @@
 
 
     </LinearLayout>
+    </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

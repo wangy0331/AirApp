@@ -27,6 +27,7 @@ import com.sohu110.airapp.widget.LoadProcessDialog;
 import java.util.List;
 
 /**
+ * 报警列表
  * Created by Aaron on 2016/4/23.
  */
 public class BaojingListActivity extends BaseActivity {
@@ -75,6 +76,11 @@ public class BaojingListActivity extends BaseActivity {
         equipmentBtn = (RadioButton) findViewById(R.id.device_shebeihao);
         areaBtn = (RadioButton) findViewById(R.id.device_quyu);
         mListView = (ListView) findViewById(R.id.device_list_view);
+
+        mEditText.setHint(R.string.search_cust);
+        customerBtn.setTextColor(getResources().getColor(R.color.blue));
+        equipmentBtn.setTextColor(getResources().getColor(R.color.grey));
+        areaBtn.setTextColor(getResources().getColor(R.color.grey));
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_refresh);
 

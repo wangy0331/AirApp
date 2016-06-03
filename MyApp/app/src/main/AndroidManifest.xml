@@ -151,6 +151,12 @@
         <activity android:name=".ui.baojing.BaojingDetailActivity"
             android:screenOrientation="portrait"></activity>
 
+        <activity android:name=".ui.weibao.WeibaoDetailActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".ui.weixiu.WeixiuDetailActivity"
+            android:screenOrientation="portrait"></activity>
+
     </application>
 
 </manifest>

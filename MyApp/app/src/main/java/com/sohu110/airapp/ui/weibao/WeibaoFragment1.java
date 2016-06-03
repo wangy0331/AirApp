@@ -15,6 +15,7 @@ import com.sohu110.airapp.bean.DeviceLog;
 import com.sohu110.airapp.bean.Result;
 import com.sohu110.airapp.log.Logger;
 import com.sohu110.airapp.service.ServiceCenter;
+import com.sohu110.airapp.ui.weixiu.WeixiuDetailItemAdapter;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class WeibaoFragment1 extends Fragment {
     //列表
     private ListView mListView;
     //适配器
-    private WeibaoDetailItemAdapter mAdapter;
+    private WeixiuDetailItemAdapter mAdapter;
 
     public static WeibaoFragment1 newInstance(String guid) {
         WeibaoFragment1 fragment = new WeibaoFragment1();
@@ -60,7 +61,7 @@ public class WeibaoFragment1 extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_weibao_lishi,null );
         mListView = (ListView) view.findViewById(R.id.weibao_lishi_list);
-        mAdapter = new WeibaoDetailItemAdapter(getActivity());
+        mAdapter = new WeixiuDetailItemAdapter(getActivity());
         return view;
     }
 
@@ -78,7 +79,7 @@ public class WeibaoFragment1 extends Fragment {
         @Override
         protected Result<List<DeviceLog>> doInBackground(Void... params) {
             try{
-                return ServiceCenter.getDetailLishiBJ(jiqiSn);
+                return ServiceCenter.getDetailLishiWB(jiqiSn);
             } catch (Exception e) {
                 Logger.e("", "", e);
             }

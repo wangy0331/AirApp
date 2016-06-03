@@ -136,6 +136,7 @@
     <string name="wendu">温度：</string>
     <string name="yunxing">运行</string>
     <string name="stop">停止</string>
+    <string name="yjxcbyrq">下次保养：</string>
 
     <!-- 设备列表 -->
     <string name="device_list">设备列表</string>
@@ -162,7 +163,7 @@
     <string name="yujing_status">预警状态：</string>
     <string name="baojing_status">报警状态：</string>
     <string name="weibao_list">维保列表</string>
-    <string name="weixiu_list">维修列表</string>
+    <string name="weixiu_list">维保预警列表</string>
     <string name="weibao_status">维保状态</string>
     <string name="weixiu_status">维修状态</string>
     <string name="change_pwd">修改密码</string>

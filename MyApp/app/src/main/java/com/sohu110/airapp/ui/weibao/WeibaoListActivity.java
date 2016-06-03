@@ -20,7 +20,6 @@ import com.sohu110.airapp.bean.Result;
 import com.sohu110.airapp.log.Logger;
 import com.sohu110.airapp.service.ServiceCenter;
 import com.sohu110.airapp.ui.BaseActivity;
-import com.sohu110.airapp.ui.device.DeviceDetailActivity;
 import com.sohu110.airapp.utils.Const;
 import com.sohu110.airapp.widget.LibToast;
 import com.sohu110.airapp.widget.LoadProcessDialog;
@@ -77,6 +76,11 @@ public class WeibaoListActivity extends BaseActivity {
         areaBtn = (RadioButton) findViewById(R.id.device_quyu);
         mListView = (ListView) findViewById(R.id.device_list_view);
 
+        mEditText.setHint(R.string.search_cust);
+        customerBtn.setTextColor(getResources().getColor(R.color.blue));
+        equipmentBtn.setTextColor(getResources().getColor(R.color.grey));
+        areaBtn.setTextColor(getResources().getColor(R.color.grey));
+
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_refresh);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -95,10 +99,22 @@ public class WeibaoListActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == customerBtn.getId()) {
                     condition = "cust";
+                    mEditText.setHint(R.string.search_cust);
+                    customerBtn.setTextColor(getResources().getColor(R.color.blue));
+                    equipmentBtn.setTextColor(getResources().getColor(R.color.grey));
+                    areaBtn.setTextColor(getResources().getColor(R.color.grey));
                 } else if (checkedId == equipmentBtn.getId()) {
                     condition = "setno";
+                    mEditText.setHint(R.string.search_hit);
+                    customerBtn.setTextColor(getResources().getColor(R.color.grey));
+                    equipmentBtn.setTextColor(getResources().getColor(R.color.blue));
+                    areaBtn.setTextColor(getResources().getColor(R.color.grey));
                 } else if (checkedId == areaBtn.getId()) {
                     condition = "area";
+                    mEditText.setHint(R.string.search_area);
+                    customerBtn.setTextColor(getResources().getColor(R.color.grey));
+                    equipmentBtn.setTextColor(getResources().getColor(R.color.grey));
+                    areaBtn.setTextColor(getResources().getColor(R.color.blue));
                 }
 
 
@@ -128,7 +144,7 @@ public class WeibaoListActivity extends BaseActivity {
                 try {
                     Device device = (Device) parent.getItemAtPosition(position);
                     Intent intent = new Intent(WeibaoListActivity.this,
-                            DeviceDetailActivity.class);
+                            WeibaoDetailActivity.class);
                     intent.putExtra(Const.EXTRA_DEVICE, device);
                     startActivity(intent);
                 } catch (Exception e) {
@@ -160,7 +176,7 @@ public class WeibaoListActivity extends BaseActivity {
         @Override
         protected Result<List<Device>> doInBackground(Void... params) {
             try {
-                return ServiceCenter.deviceList(mCondition, mContent);
+                return ServiceCenter.deviceWB(mCondition, mContent);
             } catch (Exception e) {
                 e.printStackTrace();
             }

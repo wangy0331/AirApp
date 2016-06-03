@@ -144,6 +144,8 @@ public class EnergyActivity extends BaseActivity {
         ljText.setText(getResources().getString(R.string.ljjn));
         lText.setText(getResources().getString(R.string.jnl));
 
+
+
         //节能
         mJieneng.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,6 +232,16 @@ public class EnergyActivity extends BaseActivity {
         } else {
             LibToast.show(EnergyActivity.this, R.string.not_network);
         }
+
+
+        getBtnRight().setImageDrawable(getResources().getDrawable(R.drawable.fenxiang));
+
+        getBtnRight().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
 
 
     }
@@ -353,6 +365,7 @@ public class EnergyActivity extends BaseActivity {
 
                     if (result.getData() != null) {
 
+
                         mLineData = getLineData(result.getData());
 
                         showChart(mLineChart, mLineData, Color.rgb(255, 255, 255));
@@ -442,7 +455,7 @@ public class EnergyActivity extends BaseActivity {
         // modify the legend ...
         // mLegend.setPosition(LegendPosition.LEFT_OF_CHART);
 //		mLegend.setForm(Legend.LegendForm.CIRCLE);// 样式
-        mLegend.setForm(Legend.LegendForm.SQUARE);
+        mLegend.setForm(Legend.LegendForm.CIRCLE);
 //		mLegend.set
         mLegend.setFormSize(15f);// 字体
         mLegend.setTextColor(Color.rgb(0, 0, 255));// 颜色
@@ -491,7 +504,7 @@ public class EnergyActivity extends BaseActivity {
 //                Log.e("日期", sf.format(lastDay).toString());
 //            }
 
-            for (int i = result.size()-1; i >= 0; i--) {
+            for (int i = result.size()+1; i >= 0; i--) {
 
                 ca.setTime(new Date()); //设置时间为当前时间
                 ca.add(Calendar.DATE, -i); //减1
@@ -507,8 +520,20 @@ public class EnergyActivity extends BaseActivity {
             // y轴的数据
             ArrayList<Entry> yValues = new ArrayList<Entry>();
             for (int i = 0; i < result.size(); i++) {
-                double value = result.get(i).getJyhn();
-                yValues.add(new Entry((float)value, i));
+                double lv = result.get(i).getJyhn();
+
+//                double a = result.get(i).getJyhn();
+//                double b = result.get(i).getSjhn();
+//                double db = a/b;
+//                String lv = String .format("%.2f", db*100);
+//
+//                if (lv == null) {
+//                    lv = "0.00";
+//                }
+
+                Log.e("chart", String.valueOf(lv));
+
+                yValues.add(new Entry((float)lv, i));
             }
 
             // create a dataset and give it a type

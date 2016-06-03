@@ -77,6 +77,11 @@ public class WeixiuListActivity extends BaseActivity{
         areaBtn = (RadioButton) findViewById(R.id.device_quyu);
         mListView = (ListView) findViewById(R.id.device_list_view);
 
+        mEditText.setHint(R.string.search_cust);
+        customerBtn.setTextColor(getResources().getColor(R.color.blue));
+        equipmentBtn.setTextColor(getResources().getColor(R.color.grey));
+        areaBtn.setTextColor(getResources().getColor(R.color.grey));
+
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_refresh);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -95,10 +100,22 @@ public class WeixiuListActivity extends BaseActivity{
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == customerBtn.getId()) {
                     condition = "cust";
+                    mEditText.setHint(R.string.search_cust);
+                    customerBtn.setTextColor(getResources().getColor(R.color.blue));
+                    equipmentBtn.setTextColor(getResources().getColor(R.color.grey));
+                    areaBtn.setTextColor(getResources().getColor(R.color.grey));
                 } else if (checkedId == equipmentBtn.getId()) {
                     condition = "setno";
+                    mEditText.setHint(R.string.search_hit);
+                    customerBtn.setTextColor(getResources().getColor(R.color.grey));
+                    equipmentBtn.setTextColor(getResources().getColor(R.color.blue));
+                    areaBtn.setTextColor(getResources().getColor(R.color.grey));
                 } else if (checkedId == areaBtn.getId()) {
                     condition = "area";
+                    mEditText.setHint(R.string.search_area);
+                    customerBtn.setTextColor(getResources().getColor(R.color.grey));
+                    equipmentBtn.setTextColor(getResources().getColor(R.color.grey));
+                    areaBtn.setTextColor(getResources().getColor(R.color.blue));
                 }
 
                 if (LibApplication.getInstance().isNetworkConnected()) {

@@ -99,15 +99,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="维保："/>
+                        android:text="@string/yjxcbyrq"/>
 
                     <TextView
-                        android:id="@+id/bjzt_wb"
+                        android:id="@+id/bjsj_wb"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:text="更换空滤"/>
+                        android:text="2015-12-12 11:11:11"/>
 
                 </LinearLayout>
 
@@ -115,7 +115,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_marginTop="5dp"
-                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -126,7 +125,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/wendu_wb"
+                        android:id="@+id/yali_wb"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="20MPa"
@@ -153,7 +152,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/yali_wb"
+                        android:id="@+id/wendu_wb"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="60"

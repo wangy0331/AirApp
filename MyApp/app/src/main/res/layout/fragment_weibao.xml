@@ -6,6 +6,17 @@
     android:background="@color/bg_color"
     >
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/wb_list_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,6 +46,7 @@
                 android:layout_alignParentTop="true" />
 
             <TextView
+                android:id="@+id/wb_ts"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textColor="@color/white"
@@ -42,6 +54,16 @@
                 android:textSize="60sp"
                 android:text="72"
                />
+
+            <TextView
+                android:id="@+id/wb_xcsj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:paddingBottom="2dp"
+                android:text="预计下次保养日期：2016-2-23"/>
 
 
         </RelativeLayout>
@@ -63,10 +85,12 @@
                 android:text="@string/ylsj" />
 
             <TextView
+                android:id="@+id/wb_ylsj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="12h"
                 />
@@ -78,10 +102,12 @@
                 android:text="@string/yfsj" />
 
             <TextView
+                android:id="@+id/wb_yfsj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="11h"
                 />
@@ -105,10 +131,12 @@
                 android:text="@string/klsj" />
 
             <TextView
+                android:id="@+id/wb_klsj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="296h"
                 />
@@ -120,10 +148,12 @@
                 android:text="@string/rysj" />
 
             <TextView
+                android:id="@+id/wb_rysj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="10h"
                 />
@@ -147,10 +177,12 @@
                 android:text="@string/yzsj" />
 
             <TextView
+                android:id="@+id/wb_yzsj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="10h℃"
                 />
@@ -162,10 +194,12 @@
                 android:text="@string/pdsj" />
 
             <TextView
+                android:id="@+id/wb_pdsj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="10h"
                 />
@@ -182,35 +216,51 @@
             android:background="@color/white"
             android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/ylwbcs" />
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/blue"
-                android:text="11次"
-                />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ylwbcs" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/yfwbcs" />
+                <TextView
+                    android:id="@+id/wb_ylcs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/blue"
+                    android:text="11次"
+                    />
 
-            <TextView
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/blue"
-                android:text="10次"
-                />
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yfwbcs" />
+
+                <TextView
+                    android:id="@+id/wb_yfcs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/blue"
+                    android:text="10次"
+                    />
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 
@@ -224,35 +274,48 @@
             android:background="@color/white"
             android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/klwbcs" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:id="@+id/wb_klcs"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="11次"
                 />
 
-            <TextView
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/rywbcs" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:id="@+id/wb_rycs"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="10次"
                 />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -266,36 +329,53 @@
             android:background="@color/white"
             android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/yzwbcs" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:id="@+id/wb_yzcs"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="11次"
                 />
+            </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pdwbcs" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:id="@+id/wb_pdcs"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="10次"
                 />
-
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -308,35 +388,52 @@
             android:background="@color/white"
             android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ljyxsj" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:id="@+id/wb_ljyxsj"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="11h"
                 />
+            </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ljjzsj" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:id="@+id/wb_ljjzsj"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="10h"
                 />
+             </LinearLayout>
+                </LinearLayout>
 
         </LinearLayout>
 
@@ -351,35 +448,49 @@
             android:background="@color/white"
             android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bcyxsj" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:id="@+id/wb_bcyxsj"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="11h"
                 />
 
-            <TextView
+                </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/ljjzsj" />
+                android:layout_height="match_parent">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:text="@string/bcjzsj" />
+
+            <TextView
+                android:id="@+id/wb_bcjzsj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:paddingRight="20dp"
                 android:textColor="@color/blue"
                 android:text="10h"
                 />
+
+                </LinearLayout>
 
         </LinearLayout>
 
@@ -391,6 +502,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:paddingLeft="15dp"
+            android:layout_marginBottom="20dp"
             android:background="@color/white"
             android:orientation="horizontal">
 
@@ -401,7 +513,7 @@
                 android:text="@string/sjcjsj" />
 
             <TextView
-                android:id="@+id/fengjiavgdl1"
+                android:id="@+id/wb_cjsj"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -415,4 +527,6 @@
 
     </LinearLayout>
 
+    </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

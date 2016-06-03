@@ -154,12 +154,12 @@ public class YujingFragment extends Fragment {
                         }
                         mTime.setText(item.getCjrq().trim());
                         pqPress.setText(item.getPqyl().trim());
-                        pqylx.setText(item.getPqyl().trim());
-                        jtTemp.setText(item.getJtwd().trim());
-                        zjdl.setText(item.getZjdl().trim());
-                        gzdy.setText(item.getGzdy().trim());
-                        fj1dl.setText(item.getFjdl1().trim());
-                        fj2dl.setText(item.getFjdl2().trim());
+                        pqylx.setText(item.getPqyl().trim() + "MPa");
+                        jtTemp.setText(item.getJtwd().trim() + "℃");
+                        zjdl.setText(item.getZjdl().trim() + "A");
+                        gzdy.setText(item.getGzdy().trim() + "A");
+                        fj1dl.setText(item.getFjdl1().trim() + "℃");
+                        fj2dl.setText(item.getFjdl2().trim() + "A");
                         khmc.setText(item.getKhmc().trim());
                         khmcdz.setText(item.getKhmcdz().trim());
                         kyjpp.setText(item.getKyjpp().trim());

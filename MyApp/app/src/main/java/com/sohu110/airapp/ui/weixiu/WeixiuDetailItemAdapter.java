@@ -1,4 +1,4 @@
-package com.sohu110.airapp.ui.weibao;
+package com.sohu110.airapp.ui.weixiu;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,9 +14,9 @@ import com.sohu110.airapp.bean.DeviceLog;
  * 维保信息
  * Created by Aaron on 2016/5/29.
  */
-public class WeibaoDetailItemAdapter extends ArrayAdapter<DeviceLog> {
+public class WeixiuDetailItemAdapter extends ArrayAdapter<DeviceLog> {
 
-    public WeibaoDetailItemAdapter(Context context) {
+    public WeixiuDetailItemAdapter(Context context) {
         super(context, 0);
     }
 
@@ -39,7 +39,7 @@ public class WeibaoDetailItemAdapter extends ArrayAdapter<DeviceLog> {
         DeviceLog item = getItem(position);
         int id = position + 1;
 
-        holder.num.setText(id);
+        holder.num.setText(String.valueOf(id));
         holder.date.setText(item.getSj());
         holder.zt.setText(item.getZt());
 

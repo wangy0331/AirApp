@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sohu110.airapp.R;
@@ -26,7 +27,7 @@ import com.sohu110.airapp.widget.LoadProcessDialog;
  */
 public class LoginActivity extends BaseActivity {
 
-    private Button findPassword;
+    private TextView findPassword;
     private EditText mLoginPhone;
     private EditText mLoginPassword;
     private Button mLoginBtn;
@@ -47,7 +48,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initView() {
-        findPassword = (Button) findViewById(R.id.find_password);
+        findPassword = (TextView) findViewById(R.id.find_password);
         mLoginPhone = (EditText) findViewById(R.id.login_phone);
         mLoginPassword = (EditText) findViewById(R.id.login_password);
         mLoginBtn = (Button) findViewById(R.id.login_member);

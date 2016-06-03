@@ -54,6 +54,10 @@ public class Device implements Serializable {
     private String xinxi;
     //报警时间
     private String shijian;
+    //预计下次保养时间
+    private String xcbysq;
+    //预计剩余保养天数
+    private String sybyts;
 
     public Double getJqWD() {
         return jqWD;
@@ -215,6 +219,22 @@ public class Device implements Serializable {
         this.shijian = shijian;
     }
 
+    public String getXcbysq() {
+        return xcbysq;
+    }
+
+    public void setXcbysq(String xcbysq) {
+        this.xcbysq = xcbysq;
+    }
+
+    public String getSybyts() {
+        return sybyts;
+    }
+
+    public void setSybyts(String sybyts) {
+        this.sybyts = sybyts;
+    }
+
     /**
      * 解析JSON数据---收藏列表
      * @param json
@@ -277,6 +297,39 @@ public class Device implements Serializable {
 
         return deviceList;
     }
+
+    /**
+     * 解析JSON数据---维保列表
+     * @param json
+     * @return
+     */
+    public static Result<List<Device>> parseWB(String json) {
+        Result<List<Device>> deviceList = null;
+        List<Device> list = null;
+
+        try {
+
+            JSONObject obj = new JSONObject(json);
+            deviceList = new Result<List<Device>>();
+            deviceList.setCode(1);
+
+
+            JSONArray array = obj.optJSONArray("设备维保清单");
+            if (array != null) {
+                list = new ArrayList<Device>();
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject arrItem = array.getJSONObject(i);
+                    list.add(fromJsonWB(arrItem));
+                }
+                deviceList.setData(list);
+            }
+        } catch (Exception e) {
+            Logger.e("", "", e);
+        }
+
+        return deviceList;
+    }
+
 
     /**
      * 解析JSON数据---预警列表
@@ -364,6 +417,33 @@ public class Device implements Serializable {
             item.airSn = obj.optString("Air_sn");
             item.temp = obj.optString("temp");
             item.press = obj.optString("press");
+
+        } catch (Exception e) {
+            Logger.e("", "", e);
+        }
+        return item;
+    }
+
+    /**
+     * 解析item ---维保
+     * @return
+     */
+    public static Device fromJsonWB(JSONObject obj) {
+        Device item = null;
+        try {
+            item = new Device();
+            item.zhanghao = obj.optString("登录帐户");
+            item.jiqiSn = obj.optString("机器序列号");
+            item.fSta = obj.optString("关注状态");
+            item.time = obj.optString("采集时间");
+            item.jqStatus = obj.optString("设备状态");
+            item.region = obj.optString("城市");
+            item.coName = obj.optString("客户名称");
+            item.airSn = obj.optString("空压机编号");
+            item.temp = obj.optString("温度");
+            item.xcbysq = obj.optString("预计下次保养日期");
+            item.sybyts = obj.optString("预计剩余保养天数");
+            item.press = obj.optString("压力");
 
         } catch (Exception e) {
             Logger.e("", "", e);
