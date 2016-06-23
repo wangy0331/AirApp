@@ -75,7 +75,7 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
         holder.icon.setText(item.getJqStatus());
 
         if (!"".equals(item.getPress())) {
-            holder.mPress.setText(item.getPress() + " MPa");
+            holder.mPress.setText(Double.valueOf(item.getPress())/100 + " MPa");
         } else {
             holder.mPress.setText("0 MPa");
         }

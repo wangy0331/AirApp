@@ -2,54 +2,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/bg_color"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
+    <!--<ImageView-->
+        <!--android:id="@+id/infoOperating"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/wbq"-->
+        <!--android:scaleType="center">-->
+    <!--</ImageView>-->
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical">-->
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:orientation="horizontal"-->
-            <!-->-->
-
-            <!--<com.sohu110.airapp.DashBoardView-->
-                <!--android:id="@+id/dashBoardView"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="12dp" />-->
-
-            <!--<com.sohu110.airapp.DashBoardTempView-->
-                <!--android:id="@+id/dashBoardTempView"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="12dp" />-->
-
-        <!--</LinearLayout>-->
-
-        <!--<com.sohu110.airapp.DashBoardPressView-->
-            <!--android:id="@+id/dashBoardPressView"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_marginBottom="12dp" />-->
-
-
-    <!--</LinearLayout>-->
-
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂无数据"
+        />
 
 
 </LinearLayout>

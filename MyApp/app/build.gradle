@@ -8,8 +8,8 @@ android {
         applicationId "com.sohu110.airapp"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 9
-        versionName "9.0"
+        versionCode 10
+        versionName "10.0"
     }
     buildTypes {
         release {
@@ -41,7 +41,9 @@ dependencies {
     compile project(':libSlidingMenu')
     compile files('libs/mpchartlib.jar')
     compile files('libs/nineoldandroids-2.4.0.jar')
-    compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/umeng-update-v2.7.0.jar')
     compile files('libs/commons-net-3.0.1.jar')
+    compile files('libs/MobCommons-2016.0426.1819.jar')
+    compile files('libs/Bughd_android_sdk_v1.3.7.jar')
+    compile files('libs/BaiduLBS_Android.jar');
 }

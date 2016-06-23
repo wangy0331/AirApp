@@ -1,5 +1,9 @@
 package com.sohu110.airapp.ui.yujing;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,7 +69,13 @@ public class YujingFragment extends Fragment {
 //    //已停机
 //    private TextView ytj;
 
+    private LinearLayout mJjPhone;
+    private LinearLayout mWhPhone;
+
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private String status = "";
+    private String phone = "";
 
     public static YujingFragment newInstance(String guid) {
         YujingFragment fragment = new YujingFragment();
@@ -110,6 +121,26 @@ public class YujingFragment extends Fragment {
         whdh = (TextView) view.findViewById(R.id.yj_whdh);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.yj_list_refresh);
+
+        mJjPhone = (LinearLayout) view.findViewById(R.id.yj_jj_dh);
+        mWhPhone = (LinearLayout) view.findViewById(R.id.yj_wh_dh);
+
+        mJjPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                status = "jj";
+                showDialog(status);
+            }
+        });
+
+        mWhPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                status = "wh";
+                showDialog(status);
+            }
+        });
+
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -176,5 +207,36 @@ public class YujingFragment extends Fragment {
             }
         }
 
+    }
+
+
+    /**
+     * 拨打电话
+     */
+    private void showDialog(String a) {
+
+        if ("jj".equals(a)) {
+            if (jjdh.getText() != null) {
+                phone = jjdh.getText().toString().trim();
+            }
+        } else if ("wh".equals(a)) {
+            if (whdh.getText() != null) {
+                phone = whdh.getText().toString().trim();
+            }
+        }
+
+        new AlertDialog.Builder(getActivity()).setTitle(R.string.callPhone)
+                .setMessage(phone).setCancelable(false)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intentPhone = new Intent(Intent.ACTION_CALL,
+                                Uri.parse("tel:" + getString(R.string.service_phone)));
+                        startActivity(intentPhone);
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        }).show();
     }
 }

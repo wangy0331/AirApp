@@ -270,10 +270,10 @@ public class DevicerReformActivity extends BaseActivity {
             if (result != null) {
                 Log.e("FTP_PATH", result);
                 pushImagePath = result;
-                LibToast.show(DevicerReformActivity.this, "长传成功");
+                LibToast.show(DevicerReformActivity.this, "上传成功");
             } else {
                 pushImagePath = "";
-                LibToast.show(DevicerReformActivity.this, "长传失败");
+                LibToast.show(DevicerReformActivity.this, "上传失败");
             }
         }
     }
@@ -319,6 +319,7 @@ public class DevicerReformActivity extends BaseActivity {
 
                 } else if(StringKit.isNotEmpty(result.getMessage())) {
                     LibToast.show(DevicerReformActivity.this, result.getMessage());
+                    DevicerReformActivity.this.finish();
                 } else {
                     LibToast.show(DevicerReformActivity.this, R.string.member_detail_failure);
                 }

@@ -37,6 +37,15 @@ public class MainActivity extends FragmentActivity {
 
     }
 
+    public void onSaveInstanceState(Bundle outState) {
+        // TODO Auto-generated method stub
+        //Log.v("LH", "onSaveInstanceState"+outState);
+        //super.onSaveInstanceState(outState);   //将这一行注释掉，阻止activity保存fragment的状态
+    }
+
+
+
+
     private void initView() {
         mFragmentHelper = new FragmentHelper(this, getSupportFragmentManager(), R.id.main_container);
     }
@@ -45,7 +54,7 @@ public class MainActivity extends FragmentActivity {
      * 设置默认Tab
      */
     public void setDefaultTab() {
-//        tabClick(findViewById(R.id.main_tab_3));
+        tabClick(findViewById(R.id.main_tab_3));
         tabClick(findViewById(R.id.main_tab_1));
     }
 

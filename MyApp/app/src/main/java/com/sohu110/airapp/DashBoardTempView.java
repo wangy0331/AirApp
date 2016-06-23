@@ -37,7 +37,7 @@ public class DashBoardTempView extends View {
 
 	private static final String KB_S = " ℃";
 //	private static final String CURRENT_SPEED = "";
-	private static final String CURRENT_SPEED = "机头温度";
+	private static final String CURRENT_SPEED = "排气温度";
 	private static final String[] FIXED_SPEED_LEVEL = { "-35", "-5", "25", "55",
 			"85", "115", "145", "175", "205", "235", "265" };
 	private static final int[] FIXED_SPEED_VALUE = { -35, -5, 25,

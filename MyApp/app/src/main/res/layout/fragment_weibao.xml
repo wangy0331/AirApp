@@ -39,11 +39,12 @@
                 android:id="@+id/textView" />
 
             <ImageView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/weibao_quan2"
+                android:src="@drawable/wbq"
                 android:layout_centerInParent="true"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"
+                android:id="@+id/imageView1" />
 
             <TextView
                 android:id="@+id/wb_ts"
@@ -54,6 +55,15 @@
                 android:textSize="60sp"
                 android:text="72"
                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/wbt"
+                android:layout_above="@+id/wb_xcsj"
+                android:layout_alignRight="@id/imageView1"
+                android:layout_alignEnd="@id/imageView1"
+                android:layout_marginBottom="20dp" />
 
             <TextView
                 android:id="@+id/wb_xcsj"

@@ -381,8 +381,7 @@ public class ServiceCenter {
         obj.put("databaseid", "AirApp");
         obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
         obj.put("loginsta", "1");
-        obj.put("" +
-                "", mCondition);
+        obj.put("condition", mCondition);
         //发送请求
         String response = HttpService.post(url, obj);
 
@@ -568,6 +567,22 @@ public class ServiceCenter {
         String url = URLCenter.getApi("Saveset.asq");
         //封装json
         JSONObject obj = new JSONObject();
+
+        String time = mInfo.getAirOd().replace("-", "/");
+
+        Log.e("name", mInfo.getCustName());
+        Log.e("add", mInfo.getCustAdd());
+        Log.e("brand", mInfo.getAirBrand());
+        Log.e("sn", mInfo.getAirSn());
+        Log.e("od", mInfo.getAirOd());
+        Log.e("tel", mInfo.getEmeTel());
+        Log.e("tel", mInfo.getWhTel());
+        Log.e("setnum", mInfo.getJiqiSn());
+
+
+
+
+
         obj.put("databaseid", "AirApp");
         obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
         obj.put("loginsta", "1");
@@ -576,7 +591,7 @@ public class ServiceCenter {
         obj.put("Air_brand", new String(mInfo.getAirBrand().getBytes("utf-8"), "ISO-8859-1"));
         obj.put("Air_sn", new String(mInfo.getAirSn().getBytes("utf-8"), "ISO-8859-1"));
         Log.e("shijian", mInfo.getAirOd());
-        obj.put("Air_od", mInfo.getAirOd());
+        obj.put("Air_od", time);
         obj.put("Eme_tel", mInfo.getEmeTel());
         obj.put("Wh_tel", mInfo.getWhTel());
         obj.put("setnum", mInfo.getJiqiSn());
@@ -958,6 +973,55 @@ public class ServiceCenter {
 
         if (!TextUtils.isEmpty(response)) {
             return DeviceLog.parseBJ(response);
+        }
+        return null;
+    }
+
+    /**
+     * 获取局部刷新标示
+     * @param jiqiSn
+     * @return
+     */
+    public static Result<DeviceDetail> getDetailStatus(String jiqiSn) throws Exception{
+        //接口路径
+        String url = URLCenter.getApi("Csetdata.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        obj.put("loginsta", "1");
+        obj.put("setno", jiqiSn);
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        Result<DeviceDetail> result = null;
+        if (!TextUtils.isEmpty(response)) {
+            result = Result.fromJsonJB(response);
+        }
+
+        return result;
+    }
+
+    /**
+     * 设备详情局部刷新
+     * @param jiqiSn
+     * @return
+     */
+    public static Result<DeviceDetail> getDetailJubu(String jiqiSn) throws Exception{
+        //接口路径
+        String url = URLCenter.getApi("qsetview.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        obj.put("loginsta", "1");
+        obj.put("setno", jiqiSn);
+        obj.put("ybdata", "yj");
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return DeviceDetail.parseJB(response);
         }
         return null;
     }

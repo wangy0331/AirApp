@@ -20,13 +20,11 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.sohu110.airapp.LibApplication;
 import com.sohu110.airapp.R;
 import com.sohu110.airapp.bean.DeviceChart;
 import com.sohu110.airapp.bean.Result;
 import com.sohu110.airapp.log.Logger;
 import com.sohu110.airapp.service.ServiceCenter;
-import com.sohu110.airapp.widget.LibToast;
 import com.sohu110.airapp.widget.LoadProcessDialog;
 
 import java.util.ArrayList;
@@ -86,7 +84,7 @@ public class Fragment2 extends Fragment {
 		Log.e("fragment", guid);
 
 
-		new DeviceDetailTask(guid).execute();
+//		new DeviceDetailTask(guid).execute();
 	}
 
 	@Override
@@ -165,6 +163,12 @@ public class Fragment2 extends Fragment {
 //	}
 
 
+	@Override
+	public void onStart() {
+		super.onStart();
+		new DeviceDetailTask(guid).execute();
+	}
+
 	// 设置显示的样式
 	private void showChart(LineChart lineChart, LineData lineData, int color) {
 		lineChart.setDrawBorders(false);  //是否在折线图上添加边框
@@ -185,8 +189,10 @@ public class Fragment2 extends Fragment {
 		lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM); // 让x轴在下面
 		lineChart.getAxisRight().setEnabled(false);
 
-		lineChart.getXAxis().setGridColor(
-				getResources().getColor(R.color.lineChart_transparent));
+		if (isAdded()) {
+			lineChart.getXAxis().setGridColor(
+					getResources().getColor(R.color.lineChart_transparent));
+		}
 
 		//刻度颜色
 		lineChart.getXAxis().setTextColor(Color.rgb(255, 255, 255));

@@ -8,6 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -122,6 +126,16 @@ public class WeibaoFragment extends Fragment {
         mTime = (TextView) view.findViewById(R.id.wb_cjsj);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.wb_list_refresh);
+
+        ImageView infoOperatingIV = (ImageView) view.findViewById(R.id.imageView1);
+
+        Animation operatingAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.tip);
+        LinearInterpolator lin = new LinearInterpolator();
+        operatingAnim.setInterpolator(lin);
+
+        if (operatingAnim != null) {
+            infoOperatingIV.startAnimation(operatingAnim);
+        }
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

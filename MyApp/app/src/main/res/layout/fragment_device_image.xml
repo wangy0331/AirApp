@@ -26,7 +26,9 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            >
 
             <RadioButton
                 android:id="@+id/shishi_chart"
@@ -119,7 +121,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/zhexiantu"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="2dp">
             <TextView
                 android:layout_width="match_parent"
@@ -172,6 +174,32 @@
             android:background="@drawable/zhexiantu"
             android:orientation="vertical"
             android:layout_marginTop="2dp"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/kqwdqx"
+                android:paddingTop="5dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="5dp"
+                />
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chartKQYL"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_height="150dp"
+                android:background="@drawable/zhexiantu"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/zhexiantu"
+            android:orientation="vertical"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp">
             <TextView
                 android:layout_width="match_parent"
@@ -191,30 +219,6 @@
                     />
             </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/zhexiantu"
-            android:orientation="vertical"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="10dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/kqwdqx"
-                android:paddingTop="5dp"
-                android:paddingLeft="10dp"
-                android:textColor="@color/white"
-                android:layout_marginBottom="5dp"
-                />
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/chartKQYL"
-                    android:layout_width="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_height="150dp"
-                    android:background="@drawable/zhexiantu"
-                    />
-            </LinearLayout>
 
     <ImageButton
         android:id="@+id/chart_refresh"

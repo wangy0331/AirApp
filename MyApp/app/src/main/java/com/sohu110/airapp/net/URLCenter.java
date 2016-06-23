@@ -4,8 +4,7 @@ import android.text.TextUtils;
 
 public class URLCenter {
 
-	public static final String SERVER = "http://222.92.237.43:1880";
-
+	public static final String SERVER = "http://153.37.190.26:1880";
 
 	/**
 	 * 获取完整图片路径

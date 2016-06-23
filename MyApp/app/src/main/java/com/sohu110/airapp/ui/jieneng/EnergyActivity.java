@@ -2,14 +2,17 @@ package com.sohu110.airapp.ui.jieneng;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,12 +28,16 @@ import com.sohu110.airapp.LibApplication;
 import com.sohu110.airapp.R;
 import com.sohu110.airapp.bean.Energy;
 import com.sohu110.airapp.bean.Result;
+import com.sohu110.airapp.cn.sharesdk.onekeyshare.OnekeyShare;
+import com.sohu110.airapp.cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 import com.sohu110.airapp.service.ServiceCenter;
 import com.sohu110.airapp.ui.BaseActivity;
 import com.sohu110.airapp.utils.SortComparator;
 import com.sohu110.airapp.widget.LibToast;
 import com.sohu110.airapp.widget.LoadProcessDialog;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,6 +45,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.ShareSDK;
 
 /**
  * 节能砖家
@@ -87,7 +97,7 @@ public class EnergyActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_energy);
-        setTitle(R.string.jieneng_zhixing);
+        setTitle(R.string.jieneng_zhuanjia);
 
         mLinearLayout = (LinearLayout) findViewById(R.id.jnzx_bg);
 
@@ -128,7 +138,7 @@ public class EnergyActivity extends BaseActivity {
 
                     public void onClick(DialogInterface dialog, int which) {
                         inputServer.getText().toString();
-                        mJiage.setText(inputServer.getText().toString());
+                        mJiage.setText(inputServer.getText().toString() + "元/度");
                     }
                 });
                 builder.show();
@@ -143,6 +153,12 @@ public class EnergyActivity extends BaseActivity {
         zsjText.setText(getResources().getString(R.string.jnzx_zjn));
         ljText.setText(getResources().getString(R.string.ljjn));
         lText.setText(getResources().getString(R.string.jnl));
+
+        mZrjn.setText("昨日节能 0.0(kWh)");
+        mJrjn.setText("0.0");
+        mMaxHN.setText("0.0");
+        mLeiji.setText("0.0");
+        mJnl.setText("0.0");
 
 
 
@@ -170,7 +186,12 @@ public class EnergyActivity extends BaseActivity {
                 double b = sjjn;
                 double db = a/b;
 
-                String lv = String .format("%.2f", db*100);
+
+                String lv = "0.0";
+
+                if (!Double.valueOf(db).isNaN()) {
+                    String .format("%.2f", db*100);
+                }
 
                 mJnl.setText(lv);
             }
@@ -200,7 +221,14 @@ public class EnergyActivity extends BaseActivity {
 
                 double db = a/b;
 
-                String lv = String.format("%.2f", db * 100);
+//                String lv = String.format("%.2f", db * 100);
+
+                String lv = "0.0";
+
+                if (!Double.valueOf(db).isNaN()) {
+                    String .format("%.2f", db*100);
+                }
+
 
                 mJnl.setText(lv);
             }
@@ -214,9 +242,9 @@ public class EnergyActivity extends BaseActivity {
             public void onRefresh() {
                 if (LibApplication.getInstance().isNetworkConnected()) {
                     //今日
-                    new EnergyTodayTask("day").execute();
+//                    new EnergyTodayTask("day").execute();
                     //七日
-                    new EnergySdayTask("sday").execute();
+//                    new EnergySdayTask("sday").execute();
                 } else {
                     LibToast.show(EnergyActivity.this, R.string.not_network);
                 }
@@ -226,9 +254,9 @@ public class EnergyActivity extends BaseActivity {
 
         if (LibApplication.getInstance().isNetworkConnected()) {
             //今日
-            new EnergyTodayTask("day").execute();
+//            new EnergyTodayTask("day").execute();
             //七日
-            new EnergySdayTask("sday").execute();
+//            new EnergySdayTask("sday").execute();
         } else {
             LibToast.show(EnergyActivity.this, R.string.not_network);
         }
@@ -239,7 +267,7 @@ public class EnergyActivity extends BaseActivity {
         getBtnRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                showShare();
             }
         });
 
@@ -562,5 +590,83 @@ public class EnergyActivity extends BaseActivity {
 
             return lineData;
         }
+
+
+    private void showShare() {
+        ShareSDK.initSDK(this);
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+
+        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+        oks.setTitle("开创空压机第3种节能方式");
+        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+        oks.setTitleUrl("http://www.dzjn88.com/kyjezs.html");
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("空压机e助手打造全新的工作方式，为您带来便捷、轻松的工作体验。");
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+//        oks.setImagePath("file:///android_asset/share_icon.png");//确保SDcard下面存在此张图片
+        oks.setImageUrl("https://mmbiz.qlogo.cn/mmbiz/iaHaBOvKY12lqeS03Dl35vq9qia6K8HDxwdXRjD8h5IrY6uicR0MVBS2pZW5oW7onZr0fnkr0Ko5SBWfHhxltqHIQ/0?wx_fmt=png");
+        // url仅在微信（包括好友和朋友圈）中使用
+        oks.setUrl("http://www.dzjn88.com/kyjezs.html");
+        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+//        oks.setComment("");
+        // site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite(getString(R.string.app_name));
+        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("http://www.dzjn88.com/kyjezs.html");
+        oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
+            @Override
+            public void onShare(Platform platform, Platform.ShareParams paramsToShare) {
+                Log.d("leo", "platForm:" + platform.getName());
+
+                // 重写新浪微博的 title
+                if ("SinaWeibo".equals(platform.getName())) {
+                    paramsToShare.setText("空压机e助手打造全新的工作方式，为您带来便捷、轻松的工作体验。 http://www.dzjn88.com/kyjezs.html");
+                    paramsToShare.setUrl(null);
+                }
+
+
+
+                // 重写朋友圈的 title
+                if ("WechatMoments".equals(platform.getName())) {
+
+
+                    paramsToShare.setTitle("开创空压机第3种节能方式");
+                    paramsToShare.setText("空压机e助手打造全新的工作方式，为您带来便捷、轻松的工作体验。");
+                }
+            }
+        });
+
+        // 启动分享GUI
+        oks.show(EnergyActivity.this);
+
+//// 启动分享GUI
+//        oks.show(this);
+    }
+
+
+
+    /**
+     * 从Assets中读取图片
+     */
+    private Bitmap getImageFromAssetsFile(String fileName)
+    {
+        Bitmap image = null;
+        AssetManager am = getResources().getAssets();
+        try
+        {
+            InputStream is = am.open(fileName);
+            image = BitmapFactory.decodeStream(is);
+            is.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return image;
+
+    }
 
 }

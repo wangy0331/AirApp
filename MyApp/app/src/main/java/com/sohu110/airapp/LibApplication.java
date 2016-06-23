@@ -9,6 +9,8 @@ import android.net.NetworkInfo;
 
 import com.sohu110.airapp.log.Logger;
 
+import im.fir.sdk.FIR;
+
 
 /**
  * Created by Aaron on 2016/4/6.
@@ -22,6 +24,7 @@ public class LibApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        FIR.init(this);
         initialize();
         instance = this;
     }

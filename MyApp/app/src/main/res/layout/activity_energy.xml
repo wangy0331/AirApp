@@ -165,7 +165,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="10dp"
                 android:paddingRight="10dp"
-                android:text="0.8/元"
+                android:text="0.8元/度"
                 />
 
         </RelativeLayout>
@@ -250,6 +250,7 @@
         android:layout_height="1dp"
         android:background="@color/gray"
         android:layout_marginTop="10dp"
+        android:visibility="gone"
         ></View>
 
     <LinearLayout

@@ -181,7 +181,7 @@
                 />
 
             <TextView
-                android:id="@+id/wendu"
+                android:id="@+id/yali"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="20MPa"
@@ -208,7 +208,7 @@
                 />
 
             <TextView
-                android:id="@+id/yali"
+                android:id="@+id/wendu"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="60"

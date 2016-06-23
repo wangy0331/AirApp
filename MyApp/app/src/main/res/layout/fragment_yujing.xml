@@ -339,6 +339,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/yj_jj_dh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
@@ -367,6 +368,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/yj_wh_dh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"

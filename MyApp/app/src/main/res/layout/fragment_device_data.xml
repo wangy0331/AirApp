@@ -158,7 +158,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="1"
             />
 
         <TextView
@@ -175,7 +174,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="1"
             />
 
     </LinearLayout>
@@ -204,7 +202,6 @@
                 android:gravity="right"
                 android:paddingRight="20dp"
                 android:textColor="@color/blue"
-                android:text="13"
                 />
 
             <TextView
@@ -221,7 +218,6 @@
                 android:gravity="right"
                 android:paddingRight="20dp"
                 android:textColor="@color/blue"
-                android:text="1"
                 />
 
         </LinearLayout>
@@ -251,7 +247,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="200MPa"
             />
 
         <TextView
@@ -268,7 +263,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="33℃"
             />
 
     </LinearLayout>
@@ -297,7 +291,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="11℃"
             />
 
         <TextView
@@ -314,7 +307,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="11℃"
             />
 
 
@@ -346,7 +338,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="11℃"
             />
 
         <TextView
@@ -363,7 +354,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="10Hz"
             />
 
     </LinearLayout>
@@ -392,7 +382,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="11kWh"
             />
         <TextView
             android:layout_width="0dp"
@@ -408,7 +397,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="11kWh"
             />
 
     </LinearLayout>
@@ -437,7 +425,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="单机/联控"
             />
         <TextView
             android:layout_width="0dp"
@@ -453,7 +440,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="在线/离线"
             />
 
     </LinearLayout>
@@ -527,7 +513,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="10A"
             />
 
         <TextView
@@ -538,7 +523,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="10A"
             />
 
         <TextView
@@ -549,7 +533,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="10A"
             />
 
     </LinearLayout>
@@ -578,7 +561,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="10A"
             />
 
         <TextView
@@ -589,7 +571,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="10A"
             />
 
         <TextView
@@ -600,7 +581,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="10A"
             />
 
     </LinearLayout>
@@ -629,7 +609,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="10A"
             />
 
         <TextView
@@ -640,7 +619,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="10A"
             />
 
         <TextView
@@ -651,7 +629,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="10A"
             />
 
     </LinearLayout>
@@ -680,7 +657,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="295V"
             />
 
         <TextView
@@ -697,7 +673,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="20021"
             />
 
     </LinearLayout>
@@ -726,7 +701,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="10h"
             />
 
         <TextView
@@ -743,7 +717,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="200h"
             />
 
     </LinearLayout>
@@ -772,7 +745,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="16h"
             />
 
         <TextView
@@ -789,7 +761,6 @@
             android:gravity="right"
             android:paddingRight="20dp"
             android:textColor="@color/blue"
-            android:text="12h"
             />
 
     </LinearLayout>
@@ -818,7 +789,6 @@
                 android:gravity="right"
                 android:paddingRight="20dp"
                 android:textColor="@color/blue"
-                android:text="16h"
                 />
 
             <TextView
@@ -835,7 +805,6 @@
                 android:gravity="right"
                 android:paddingRight="20dp"
                 android:textColor="@color/blue"
-                android:text="12h"
                 />
 
         </LinearLayout>
@@ -864,7 +833,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:textColor="@color/blue"
-                android:text="25136655"
                 />
 
         </LinearLayout>
@@ -893,7 +861,6 @@
                 android:gravity="right"
                 android:paddingRight="20dp"
                 android:textColor="@color/blue"
-                android:text="16h"
                 />
 
         </LinearLayout>
@@ -923,7 +890,6 @@
                 android:gravity="right"
                 android:paddingRight="20dp"
                 android:textColor="@color/blue"
-                android:text="12h"
                 />
 
         </LinearLayout>
@@ -953,7 +919,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:textColor="@color/blue"
-                android:text="鑫磊"
                 />
 
         </LinearLayout>
@@ -982,7 +947,6 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:textColor="@color/blue"
-            android:text="25136655"
             />
 
     </LinearLayout>
@@ -1011,7 +975,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:textColor="@color/blue"
-                android:text="25136655"
                 />
 
         </LinearLayout>
@@ -1042,7 +1005,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:textColor="@color/blue"
-                android:text="25136655"
                 />
 
         </LinearLayout>

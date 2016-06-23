@@ -2,6 +2,7 @@ package com.sohu110.airapp.ui.device;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -39,8 +40,8 @@ public class Fragment1 extends Fragment{
 	private TextView fengji2Sta;
 	//排气压力
 	private TextView paiqiPress;
-	//机头温度
-	private TextView jitouTemp;
+	//排气温度
+	private TextView paiqiTemp;
 	//主机电流
 	private TextView zhujiDl;
 	//电机温度
@@ -116,7 +117,7 @@ public class Fragment1 extends Fragment{
 	private String dianliu = "A";
 	private String wendu = "℃";
 	private String mpa = "MPa";
-	private String qws = "kMh";
+	private String qws = "kWh";
 	private String dianya = "V";
 	private String hz = "Hz";
 	private String gl = "kW";
@@ -124,6 +125,12 @@ public class Fragment1 extends Fragment{
 	private String lv = "%";
 
 	private static String GUID = "guid";
+
+	//一分钟内刷新表示(trun---能刷新    false---不能刷新)
+	private boolean refresh = true;
+
+	//倒计时
+	private CountDownTimer countDown;
 
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -143,13 +150,35 @@ public class Fragment1 extends Fragment{
 		//获取预警类型编号
 		guid = this.getArguments().getString(GUID);
 		Log.e("fragment", guid);
+
+		countDown = new CountDownTimer(60000, 2000) {
+
+			@Override
+			public void onTick(long millisUntilFinished) {
+				new DeviceDetailJubuTask(guid).execute();
+				Log.e("time", String.valueOf(millisUntilFinished / 1000));
+				refresh = false;
+			}
+
+			/** 倒计时结束后在这里实现activity跳转  */
+			@Override
+			public void onFinish() {
+				Log.e("time", "stop");
+				refresh = true;
+			}
+		};
+
 	}
 
 
 	@Override
-	public void onResume() {
-		super.onResume();
-		new DeviceDetailTask(guid).execute();
+	public void onStart() {
+		super.onStart();
+//		new DeviceDetailTask(guid).execute();
+		//局部刷新
+		if (refresh) {
+			new DeviceDetailTask(guid).execute();
+		}
 	}
 
 	@Override
@@ -171,7 +200,7 @@ public class Fragment1 extends Fragment{
 		fengji1Sta = (TextView) view.findViewById(R.id.fj1zt);
 		fengji2Sta = (TextView) view.findViewById(R.id.fj2zt);
 		paiqiPress = (TextView) view.findViewById(R.id.paiqi_press);
-		jitouTemp = (TextView) view.findViewById(R.id.jitou_temp);
+		paiqiTemp = (TextView) view.findViewById(R.id.jitou_temp);
 		zhujiDl = (TextView) view.findViewById(R.id.zj_dl);
 		dianjiTemp = (TextView) view.findViewById(R.id.dianji_temp);
 		dianqiTemp = (TextView) view.findViewById(R.id.dianqi_temp);
@@ -211,16 +240,68 @@ public class Fragment1 extends Fragment{
 
 		mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.detail_list_refresh);
 
-		mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-			@Override
-			public void onRefresh() {
-				new DeviceDetailTask(guid).execute();
-			}
-		});
+//		if (refresh) {
+			mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+				@Override
+				public void onRefresh() {
+//				new DeviceDetailTask(guid).execute();
+					Log.e("refresh", String.valueOf(refresh));
+					//局部刷新
+					if (refresh) {
+						new DeviceBiaoshiTask(guid).execute();
+					} else {
+						mSwipeRefreshLayout.setRefreshing(true);
+						mSwipeRefreshLayout.setRefreshing(false);
+					}
+				}
+			});
+//		}
+
+
+
+//		countDown = new CountDownTimer(30000, 2000) {
+//
+//			@Override
+//			public void onTick(long millisUntilFinished) {
+////				new DeviceDetailJubuTask(guid).execute();
+//				Log.e("time", String.valueOf(millisUntilFinished/1000));
+//			}
+//
+//			/** 倒计时结束后在这里实现activity跳转  */
+//			@Override
+//			public void onFinish() {
+//				Log.e("time", "stop");
+//			}
+//		};
 
 		return view;
 	}
 
+	@Override
+	public void onStop() {
+		super.onStop();
+		try {
+			countDown.cancel();
+			Log.e("onStop", "close");
+		} catch (Exception e) {
+//			Log.e("time", "close");
+		}
+	}
+
+	@Override
+	public void onPause() {
+		super.onStop();
+		try {
+			countDown.cancel();
+			Log.e("onPause", "close");
+		} catch (Exception e) {
+			Log.e("time", "close");
+		}
+	}
+
+	/**
+	 * 获取详情
+	 */
 	class DeviceDetailTask extends AsyncTask<Void, Void, Result<DeviceDetail>> {
 
 		private String jiqiSn;
@@ -250,56 +331,236 @@ public class Fragment1 extends Fragment{
 
 					if (item != null) {
 
-						dashBoardView.setSpeed(Integer.valueOf(item.getZhujiDl1().trim()));
-						dashBoardTempView.setSpeed(Integer.valueOf(item.getAirTemp().trim()));
-						dashBoardPressView.setSpeed(Float.valueOf(item.getAirPress().trim()));
+						if (item.getZjdl() != null) {
+							dashBoardView.setSpeed(Integer.valueOf(item.getZjdl().trim()));
+						}
+						if (item.getAirTemp() != null) {
+							dashBoardView.setSpeed(Integer.valueOf(item.getZjdl().trim()));
+						}
+						if (item.getAirPress() != null) {
+							dashBoardView.setSpeed(Integer.valueOf(item.getZjdl().trim()));
+						}
 
-						caijiTime.setText(item.getNowTime().trim());
-						dianjiSta.setText(item.getDianjiSta().trim());
-						kyjSta.setText(item.getAirSta().trim());
-						fengji1Sta.setText(item.getFengjiSta1().trim());
-						fengji2Sta.setText(item.getFengjiSta2().trim());
-						paiqiPress.setText(item.getAirPress().trim() + mpa);
-						jitouTemp.setText(item.getAirTemp().trim() + wendu);
-						zhujiDl.setText(item.getZhujiDl1().trim() + dianliu);
-						dianjiTemp.setText(item.getDianjiTemp().trim() + wendu);
-						dianqiTemp.setText(item.getModleTemp().trim() + wendu);
-						jienengLv.setText(item.getJienengLv().trim() + lv);
-						jienengDn.setText(item.getJienengDianneng().trim() + qws);
-						shijiHn.setText(item.getSjHaoneng().trim() + qws);
-						shebeiSta.setText(item.getDeviceSta().trim());
-						tongxunSta.setText(item.getTongxunSta().trim());
-						zhujiDl1.setText(item.getZhujiDl1().trim() + dianliu);
-						zhujiDl2.setText(item.getZhujiDl2().trim() + dianliu);
-						zhujiDl3.setText(item.getZhujiDl3().trim() + dianliu);
-						fengji1Dl1.setText(item.getFengji1Dl1().trim() + dianliu);
-						fengji1Dl2.setText(item.getFengji1Dl2().trim() + dianliu);
-						fengji1Dl3.setText(item.getFengji1Dl3().trim() + dianliu);
-						fengji2Dl1.setText(item.getFengji2Dl1().trim() + dianliu);
-						fengji2Dl2.setText(item.getFengji2Dl2().trim() + dianliu);
-						fengji2Dl3.setText(item.getFengji2Dl3().trim() + dianliu);
-						shebeiDy.setText(item.getCurrentDy().trim() + dianya);
-						jiazaiCs.setText(item.getJiazaiCs().trim());
-						leijiYx.setText(item.getLeijiYx().trim() + hour);
-						leijiJz.setText(item.getLeijiJz().trim() + hour);
-						benciYx.setText(item.getBenciYx().trim() + hour);
-						benciJz.setText(item.getBenciJz().trim() + hour);
-						dianyuanPl.setText(item.getDianyuanPl().trim() + hz);
-						shebeiGl.setText(item.getDeviceGl().trim());
-						dayPjSj.setText(item.getDayPjSj().trim() + hour);
-						kehuMc.setText(item.getKehuMc().trim());
-						kyjBh.setText(item.getKyjBianhao().trim());
-						kyjpp.setText(item.getKyjPp().trim());
-						rjbb.setText(item.getRjbb().trim());
-						yjbb.setText(item.getYjbb().trim());
-						sn.setText(item.getKyjSn().trim());
-						if (!"".equals(item.getStatus())) {
-							if ("报警状态".equals(item.getStatus().trim().substring(0,4))) {
-								bjText.setText(item.getStatus().substring(5, item.getStatus().length()));
-							} else if ("预警状态".equals(item.getStatus().trim().substring(0,4))) {
-								yjText.setText(item.getStatus().substring(5, item.getStatus().length()));
+//						dashBoardView.setSpeed(Integer.valueOf(item.getZjdl().trim()));
+//						dashBoardTempView.setSpeed(Integer.valueOf(item.getAirTemp().trim()));
+//						dashBoardPressView.setSpeed(Float.valueOf(item.getAirPress().trim()));
+
+						if (item.getNowTime() != null) {
+							caijiTime.setText(item.getNowTime().trim());
+						}
+						if (item.getDianjiSta() != null) {
+							dianjiSta.setText(item.getDianjiSta().trim());
+						}
+						if (item.getAirSta() != null) {
+							kyjSta.setText(item.getAirSta().trim());
+						}
+						if (item.getFengjiSta1() != null) {
+							fengji1Sta.setText(item.getFengjiSta1().trim());
+						}
+						if (item.getFengjiSta2() != null) {
+							fengji2Sta.setText(item.getFengjiSta2().trim());
+						}
+						if (item.getAirPress() != null) {
+							paiqiPress.setText(item.getAirPress().trim() + mpa);
+						}
+						if (item.getAirTemp() != null) {
+							paiqiTemp.setText(item.getAirTemp().trim() + wendu);
+						}
+						if (item.getZjdl() != null) {
+							zhujiDl.setText(item.getZjdl().trim() + dianliu);
+						}
+						if (item.getDianjiTemp() != null) {
+							dianjiTemp.setText(item.getDianjiTemp().trim() + wendu);
+						}
+						if (item.getModleTemp() != null) {
+							dianqiTemp.setText(item.getModleTemp().trim() + wendu);
+						}
+						if (item.getJienengLv() != null) {
+							jienengLv.setText(item.getJienengLv().trim() + lv);
+						}
+						if (item.getJienengDianneng() != null) {
+							jienengDn.setText(item.getJienengDianneng().trim() + qws);
+						}
+						if (item.getSjHaoneng() != null) {
+							shijiHn.setText(item.getSjHaoneng().trim() + qws);
+						}
+						if (item.getDeviceSta() != null) {
+							shebeiSta.setText(item.getDeviceSta().trim());
+						}
+						if (item.getTongxunSta() != null) {
+							tongxunSta.setText(item.getTongxunSta().trim());
+						}
+						if (item.getZhujiDl1() != null) {
+							zhujiDl1.setText(item.getZhujiDl1().trim() + dianliu);
+						}
+						if (item.getZhujiDl2() != null) {
+							zhujiDl2.setText(item.getZhujiDl2().trim() + dianliu);
+						}
+						if (item.getZhujiDl3() != null) {
+							zhujiDl3.setText(item.getZhujiDl3().trim() + dianliu);
+						}
+						if (item.getFengji1Dl1() != null) {
+							fengji1Dl1.setText(item.getFengji1Dl1().trim() + dianliu);
+						}
+						if (item.getFengji1Dl2() != null) {
+							fengji1Dl2.setText(item.getFengji1Dl2().trim() + dianliu);
+						}
+						if (item.getFengji1Dl3() != null) {
+							fengji1Dl3.setText(item.getFengji1Dl3().trim() + dianliu);
+						}
+						if (item.getFengji2Dl1() != null) {
+							fengji2Dl1.setText(item.getFengji2Dl1().trim() + dianliu);
+						}
+						if (item.getFengji2Dl2() != null) {
+							fengji2Dl2.setText(item.getFengji2Dl2().trim() + dianliu);
+						}
+						if (item.getFengji2Dl3() != null) {
+							fengji2Dl3.setText(item.getFengji2Dl3().trim() + dianliu);
+						}
+						if (item.getCurrentDy() != null) {
+							shebeiDy.setText(item.getCurrentDy().trim() + dianya);
+						}
+						if (item.getJiazaiCs() != null) {
+							jiazaiCs.setText(item.getJiazaiCs().trim());
+						}
+						if (item.getLeijiYx() != null) {
+							leijiYx.setText(item.getLeijiYx().trim() + hour);
+						}
+						if (item.getLeijiJz() != null) {
+							leijiJz.setText(item.getLeijiJz().trim() + hour);
+						}
+						if (item.getBenciYx() != null) {
+							benciYx.setText(item.getBenciYx().trim() + hour);
+						}
+						if (item.getBenciJz() != null) {
+							benciJz.setText(item.getBenciJz().trim() + hour);
+						}
+						if (item.getDianyuanPl() != null) {
+							dianyuanPl.setText(item.getDianyuanPl().trim() + hz);
+						}
+						if (item.getDeviceGl() != null) {
+							shebeiGl.setText(item.getDeviceGl().trim());
+						}
+						if (item.getDayPjSj() != null) {
+							dayPjSj.setText(item.getDayPjSj().trim() + hour);
+						}
+						if (item.getKehuMc() != null) {
+							kehuMc.setText(item.getKehuMc().trim());
+						}
+						if (item.getKyjBianhao() != null) {
+							kyjBh.setText(item.getKyjBianhao().trim());
+						}
+						if (item.getKyjPp() != null) {
+							kyjpp.setText(item.getKyjPp().trim());
+						}
+						if (item.getRjbb() != null) {
+							rjbb.setText(item.getRjbb().trim());
+						}
+						if (item.getYjbb() != null) {
+							yjbb.setText(item.getYjbb().trim());
+						}
+						if (item.getJqQiSn() != null) {
+							sn.setText(item.getJqQiSn().trim());
+						}
+
+//						caijiTime.setText(item.getNowTime().trim());
+//						dianjiSta.setText(item.getDianjiSta().trim());
+//						kyjSta.setText(item.getAirSta().trim());
+//						fengji1Sta.setText(item.getFengjiSta1().trim());
+//						fengji2Sta.setText(item.getFengjiSta2().trim());
+//						paiqiPress.setText(item.getAirPress().trim() + mpa);
+//						paiqiTemp.setText(item.getAirTemp().trim() + wendu);
+//						zhujiDl.setText(item.getZjdl().trim() + dianliu);
+//						dianjiTemp.setText(item.getDianjiTemp().trim() + wendu);
+//						dianqiTemp.setText(item.getModleTemp().trim() + wendu);
+//						jienengLv.setText(item.getJienengLv().trim() + lv);
+//						jienengDn.setText(item.getJienengDianneng().trim() + qws);
+//						shijiHn.setText(item.getSjHaoneng().trim() + qws);
+//						shebeiSta.setText(item.getDeviceSta().trim());
+//						tongxunSta.setText(item.getTongxunSta().trim());
+//						zhujiDl1.setText(item.getZhujiDl1().trim() + dianliu);
+//						zhujiDl2.setText(item.getZhujiDl2().trim() + dianliu);
+//						zhujiDl3.setText(item.getZhujiDl3().trim() + dianliu);
+//						fengji1Dl1.setText(item.getFengji1Dl1().trim() + dianliu);
+//						fengji1Dl2.setText(item.getFengji1Dl2().trim() + dianliu);
+//						fengji1Dl3.setText(item.getFengji1Dl3().trim() + dianliu);
+//						fengji2Dl1.setText(item.getFengji2Dl1().trim() + dianliu);
+//						fengji2Dl2.setText(item.getFengji2Dl2().trim() + dianliu);
+//						fengji2Dl3.setText(item.getFengji2Dl3().trim() + dianliu);
+//						shebeiDy.setText(item.getCurrentDy().trim() + dianya);
+//						jiazaiCs.setText(item.getJiazaiCs().trim());
+//						leijiYx.setText(item.getLeijiYx().trim() + hour);
+//						leijiJz.setText(item.getLeijiJz().trim() + hour);
+//						benciYx.setText(item.getBenciYx().trim() + hour);
+//						benciJz.setText(item.getBenciJz().trim() + hour);
+//						dianyuanPl.setText(item.getDianyuanPl().trim() + hz);
+//						shebeiGl.setText(item.getDeviceGl().trim());
+//						dayPjSj.setText(item.getDayPjSj().trim() + hour);
+//						kehuMc.setText(item.getKehuMc().trim());
+//						kyjBh.setText(item.getKyjBianhao().trim());
+//						kyjpp.setText(item.getKyjPp().trim());
+//						rjbb.setText(item.getRjbb().trim());
+//						yjbb.setText(item.getYjbb().trim());
+//						sn.setText(item.getJqQiSn().trim());
+
+//						caijiTime.setText(item.getNowTime());
+//						dianjiSta.setText(item.getDianjiSta());
+//						kyjSta.setText(item.getAirSta());
+//						fengji1Sta.setText(item.getFengjiSta1());
+//						fengji2Sta.setText(item.getFengjiSta2());
+//						paiqiPress.setText(item.getAirPress() + mpa);
+//						paiqiTemp.setText(item.getAirTemp() + wendu);
+//						zhujiDl.setText(item.getZjdl() + dianliu);
+//						dianjiTemp.setText(item.getDianjiTemp() + wendu);
+//						dianqiTemp.setText(item.getModleTemp() + wendu);
+//						jienengLv.setText(item.getJienengLv() + lv);
+//						jienengDn.setText(item.getJienengDianneng() + qws);
+//						shijiHn.setText(item.getSjHaoneng() + qws);
+//						shebeiSta.setText(item.getDeviceSta());
+//						tongxunSta.setText(item.getTongxunSta());
+//						zhujiDl1.setText(item.getZhujiDl1() + dianliu);
+//						zhujiDl2.setText(item.getZhujiDl2() + dianliu);
+//						zhujiDl3.setText(item.getZhujiDl3() + dianliu);
+//						fengji1Dl1.setText(item.getFengji1Dl1() + dianliu);
+//						fengji1Dl2.setText(item.getFengji1Dl2() + dianliu);
+//						fengji1Dl3.setText(item.getFengji1Dl3() + dianliu);
+//						fengji2Dl1.setText(item.getFengji2Dl1() + dianliu);
+//						fengji2Dl2.setText(item.getFengji2Dl2() + dianliu);
+//						fengji2Dl3.setText(item.getFengji2Dl3() + dianliu);
+//						shebeiDy.setText(item.getCurrentDy() + dianya);
+//						jiazaiCs.setText(item.getJiazaiCs());
+//						leijiYx.setText(item.getLeijiYx() + hour);
+//						leijiJz.setText(item.getLeijiJz() + hour);
+//						benciYx.setText(item.getBenciYx() + hour);
+//						benciJz.setText(item.getBenciJz() + hour);
+//						dianyuanPl.setText(item.getDianyuanPl() + hz);
+//						shebeiGl.setText(item.getDeviceGl());
+//						dayPjSj.setText(item.getDayPjSj() + hour);
+//						kehuMc.setText(item.getKehuMc());
+//						kyjBh.setText(item.getKyjBianhao());
+//						kyjpp.setText(item.getKyjPp());
+//						rjbb.setText(item.getRjbb());
+//						yjbb.setText(item.getYjbb());
+//						sn.setText(item.getJqQiSn());
+
+						if (item.getStatus() != null) {
+							if (!"".equals(item.getStatus())) {
+
+								if ("无".equals(item.getStatus())) {
+									bjText.setText(item.getStatus());
+									yjText.setText(item.getStatus());
+								} else {
+									if ("报警状态".equals(item.getStatus().trim().substring(0,4))) {
+										bjText.setText(item.getStatus().substring(5, item.getStatus().length()));
+									} else if ("预警状态".equals(item.getStatus().trim().substring(0,4))) {
+										yjText.setText(item.getStatus().substring(5, item.getStatus().length()));
+									}
+								}
 							}
 						}
+
+						//局部刷新
+						new DeviceBiaoshiTask(guid).execute();
 					}
 
 				} else {
@@ -311,5 +572,161 @@ public class Fragment1 extends Fragment{
 		}
 
 	}
+
+
+	/**
+	 * 局部刷新
+	 */
+	class DeviceDetailJubuTask extends AsyncTask<Void, Void, Result<DeviceDetail>> {
+
+		private String jiqiSn;
+
+		public DeviceDetailJubuTask(String guid) {
+			jiqiSn = guid;
+		}
+
+		@Override
+		protected Result<DeviceDetail> doInBackground(Void... params) {
+			try{
+				return ServiceCenter.getDetailJubu(jiqiSn);
+			} catch (Exception e) {
+				Logger.e("", "", e);
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Result<DeviceDetail> result) {
+			super.onPostExecute(result);
+			mSwipeRefreshLayout.setRefreshing(false);
+			if (result != null) {
+				if (result.isSuceed()) {
+
+					DeviceDetail item = result.getData();
+
+					if (item != null) {
+
+						dashBoardView.setSpeed(Integer.valueOf(item.getZjdl().trim()));
+						dashBoardTempView.setSpeed(Integer.valueOf(item.getAirTemp().trim()));
+						dashBoardPressView.setSpeed(Float.valueOf(item.getAirPress().trim()));
+
+						if (!"".equals(item.getStatus())) {
+							if ("无".equals(item.getStatus())) {
+								bjText.setText(item.getStatus());
+								yjText.setText(item.getStatus());
+							} else {
+								if ("报警状态".equals(item.getStatus().trim().substring(0,4))) {
+									bjText.setText(item.getStatus().substring(5, item.getStatus().length()));
+								} else if ("预警状态".equals(item.getStatus().trim().substring(0,4))) {
+									yjText.setText(item.getStatus().substring(5, item.getStatus().length()));
+								}
+							}
+//							if ("报警状态".equals(item.getStatus().trim().substring(0,4))) {
+//								bjText.setText(item.getStatus().substring(5, item.getStatus().length()));
+//							} else if ("预警状态".equals(item.getStatus().trim().substring(0,4))) {
+//								yjText.setText(item.getStatus().substring(5, item.getStatus().length()));
+//							}
+						}
+
+						if (item.getJqQiSn() != null) {
+							sn.setText(item.getJqQiSn().trim());
+						}
+						if (item.getAirPress() != null) {
+							paiqiPress.setText(item.getAirPress().trim() + mpa);
+						}
+						if (item.getZjdl() != null) {
+							zhujiDl.setText(item.getZjdl().trim() + dianliu);
+						}
+						if (item.getNowTime() != null) {
+							caijiTime.setText(item.getNowTime().trim());
+						}
+						if (item.getAirTemp() != null) {
+							paiqiTemp.setText(item.getAirTemp().trim() + wendu);
+						}
+						if (item.getDianjiTemp() != null) {
+							dianjiTemp.setText(item.getDianjiTemp().trim() + wendu);
+						}
+						if (item.getDianjiSta() != null) {
+							dianjiSta.setText(item.getDianjiSta().trim());
+						}
+						if (item.getAirSta() != null) {
+							kyjSta.setText(item.getAirSta().trim());
+						}
+						if (item.getFengjiSta1() != null) {
+							fengji1Sta.setText(item.getFengjiSta1().trim());
+						}
+						if (item.getFengjiSta2() != null) {
+							fengji2Sta.setText(item.getFengjiSta2().trim());
+						}
+
+//						sn.setText(item.getJqQiSn().trim());
+//						paiqiPress.setText(item.getAirPress().trim() + mpa);
+//						zhujiDl.setText(item.getZjdl().trim() + dianliu);
+//						caijiTime.setText(item.getNowTime().trim());
+//						paiqiTemp.setText(item.getAirTemp().trim() + wendu);
+//						dianjiTemp.setText(item.getDianjiTemp().trim() + wendu);
+//						dianjiSta.setText(item.getDianjiSta().trim());
+//						kyjSta.setText(item.getAirSta().trim());
+//						fengji1Sta.setText(item.getFengjiSta1().trim());
+//						fengji2Sta.setText(item.getFengjiSta2().trim());
+
+					}
+
+				} else {
+					Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+				}
+			} else {
+				Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+			}
+		}
+
+	}
+
+	/**
+	 * 判断是否局部刷新
+	 */
+	class DeviceBiaoshiTask extends AsyncTask<Void, Void, Result<DeviceDetail>> {
+
+		private String jiqiSn;
+
+		public DeviceBiaoshiTask(String guid) {
+			jiqiSn = guid;
+		}
+
+		@Override
+		protected Result<DeviceDetail> doInBackground(Void... params) {
+			try{
+				return ServiceCenter.getDetailStatus(jiqiSn);
+			} catch (Exception e) {
+				Logger.e("", "", e);
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Result<DeviceDetail> result) {
+			super.onPostExecute(result);
+			mSwipeRefreshLayout.setRefreshing(false);
+			if (result != null) {
+				//如果code返回是1  就表示可以刷新
+				if (result.isSuceed()) {
+
+					Log.e("code", String.valueOf(result.getCode()));
+
+					countDown.start();
+
+
+				}
+				else {
+					Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_SHORT).show();
+				}
+			} else {
+				Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+			}
+		}
+
+	}
+
+
 
 }

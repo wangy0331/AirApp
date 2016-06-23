@@ -58,9 +58,18 @@ import java.io.Serializable;
          *
          * @return
          */
-        public boolean isSuceed() {
-            return code == 1;
+        public boolean isSuceedEidt() {
+            return code == 2;
         }
+
+    /**
+     * 判断操作是否成功
+     *
+     * @return
+     */
+    public boolean isSuceed() {
+        return code == 1;
+    }
 
         /**
          * 判断登录信息是否过期
@@ -100,4 +109,20 @@ import java.io.Serializable;
         }
 
 
+    /**
+     * 局部
+     * @param response
+     * @return
+     */
+    public static <T> Result<T> fromJsonJB(String json) {
+        Result<T> result = null;
+        try {
+            JSONObject obj = new JSONObject(json);
+            result = new Result<T>();
+            result.code = obj.optInt("返回代码");
+            result.message = obj.optString("返回提示");
+        } catch (Exception e) {
+        }
+        return result;
+    }
 }

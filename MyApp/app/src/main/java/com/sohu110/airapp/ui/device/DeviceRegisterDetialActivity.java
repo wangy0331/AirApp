@@ -114,6 +114,7 @@ public class DeviceRegisterDetialActivity extends BaseActivity {
                 info.setEmeTel(mEmsPhone.getText().toString());
                 info.setWhTel(mWhPhone.getText().toString());
                 info.setAirOd(mDate.getText().toString());
+                info.setJiqiSn(deviceThree.getSetNum());
                 new DeviceEditTask(info).execute();
             }
         });
@@ -145,7 +146,7 @@ public class DeviceRegisterDetialActivity extends BaseActivity {
         protected void onPostExecute(Result<DeviceInfo> result) {
             super.onPostExecute(result);
             if (result != null) {
-                if (result.isSuceed()) {
+                if (result.isSuceedEidt()) {
                     DeviceRegisterDetialActivity.this.finish();
                 } else if(StringKit.isNotEmpty(result.getMessage())) {
                     LibToast.show(DeviceRegisterDetialActivity.this, result.getMessage());

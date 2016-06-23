@@ -59,14 +59,14 @@
             android:text="@string/remember"/>
 
 
-        <Button
+        <TextView
             android:id="@+id/find_password_change"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/background"
-            android:gravity="right"
+            android:gravity="right|center"
             android:paddingRight="20dp"
+
             android:textSize="15sp"
             android:text="@string/findPassword"/>
     </LinearLayout>

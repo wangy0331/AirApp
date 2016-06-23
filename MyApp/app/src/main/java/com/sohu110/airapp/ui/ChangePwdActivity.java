@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.sohu110.airapp.R;
 import com.sohu110.airapp.bean.Result;
@@ -29,7 +30,7 @@ public class ChangePwdActivity extends BaseActivity{
 
     private Button mChangePwd;
 
-    private Button findPwd;
+    private TextView findPwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class ChangePwdActivity extends BaseActivity{
 
         mChangePwd = (Button) findViewById(R.id.submit_ChangePwd);
 
-        findPwd = (Button) findViewById(R.id.find_password_change);
+        findPwd = (TextView) findViewById(R.id.find_password_change);
 
         findPwd.setOnClickListener(new View.OnClickListener() {
             @Override

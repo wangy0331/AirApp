@@ -1,27 +1,23 @@
 package com.sohu110.airapp.ui.weixiu;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sohu110.airapp.LibApplication;
 import com.sohu110.airapp.R;
 import com.sohu110.airapp.bean.Device;
 import com.sohu110.airapp.bean.Result;
-import com.sohu110.airapp.log.Logger;
 import com.sohu110.airapp.service.ServiceCenter;
 import com.sohu110.airapp.ui.BaseActivity;
-import com.sohu110.airapp.ui.device.DeviceDetailActivity;
-import com.sohu110.airapp.utils.Const;
 import com.sohu110.airapp.widget.LibToast;
 import com.sohu110.airapp.widget.LoadProcessDialog;
 
@@ -38,6 +34,7 @@ public class WeixiuListActivity extends BaseActivity{
     private RadioButton equipmentBtn;
     private RadioButton areaBtn;
     private Button searchBtn;
+    private TextView mText;
     //列表
     private ListView mListView;
     //适配器
@@ -62,7 +59,7 @@ public class WeixiuListActivity extends BaseActivity{
     private void initData() {
         mAdapter = new WeixiuAdapter(WeixiuListActivity.this);
         if (LibApplication.getInstance().isNetworkConnected()) {
-            new DeviceListTask(mEditText.getText().toString(), condition).execute();
+//            new DeviceListTask(mEditText.getText().toString(), condition).execute();
         } else {
             LibToast.show(WeixiuListActivity.this, R.string.not_network);
         }
@@ -76,6 +73,7 @@ public class WeixiuListActivity extends BaseActivity{
         equipmentBtn = (RadioButton) findViewById(R.id.device_shebeihao);
         areaBtn = (RadioButton) findViewById(R.id.device_quyu);
         mListView = (ListView) findViewById(R.id.device_list_view);
+        mText = (TextView) findViewById(R.id.wbyj_text);
 
         mEditText.setHint(R.string.search_cust);
         customerBtn.setTextColor(getResources().getColor(R.color.blue));
@@ -84,14 +82,22 @@ public class WeixiuListActivity extends BaseActivity{
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_refresh);
 
+        mListView.setVisibility(View.GONE);
+        mText.setVisibility(View.VISIBLE);
+        mSwipeRefreshLayout.setVisibility(View.GONE);
+
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (LibApplication.getInstance().isNetworkConnected()) {
-                    new DeviceListTask(mEditText.getText().toString(), condition).execute();
-                } else {
-                    LibToast.show(WeixiuListActivity.this, R.string.not_network);
-                }
+//                if (LibApplication.getInstance().isNetworkConnected()) {
+//                    new DeviceListTask(mEditText.getText().toString(), condition).execute();
+//                } else {
+//                    LibToast.show(WeixiuListActivity.this, R.string.not_network);
+//                }
+                mSwipeRefreshLayout.setRefreshing(true);
+                mListView.setVisibility(View.GONE);
+                mText.setVisibility(View.VISIBLE);
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -118,11 +124,13 @@ public class WeixiuListActivity extends BaseActivity{
                     areaBtn.setTextColor(getResources().getColor(R.color.blue));
                 }
 
-                if (LibApplication.getInstance().isNetworkConnected()) {
-                    new DeviceListTask(mEditText.getText().toString(), condition).execute();
-                } else {
-                    LibToast.show(WeixiuListActivity.this, R.string.not_network);
-                }
+                mListView.setVisibility(View.GONE);
+                mText.setVisibility(View.VISIBLE);
+//                if (LibApplication.getInstance().isNetworkConnected()) {
+//                    new DeviceListTask(mEditText.getText().toString(), condition).execute();
+//                } else {
+//                    LibToast.show(WeixiuListActivity.this, R.string.not_network);
+//                }
             }
         });
 
@@ -131,27 +139,30 @@ public class WeixiuListActivity extends BaseActivity{
             public void onClick(View v) {
                 String searchText = mEditText.getText().toString();
                 if (LibApplication.getInstance().isNetworkConnected()) {
-                    new DeviceListTask(searchText, condition).execute();
+//                    new DeviceListTask(searchText, condition).execute();
+                    mListView.setVisibility(View.GONE);
+                    mText.setVisibility(View.VISIBLE);
                 } else {
                     LibToast.show(WeixiuListActivity.this, R.string.not_network);
                 }
             }
         });
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    Device device = (Device) parent.getItemAtPosition(position);
-                    Intent intent = new Intent(WeixiuListActivity.this,
-                            DeviceDetailActivity.class);
-                    intent.putExtra(Const.EXTRA_DEVICE, device);
-                    startActivity(intent);
-                } catch (Exception e) {
-                    Logger.e("", "", e);
-                }
-            }
-        });
+//
+//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                try {
+//                    Device device = (Device) parent.getItemAtPosition(position);
+//                    Intent intent = new Intent(WeixiuListActivity.this,
+//                            DeviceDetailActivity.class);
+//                    intent.putExtra(Const.EXTRA_DEVICE, device);
+//                    startActivity(intent);
+//                } catch (Exception e) {
+//                    Logger.e("", "", e);
+//                }
+//            }
+//        });
 
     }
 
@@ -190,9 +201,9 @@ public class WeixiuListActivity extends BaseActivity{
             mSwipeRefreshLayout.setRefreshing(false);
             if (result != null) {
                 if (result.isSuceed()) {
-                    if (mListView.getAdapter() == null) {
-                        mListView.setAdapter(mAdapter);
-                    }
+//                    if (mListView.getAdapter() == null) {
+//                        mListView.setAdapter(mAdapter);
+//                    }
 
                     mAdapter.clear();
                     if (result.getData() != null) {

@@ -29,10 +29,10 @@
     <string name="sbbj">设备报警</string>
     <string name="sblb">设备列表</string>
     <string name="wbxx">维保信息</string>
-    <string name="wxyj">维修预警</string>
+    <string name="wxyj">维保预警</string>
     <string name="jnzj">节能专家</string>
     <string name="sbgz">设备改造</string>
-    <string name="loading">开发中</string>
+    <string name="loading">加载中</string>
     <string name="check_true">签到成功</string>
     <string name="check_check">您已签到，请勿重复签到</string>
     <string name="not_network">没有连接网络！</string>
@@ -181,8 +181,8 @@
     <string name="ybjjdh">紧急电话</string>
     <string name="ybwhdh">维护电话</string>
 
-    <string name="pqwdqx">供气压力曲线</string>
-    <string name="djwdqx">电机电源曲线</string>
+    <string name="pqwdqx">排气压力曲线</string>
+    <string name="djwdqx">电机电流曲线</string>
     <string name="hjwdqx">电机温度曲线</string>
     <string name="kqwdqx">排气温度曲线</string>
 
@@ -215,7 +215,7 @@
     <string name="fj1zt">风机1#状态</string>
     <string name="fj2zt">风机2#状态</string>
     <string name="pqyl">排气压力</string>
-    <string name="jtwd">机头温度</string>
+    <string name="jtwd">排气温度</string>
     <string name="zjdl">主机电流</string>
     <string name="djwd">电机温度</string>
     <string name="dqwd">电气温度</string>
@@ -263,6 +263,7 @@
     <string name="zjyjbb">主机硬件版本</string>
 
     <string name="jieneng_zhixing">节能之星</string>
+    <string name="jieneng_zhuanjia">节能专家</string>
 
     <string name="jnzx_zrjn">昨日节能（KW）</string>
     <string name="jnzx_zjn">总实际耗能（KW）</string>
@@ -309,6 +310,10 @@
     <string name="kongxiang">填空项</string>
     <string name="fjgl">风机功率、数量</string>
 
+
+    <string name="anim">动画</string>
+    <string name="color">颜色</string>
+    <string name="icon">图片</string>
 
 
 </resources>

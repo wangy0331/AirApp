@@ -406,6 +406,12 @@ public class Device implements Serializable {
             item.jiqiSn = obj.optString("Jiqi_sn");
             item.auth = obj.optString("Auth");
             item.jqName = obj.optString("JQ_Name");
+//            if (!"".equals(obj.optDouble("纬度"))) {
+//                item.jqWD = obj.optDouble("纬度");
+//            }
+//            if (!"".equals(obj.optDouble("经度"))) {
+//                item.jqJD = obj.optDouble("经度");
+//            }
             item.jqWD = obj.optDouble("纬度");
             item.jqJD = obj.optDouble("经度");
             item.jqStatus = obj.optString("JQ_status");

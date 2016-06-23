@@ -70,8 +70,14 @@ public class Fragment4 extends Fragment {
         guid = this.getArguments().getString(GUID);
         Log.e("fragment", guid);
 
-        new DeviceInfoTask(guid).execute();
+//        new DeviceInfoTask(guid).execute();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        new DeviceInfoTask(guid).execute();
     }
 
     @Override

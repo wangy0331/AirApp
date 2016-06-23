@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mapapi.SDKInitializer;
@@ -47,11 +46,7 @@ public class BusinessFragment extends Fragment {
 
     private MapView mMapView;
 
-//    private TextureMapView mTextureMapView;
-
     private BaiduMap mBaiduMap;
-
-    private TextView mMapGb;
 
     private ImageButton mBtnRight;
 
@@ -69,11 +64,12 @@ public class BusinessFragment extends Fragment {
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_maps, container, false);
         mMapView = (MapView) view.findViewById(R.id.view_maps);
-        mMapGb = (TextView) view.findViewById(R.id.map_bg);
+//        mMapGb = (TextView) view.findViewById(R.id.map_bg);
         mBtnRight = (ImageButton) view.findViewById(R.id.shuaxin_btn);
         mBtnRight.setImageResource(R.drawable.shuaxin);
 
@@ -105,6 +101,7 @@ public class BusinessFragment extends Fragment {
                 return false;
             }
         });
+
         return view;
     }
 
@@ -128,7 +125,7 @@ public class BusinessFragment extends Fragment {
         @Override
         protected Result<List<Device>> doInBackground(Void... params) {
             try {
-                return ServiceCenter.deviceList("cust", "");
+                return ServiceCenter.deviceList("setno", "");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -138,14 +135,14 @@ public class BusinessFragment extends Fragment {
         @Override
         protected void onPostExecute(Result<List<Device>> result) {
             super.onPostExecute(result);
-//            mLoadDialog.dismiss();
+//            mLoadDialog.dismiss();[]
             if (result != null) {
                 if (result.isSuceed()) {
                     if (result.getData() != null) {
 
                         //构建Marker图标
                         BitmapDescriptor bitmap = BitmapDescriptorFactory
-                                .fromResource(R.drawable.icon_gcoding);
+                                .fromResource(R.drawable.yuxing);
 
 
                         //定义Maker坐标点
@@ -156,21 +153,19 @@ public class BusinessFragment extends Fragment {
                         if (result.getData() != null) {
 
 
-
-
-
-
-
-
-
-
-
                             for (int i = 0; i < result.getData().size(); i++) {
 
-                                Log.e("纬度", result.getData().get(i).getJqWD().toString());
-                                Log.e("经度", result.getData().get(i).getJqJD().toString());
+//                                Log.e("纬度", result.getData().get(i).getJqWD().toString());
+//                                Log.e("经度", result.getData().get(i).getJqJD().toString());
 
-                                pts.add(new LatLng(result.getData().get(i).getJqWD(),result.getData().get(i).getJqJD()));
+
+                                if (result.getData().get(i).getJqWD().isNaN() || result.getData().get(i).getJqJD().isNaN()) {
+
+                                } else {
+                                    pts.add(new LatLng(result.getData().get(i).getJqWD(),result.getData().get(i).getJqJD()));
+                                }
+
+//                                pts.add(new LatLng(result.getData().get(i).getJqWD(),result.getData().get(i).getJqJD()));
                                 //构建MarkerOption，用于在地图上添加Marker
                                 OverlayOptions option = new MarkerOptions()
                                         .position(new LatLng(result.getData().get(i).getJqWD(),result.getData().get(i).getJqJD()))
@@ -178,32 +173,6 @@ public class BusinessFragment extends Fragment {
                                 list.add(option);
                             }
                         }
-
-
-//
-//                        MapView.LayoutParams mapviewLp = new MapView.LayoutParams(
-//                                MapView.LayoutParams.WRAP_CONTENT,MapView.LayoutParams.WRAP_CONTENT,
-//                                location,MapView.LayoutParams.BOTTOM_CENTER);
-//
-//                        ImageView iv=new ImageView(context);
-//                        Animation anim=AnimationUtils.loadAnimation(context, R.anim.ex_map_popup);
-//                        iv.setImageResource(R.drawable.ex_ping_user);
-//                        iv.setAnimation(anim);
-//
-//
-//                        mMapView.addView();
-//                        mMapView.refresh();
-
-//                        List<OverlayOptions> list = new ArrayList<OverlayOptions>();
-//                        for (int i = 0; i < pts.size(); i++) {
-//                            //构建MarkerOption，用于在地图上添加Marker
-//                            OverlayOptions option = new MarkerOptions()
-//                                    .position(pts.get(i))
-//                                    .icon(bitmap);
-//
-//                            list.add(option);
-//                        }
-
 
                         if (pts.size() > 0) {
                             //定义地图状态
@@ -247,7 +216,7 @@ public class BusinessFragment extends Fragment {
 
 
 //                        mMapView.setVisibility(View.VISIBLE);
-                        mMapGb.setVisibility(View.GONE);
+//                        mMapGb.setVisibility(View.GONE);
                     }
 
                 } else {
@@ -288,4 +257,5 @@ public class BusinessFragment extends Fragment {
         //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，实现地图生命周期管理
         mMapView.onSaveInstanceState(outState);
     }
+
 }

@@ -20,6 +20,8 @@ public class DeviceDetail implements Serializable {
     private String airPress;
     //机头温度
     private String airTemp;
+    //主机电流
+    private String zjdl;
     //电机温度
     private String dianjiTemp;
     //电气温度
@@ -445,6 +447,14 @@ public class DeviceDetail implements Serializable {
         this.status = status;
     }
 
+    public String getZjdl() {
+        return zjdl;
+    }
+
+    public void setZjdl(String zjdl) {
+        this.zjdl = zjdl;
+    }
+
     /**
      * 解析json
      * @param response
@@ -460,7 +470,6 @@ public class DeviceDetail implements Serializable {
             JSONObject obj = new JSONObject(response);
             result = new Result<DeviceDetail>();
             result.setCode(1);
-//            JSONObject objInfo = obj.getJSONObject("Setdata_detail");
 
 
             JSONArray array = obj.optJSONArray("Setdata_detail");
@@ -478,6 +487,37 @@ public class DeviceDetail implements Serializable {
         return result;
     }
 
+    /**
+     * 解析json  ----局部刷新
+     * @param response
+     * @return
+     */
+    public static Result<DeviceDetail> parseJB(String response) {
+
+
+        List<DeviceDetail> list = null;
+
+        Result<DeviceDetail> result = null;
+        try {
+            JSONObject obj = new JSONObject(response);
+            result = new Result<DeviceDetail>();
+            result.setCode(1);
+
+            JSONArray array = obj.optJSONArray("设备实时数据");
+            if (array != null) {
+                list = new ArrayList<DeviceDetail>();
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject arrItem = array.getJSONObject(i);
+                    result.setData(fromJsonJB(arrItem));
+                }
+            }
+
+        } catch (Exception e) {
+            Logger.e("", "", e);
+        }
+        return result;
+    }
+
     private static DeviceDetail fromJson(JSONObject obj) {
         DeviceDetail item = null;
         try {
@@ -485,6 +525,7 @@ public class DeviceDetail implements Serializable {
             item.setJqQiSn(obj.getString("机器序列号"));
             item.setAirPress(obj.getString("排气压力"));
             item.setAirTemp(obj.getString("机头温度"));
+            item.setZjdl(obj.getString("主机电流"));
             item.setDianjiTemp(obj.getString("电机温度"));
             item.setModleTemp(obj.getString("电气温度"));
             item.setEnviTemp(obj.getString("环境温度"));
@@ -525,6 +566,29 @@ public class DeviceDetail implements Serializable {
             item.setJqWd(obj.getDouble("纬度"));
             item.setNowTime(obj.getString("采集日期"));
             item.setStatus(obj.getString("预/报警状态"));
+        } catch (Exception e) {
+            Logger.e("", "", e);
+        }
+        return item;
+    }
+
+
+    private static DeviceDetail fromJsonJB(JSONObject obj) {
+        DeviceDetail item = null;
+        try {
+            item = new DeviceDetail();
+            item.setStatus(obj.getString("预/报警状态"));
+            item.setJqQiSn(obj.getString("机器序列号"));
+            item.setAirPress(obj.getString("排气压力"));
+            item.setZjdl(obj.getString("主机电流"));
+            item.setNowTime(obj.getString("采集日期"));
+            item.setAirTemp(obj.getString("排气温度"));
+            item.setDianjiTemp(obj.getString("电机温度"));
+            item.setDianjiSta(obj.getString("电机状态"));
+            item.setAirSta(obj.getString("空压机状态"));
+            item.setFengjiSta1(obj.getString("风机1状态"));
+            item.setFengjiSta2(obj.getString("风机2状态"));
+
         } catch (Exception e) {
             Logger.e("", "", e);
         }
