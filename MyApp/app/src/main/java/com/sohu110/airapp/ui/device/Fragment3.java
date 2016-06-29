@@ -36,6 +36,7 @@ public class Fragment3 extends Fragment {
 
 	private MapView mMapView;
 
+	private boolean isCancel = false;
 
 	public static Fragment3 newInstance(String guid) {
 		Fragment3 fragment = new Fragment3();
@@ -142,14 +143,22 @@ public class Fragment3 extends Fragment {
 					}
 
 				} else {
-					Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+					if (!isCancel) {
+						Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+					}
 				}
 			} else {
-				Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+				if (!isCancel) {
+					Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+				}
 			}
 		}
 
 	}
 
-
+	@Override
+	public void onStop() {
+		super.onStop();
+		isCancel = true;
+	}
 }

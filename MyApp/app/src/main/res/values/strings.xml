@@ -181,10 +181,10 @@
     <string name="ybjjdh">紧急电话</string>
     <string name="ybwhdh">维护电话</string>
 
-    <string name="pqwdqx">排气压力曲线</string>
-    <string name="djwdqx">电机电流曲线</string>
-    <string name="hjwdqx">电机温度曲线</string>
-    <string name="kqwdqx">排气温度曲线</string>
+    <string name="pqwdqx">排气压力曲线(MPa)</string>
+    <string name="djwdqx">电机电流曲线(A)</string>
+    <string name="hjwdqx">电机温度曲线(℃)</string>
+    <string name="kqwdqx">排气温度曲线(℃)</string>
 
 
     <string name="hint_login_pwd_old">请输入旧密码</string>

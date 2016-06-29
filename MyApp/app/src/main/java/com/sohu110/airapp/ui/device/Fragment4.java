@@ -53,6 +53,8 @@ public class Fragment4 extends Fragment {
     private Button mSubmitBtn;
     private Button mEditBtn;
 
+    private boolean isCancel = false;
+
     private String guid;
 
     public static Fragment4 newInstance(String guid) {
@@ -78,6 +80,12 @@ public class Fragment4 extends Fragment {
     public void onResume() {
         super.onResume();
         new DeviceInfoTask(guid).execute();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        isCancel = true;
     }
 
     @Override
@@ -257,7 +265,9 @@ public class Fragment4 extends Fragment {
                     LibToast.show(getActivity(), R.string.member_detail_failure);
                 }
             } else {
-                LibToast.show(getActivity(), R.string.member_register_network);
+                if (!isCancel) {
+                    LibToast.show(getActivity(), R.string.member_register_network);
+                }
             }
         }
     }

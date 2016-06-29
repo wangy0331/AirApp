@@ -63,6 +63,8 @@ public class Fragment2 extends Fragment {
 	LineData mLineDataHJ;
 	LineData mLineDataKQ;
 
+	private boolean isCancel = false;
+
 
 	//y轴
 	private int num = 0;
@@ -169,6 +171,8 @@ public class Fragment2 extends Fragment {
 		new DeviceDetailTask(guid).execute();
 	}
 
+
+
 	// 设置显示的样式
 	private void showChart(LineChart lineChart, LineData lineData, int color) {
 		lineChart.setDrawBorders(false);  //是否在折线图上添加边框
@@ -271,17 +275,17 @@ public class Fragment2 extends Fragment {
 		}
 
 
-		// y轴的数据  排气温度
+		// y轴的数据  排气压力
 		ArrayList<Entry> yValues = new ArrayList<Entry>();
 		for (int i = 0; i < result.size(); i++) {
-			int value = result.get(i).getGqYl();
-			yValues.add(new Entry(value, i));
+			float value = result.get(i).getGqYl();
+			yValues.add(new Entry(Float.valueOf(value/100), i));
 		}
 
 
 		// create a dataset and give it a type
 		// y轴的数据集合
-		LineDataSet lineDataSet = new LineDataSet(yValues, "供气压力折线图");
+		LineDataSet lineDataSet = new LineDataSet(yValues, "排气压力折线图");
 //		lineDataSet.setFillAlpha(200);
 		// mLineDataSet.setFillColor(Color.RED);
 
@@ -471,6 +475,12 @@ public class Fragment2 extends Fragment {
 		return lineData;
 	}
 
+	@Override
+	public void onStop() {
+		super.onStop();
+		isCancel = true;
+	}
+
 
 	class DeviceDetailTask extends AsyncTask<Void, Void, Result<List<DeviceChart>>> {
 
@@ -518,10 +528,14 @@ public class Fragment2 extends Fragment {
 					}
 
 				} else {
-					Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+					if (!isCancel) {
+						Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+					}
 				}
 			} else {
-				Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+				if (!isCancel) {
+					Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+				}
 			}
 		}
 

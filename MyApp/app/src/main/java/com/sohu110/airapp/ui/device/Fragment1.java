@@ -129,6 +129,11 @@ public class Fragment1 extends Fragment{
 	//一分钟内刷新表示(trun---能刷新    false---不能刷新)
 	private boolean refresh = true;
 
+	//是否退出fragment了
+	private boolean isCancel = false;
+
+//	private                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        mProgressBar;
+
 	//倒计时
 	private CountDownTimer countDown;
 
@@ -158,6 +163,9 @@ public class Fragment1 extends Fragment{
 				new DeviceDetailJubuTask(guid).execute();
 				Log.e("time", String.valueOf(millisUntilFinished / 1000));
 				refresh = false;
+
+//				mProgressBar.setProgress((int) (millisUntilFinished/1000));
+
 			}
 
 			/** 倒计时结束后在这里实现activity跳转  */
@@ -227,6 +235,7 @@ public class Fragment1 extends Fragment{
 		dianyuanPl = (TextView) view.findViewById(R.id.dypl);
 		shebeiGl = (TextView) view.findViewById(R.id.sbgl);
 		dayPjSj = (TextView) view.findViewById(R.id.mtpjyxsj);
+		dayPjSj.setVisibility(View.GONE);
 		kehuMc = (TextView) view.findViewById(R.id.khmc_text);
 		kyjBh = (TextView) view.findViewById(R.id.kyjbh_text);
 		kyjpp = (TextView) view.findViewById(R.id.kyjpp_text);
@@ -237,6 +246,8 @@ public class Fragment1 extends Fragment{
 		mYujing = (TextView) view.findViewById(R.id.yujing);
 		bjText = (TextView) view.findViewById(R.id.baojing_text);
 		yjText = (TextView) view.findViewById(R.id.yujing_text);
+
+//		mProgressBar = (HorizontalProgressBarWithNumber) view.findViewById(R.id.id_progressbar01);
 
 		mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.detail_list_refresh);
 
@@ -282,6 +293,7 @@ public class Fragment1 extends Fragment{
 		super.onStop();
 		try {
 			countDown.cancel();
+			isCancel = true;
 			Log.e("onStop", "close");
 		} catch (Exception e) {
 //			Log.e("time", "close");
@@ -306,12 +318,15 @@ public class Fragment1 extends Fragment{
 
 		private String jiqiSn;
 
+
 		public DeviceDetailTask(String guid) {
 			jiqiSn = guid;
 		}
 
 		@Override
 		protected Result<DeviceDetail> doInBackground(Void... params) {
+
+
 			try{
 				return ServiceCenter.getDetail(jiqiSn);
 			} catch (Exception e) {
@@ -335,10 +350,10 @@ public class Fragment1 extends Fragment{
 							dashBoardView.setSpeed(Integer.valueOf(item.getZjdl().trim()));
 						}
 						if (item.getAirTemp() != null) {
-							dashBoardView.setSpeed(Integer.valueOf(item.getZjdl().trim()));
+							dashBoardTempView.setSpeed(Integer.valueOf(item.getAirTemp().trim()));
 						}
 						if (item.getAirPress() != null) {
-							dashBoardView.setSpeed(Integer.valueOf(item.getZjdl().trim()));
+							dashBoardPressView.setSpeed(Float.valueOf(item.getAirPress().trim()));
 						}
 
 //						dashBoardView.setSpeed(Integer.valueOf(item.getZjdl().trim()));
@@ -564,10 +579,14 @@ public class Fragment1 extends Fragment{
 					}
 
 				} else {
-					Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+					if (!isCancel) {
+						Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+					}
 				}
 			} else {
-				Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+				if (!isCancel) {
+					Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+				}
 			}
 		}
 
@@ -673,10 +692,14 @@ public class Fragment1 extends Fragment{
 					}
 
 				} else {
-					Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+					if (!isCancel) {
+						Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+					}
 				}
 			} else {
-				Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+				if (!isCancel) {
+					Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+				}
 			}
 		}
 
@@ -718,10 +741,14 @@ public class Fragment1 extends Fragment{
 
 				}
 				else {
-					Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_SHORT).show();
+					if (!isCancel) {
+						Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_SHORT).show();
+					}
 				}
 			} else {
-				Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+				if (!isCancel) {
+					Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+				}
 			}
 		}
 

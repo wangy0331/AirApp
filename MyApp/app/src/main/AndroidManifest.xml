@@ -55,6 +55,13 @@
 
         </service>
 
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+        </service>
+
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
@@ -200,6 +207,23 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+
+        <activity
+            android:name=".map.MapActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".map.MyLocation"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".map.ShowMyLocation"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" >
+        </activity>
 
     </application>
 

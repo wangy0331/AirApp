@@ -189,6 +189,7 @@ public class BusinessFragment extends Fragment {
                             //在地图上添加Marker，并显示
                             mBaiduMap.addOverlays(list);
 
+
                         } else {
 
                             //定义地图状态
