@@ -29,6 +29,8 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
 
     private Button quxiaoBtn;
 
+    private String mText = "无";
+
     public DeviceListAdapter(Context context) {
         super(context, 0);
     }
@@ -60,8 +62,17 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
         final Device item = getItem(position);
         int id = position + 1;
 
-        holder.coName.setText(id + "." + item.getCoName());
-        holder.jiqiSn.setText(item.getJiqiSn());
+        if ("".equals(item.getCoName())) {
+            holder.coName.setText(mText);
+        } else {
+            holder.coName.setText(id + "." + item.getCoName());
+        }
+
+        if ("".equals(item.getJiqiSn())) {
+            holder.jiqiSn.setText(mText);
+        } else {
+            holder.jiqiSn.setText(item.getJiqiSn());
+        }
 
 
         if ("Y".equals(item.getfSta())) {
@@ -72,23 +83,32 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
             holder.nscBtn.setVisibility(View.GONE);
         }
 
-        holder.icon.setText(item.getJqStatus());
+        if ("".equals(item.getJqStatus())) {
+            holder.icon.setText(mText);
+        } else {
+            holder.icon.setText(item.getJqStatus());
+        }
 
         if (!"".equals(item.getPress())) {
             holder.mPress.setText(Double.valueOf(item.getPress())/100 + " MPa");
         } else {
-            holder.mPress.setText("0 MPa");
+            holder.mPress.setText(mText);
         }
 
 
         if (!"".equals(item.getTemp())) {
             holder.mTemp.setText(item.getTemp() + " ℃");
         } else {
-            holder.mTemp.setText("0 ℃");
+            holder.mTemp.setText(mText);
         }
-        holder.mAirSn.setText(item.getAirSn());
 
-        final String jqid = item.getJiqiSn();
+        if ("".equals(item.getAirSn())) {
+            holder.mAirSn.setText(mText);
+        } else {
+            holder.mAirSn.setText(item.getAirSn());
+        }
+
+//        final String jqid = item.getJiqiSn();
 
         holder.scBtn.setOnClickListener(new View.OnClickListener() {
             @Override

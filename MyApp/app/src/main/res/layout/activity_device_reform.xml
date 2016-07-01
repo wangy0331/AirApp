@@ -67,6 +67,7 @@
             android:maxLines="1"
             android:text=""
             android:singleLine="true"
+            android:textSize="15sp"
             android:hint="@string/kongxiang"/>
 
     </LinearLayout>
@@ -100,6 +101,7 @@
             android:text=""
             android:maxLines="1"
             android:singleLine="true"
+            android:textSize="15sp"
             android:hint="@string/kongxiang"/>
 
     </LinearLayout>
@@ -133,6 +135,7 @@
             android:text=""
             android:maxLines="1"
             android:singleLine="true"
+            android:textSize="15sp"
             android:hint="@string/kongxiang"/>
 
     </LinearLayout>
@@ -166,6 +169,7 @@
             android:text=""
             android:maxLines="1"
             android:singleLine="true"
+            android:textSize="15sp"
             android:hint="@string/kongxiang"/>
 
     </LinearLayout>
@@ -199,6 +203,7 @@
             android:text=""
             android:maxLines="1"
             android:singleLine="true"
+            android:textSize="15sp"
             android:hint="@string/kongxiang"/>
 
     </LinearLayout>
@@ -232,6 +237,7 @@
             android:text=""
             android:maxLines="1"
             android:singleLine="true"
+            android:textSize="15sp"
             android:hint="@string/kongxiang"/>
 
     </LinearLayout>
@@ -265,6 +271,7 @@
             android:text=""
             android:maxLines="1"
             android:singleLine="true"
+            android:textSize="15sp"
             android:hint="@string/kongxiang"/>
 
     </LinearLayout>
@@ -298,6 +305,7 @@
                 android:text=""
                 android:maxLines="1"
                 android:singleLine="true"
+                android:textSize="15sp"
                 android:hint="@string/kongxiang"/>
 
         </LinearLayout>

@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,6 +86,16 @@ public class EnergyActivity extends BaseActivity {
     private double sjjn;
     private double ljjn;
 
+    //年、半年、月、周
+    private RadioGroup mRadioGroup;
+    private RadioButton sday;
+    private RadioButton moon;
+    private RadioButton halfyear;
+    private RadioButton year;
+
+    //默认周
+    private String condition = "sday";
+
     private TextView zsjText;
     private TextView lText;
     private TextView ljText;
@@ -126,6 +138,18 @@ public class EnergyActivity extends BaseActivity {
         lText = (TextView) findViewById(R.id.l_text);
 
         mJiage = (TextView) findViewById(R.id.jiage);
+
+        mRadioGroup = (RadioGroup) findViewById(R.id.radio_group_chart);
+
+        sday =  (RadioButton) findViewById(R.id.zhou_chart);
+        moon =  (RadioButton) findViewById(R.id.yue_chart);
+        halfyear =  (RadioButton) findViewById(R.id.bannian_chart);
+        year =  (RadioButton) findViewById(R.id.nian_chart);
+
+        sday.setTextColor(getResources().getColor(R.color.blue));
+        moon.setTextColor(getResources().getColor(R.color.grey));
+        halfyear.setTextColor(getResources().getColor(R.color.grey));
+        year.setTextColor(getResources().getColor(R.color.grey));
 
         mJiage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,13 +208,13 @@ public class EnergyActivity extends BaseActivity {
 
                 double a = ljjn;
                 double b = sjjn;
-                double db = a/b;
+                double db = a / (a+b);
 
 
                 String lv = "0.0";
 
                 if (!Double.valueOf(db).isNaN()) {
-                    String .format("%.2f", db*100);
+                    lv = String.format("%.2f", db * 100);
                 }
 
                 mJnl.setText(lv);
@@ -219,14 +243,14 @@ public class EnergyActivity extends BaseActivity {
                 double a = ljjn;
                 double b = sjjn;
 
-                double db = a/b;
+                double db = a / (a+b);
 
 //                String lv = String.format("%.2f", db * 100);
 
                 String lv = "0.0";
 
                 if (!Double.valueOf(db).isNaN()) {
-                    String .format("%.2f", db*100);
+                    lv = String.format("%.2f", db * 100);
                 }
 
 
@@ -242,9 +266,9 @@ public class EnergyActivity extends BaseActivity {
             public void onRefresh() {
                 if (LibApplication.getInstance().isNetworkConnected()) {
                     //今日
-//                    new EnergyTodayTask("day").execute();
+                    new EnergyTodayTask("day").execute();
                     //七日
-//                    new EnergySdayTask("sday").execute();
+                    new EnergySdayTask("sday").execute();
                 } else {
                     LibToast.show(EnergyActivity.this, R.string.not_network);
                 }
@@ -254,9 +278,9 @@ public class EnergyActivity extends BaseActivity {
 
         if (LibApplication.getInstance().isNetworkConnected()) {
             //今日
-//            new EnergyTodayTask("day").execute();
+            new EnergyTodayTask("day").execute();
             //七日
-//            new EnergySdayTask("sday").execute();
+            new EnergySdayTask("sday").execute();
         } else {
             LibToast.show(EnergyActivity.this, R.string.not_network);
         }
@@ -271,6 +295,41 @@ public class EnergyActivity extends BaseActivity {
             }
         });
 
+
+
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                if (checkedId == sday.getId()) {//客户
+                    condition = "sday";
+                    sday.setTextColor(getResources().getColor(R.color.blue));
+                    moon.setTextColor(getResources().getColor(R.color.grey));
+                    halfyear.setTextColor(getResources().getColor(R.color.grey));
+                    year.setTextColor(getResources().getColor(R.color.grey));
+                } else if (checkedId == moon.getId()) {//设备号
+                    condition = "moon";
+                    sday.setTextColor(getResources().getColor(R.color.grey));
+                    moon.setTextColor(getResources().getColor(R.color.blue));
+                    halfyear.setTextColor(getResources().getColor(R.color.grey));
+                    year.setTextColor(getResources().getColor(R.color.grey));
+                } else if (checkedId == halfyear.getId()) {//地区
+                    condition = "halfyear";
+                    sday.setTextColor(getResources().getColor(R.color.grey));
+                    moon.setTextColor(getResources().getColor(R.color.grey));
+                    halfyear.setTextColor(getResources().getColor(R.color.blue));
+                    year.setTextColor(getResources().getColor(R.color.grey));
+                } else if (checkedId == year.getId()) {//地区
+                    condition = "year";
+                    sday.setTextColor(getResources().getColor(R.color.grey));
+                    moon.setTextColor(getResources().getColor(R.color.grey));
+                    halfyear.setTextColor(getResources().getColor(R.color.grey));
+                    year.setTextColor(getResources().getColor(R.color.blue));
+                }
+                //
+                new EnergySdayTask(condition).execute();
+            }
+        });
 
     }
 
@@ -304,6 +363,7 @@ public class EnergyActivity extends BaseActivity {
         protected void onPostExecute(Result<Energy> result) {
             super.onPostExecute(result);
             mLoadDialog.dismiss();
+            mSwipeRefreshLayout.setRefreshing(false);
             if (result != null) {
                 if (result.isSuceed()) {
 
@@ -333,9 +393,13 @@ public class EnergyActivity extends BaseActivity {
                             double a = result.getData().getJyhn();
                             double b = result.getData().getSjhn();
 
-                            double db = a/b;
+                            double db = a/(a+b);
 
-                            String lv = String .format("%.2f", db*100);
+                            String lv = "0.0";
+
+                            if (!Double.valueOf(db).isNaN()) {
+                                lv = String .format("%.2f", db*100);
+                            }
 
                             Log.e("a/b", lv);
 
@@ -432,11 +496,11 @@ public class EnergyActivity extends BaseActivity {
         lineChart.getXAxis().setGridColor(
                 getResources().getColor(R.color.lineChart_transparent));
 
-        lineChart.getAxisLeft().setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        lineChart.getAxisLeft().setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         lineChart.getAxisLeft().setStartAtZero(false);
 
         //隐藏左边坐标轴横网格线
-        lineChart.getAxisLeft().setDrawGridLines(false);
+        lineChart.getAxisLeft().setDrawGridLines(true);
         //隐藏右边坐标轴横网格线
         lineChart.getAxisRight().setDrawGridLines(false);
         //隐藏X轴竖网格线
@@ -446,6 +510,10 @@ public class EnergyActivity extends BaseActivity {
 
         lineChart.getXAxis().setTextSize(12f);
         lineChart.getAxisLeft().setTextSize(12f);
+
+        lineChart.getAxisLeft().setStartAtZero(true);    //设置Y轴坐标是否从0开始
+        lineChart.getAxisLeft().setAxisMaxValue(100);    //设置Y轴坐标最大为多少
+
 
         // enable touch gestures
         lineChart.setTouchEnabled(false); // 设置是否可以触摸
@@ -502,27 +570,34 @@ public class EnergyActivity extends BaseActivity {
      */
     private LineData getLineData(List<Energy> result) {
 
-        SimpleDateFormat sf = new SimpleDateFormat ("MM-dd");
+//        SimpleDateFormat sf = new SimpleDateFormat ("MM-dd");
 //        Date curDate = new Date(System.currentTimeMillis());//获取当前时间
 //        String str = formatter.format(curDate);
 
 
-        Calendar ca = Calendar.getInstance();//得到一个Calendar的实例
+//        Calendar ca = Calendar.getInstance();//得到一个Calendar的实例
 //        ca.setTime(new Date()); //设置时间为当前时间
 //        ca.add(Calendar.DATE, -1); //年份减1
 //        Date lastMonth = ca.getTime(); //结果
 
 
 
-        Comparator comp = new SortComparator();
-        Collections.sort(result, comp);
+//        Comparator comp = new SortComparator();
+//        Collections.sort(result, comp);
 
         for (int a = 0; a < result.size(); a++) {
             Log.e("day", String.valueOf(result.get(a).getsDay()));
         }
 
         ArrayList<String> xValues = new ArrayList<String>();
-//            for (int i = 0; i <result.size(); i++) {
+            for (int i = 0; i <result.size(); i++) {
+                // x轴显示的数据，这里默认使用数字下标显示
+                xValues.add("" +  String.valueOf(result.get(i).getsDay()).substring(4,8));
+                Log.e("日期", String.valueOf(result.get(i).getsDay()));
+            }
+
+//            for (int i = result.size()+1; i >= 0; i--) {
+//
 //                ca.setTime(new Date()); //设置时间为当前时间
 //                ca.add(Calendar.DATE, -i); //减1
 //                Date lastDay = ca.getTime(); //结果
@@ -532,36 +607,25 @@ public class EnergyActivity extends BaseActivity {
 //                Log.e("日期", sf.format(lastDay).toString());
 //            }
 
-            for (int i = result.size()+1; i >= 0; i--) {
-
-                ca.setTime(new Date()); //设置时间为当前时间
-                ca.add(Calendar.DATE, -i); //减1
-                Date lastDay = ca.getTime(); //结果
-
-                // x轴显示的数据，这里默认使用数字下标显示
-                xValues.add("" + sf.format(lastDay).toString());
-                Log.e("日期", sf.format(lastDay).toString());
-            }
-
-            xValues.add("");
+//            xValues.add("");
 
             // y轴的数据
             ArrayList<Entry> yValues = new ArrayList<Entry>();
             for (int i = 0; i < result.size(); i++) {
-                double lv = result.get(i).getJyhn();
+//                double lv = result.get(i).getJyhn();
 
-//                double a = result.get(i).getJyhn();
-//                double b = result.get(i).getSjhn();
-//                double db = a/b;
-//                String lv = String .format("%.2f", db*100);
-//
-//                if (lv == null) {
-//                    lv = "0.00";
-//                }
+                double a = result.get(i).getJyhn();
+                double b = result.get(i).getSjhn();
+                double db = a/(a+b);
+                String lv = "0.0";
+
+                if (lv != null) {
+                    lv = String .format("%.2f", db*100);
+                }
 
                 Log.e("chart", String.valueOf(lv));
 
-                yValues.add(new Entry((float)lv, i));
+                yValues.add(new Entry(Float.valueOf(lv), i));
             }
 
             // create a dataset and give it a type

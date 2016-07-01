@@ -150,6 +150,7 @@
     <string name="device_detial">设备详情</string>
     <string name="yjxq">预警详情</string>
     <string name="bjxq">报警详情</string>
+    <string name="wbxq">维保详情</string>
     <string name="device_success">列表获取成功</string>
     <string name="device_failure">列表获取失败</string>
     <string name="energy_success">信息获取成功</string>
@@ -272,7 +273,7 @@
     <string name="syl">收益率（%）</string>
     <string name="ljjn">累计节能（KW）</string>
     <string name="ljsy">累计收益（元）</string>
-    <string name="week_jn">七日节能统计（KW）</string>
+    <string name="week_jn">节能率曲线（%）</string>
     <string name="kwh">kWh</string>
     <string name="yuan">元</string>
 

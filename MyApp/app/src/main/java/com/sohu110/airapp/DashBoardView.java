@@ -38,10 +38,10 @@ public class DashBoardView extends View {
 	private static final String KB_S = " A";
 	private static final String CURRENT_SPEED = "主机电流";
 //	private static final String CURRENT_SPEED = "";
-	private static final String[] FIXED_SPEED_LEVEL = { "0", "100",
+	private static String[] FIXED_SPEED_LEVEL = { "0", "100",
 			"200", "300", "400", "500", "600", "700", "800", "900",
 			"1000" };
-	private static final int[] FIXED_SPEED_VALUE = { 0, 100, 200,
+	private static int[] FIXED_SPEED_VALUE = { 0, 100, 200,
 			300, 400, 500, 600, 700, 800, 900,
 			1000 };
 
@@ -400,6 +400,39 @@ public class DashBoardView extends View {
 		}
 
 	}
+
+	public String[] setCurrent1(double kw) {
+
+		if (kw <= 30) {
+			FIXED_SPEED_LEVEL = new String[]{"0", "20", "40", "60", "80", "100", "120", "140", "160", "180", "200"};
+		} else if (kw >= 37 && kw <= 55) {
+			FIXED_SPEED_LEVEL = new String[]{"0", "40", "80", "120", "160", "200", "240", "280", "320", "360", "400"};
+		} else if (kw >= 75 && kw <= 110) {
+			FIXED_SPEED_LEVEL = new String[]{"0", "60", "120", "180", "240", "300", "360", "420", "480", "540", "600"};
+		} else if (kw >= 132 && kw <= 220) {
+			FIXED_SPEED_LEVEL = new String[]{"0", "100", "200", "300", "400", "500", "600", "700", "800", "900", "1000"};
+		} else if (kw >= 250 && kw <= 315) {
+			FIXED_SPEED_LEVEL = new String[]{"0", "150", "300", "450", "600", "750", "900", "1050", "1200", "1350", "1500"};
+		}
+		return FIXED_SPEED_LEVEL;
+	}
+
+	public int[] setCurrent2(double kw) {
+		if (kw <= 30) {
+			FIXED_SPEED_VALUE = new int[]{0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200};
+		} else if (kw >= 37 && kw <= 55) {
+			FIXED_SPEED_VALUE = new int[]{0, 40, 80, 120, 160, 200, 240, 280, 320, 360, 400};
+		} else if (kw >= 75 && kw <= 110) {
+			FIXED_SPEED_VALUE = new int[]{0, 60, 120, 180, 240, 300, 360, 420, 480, 540, 600};
+		} else if (kw >= 132 && kw <= 220) {
+			FIXED_SPEED_VALUE = new int[]{0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000};
+		} else if (kw >= 250 && kw <= 315) {
+			FIXED_SPEED_VALUE = new int[]{0, 150, 300, 450, 600, 750, 900, 1050, 1200, 1350, 1500};
+		}
+		return FIXED_SPEED_VALUE;
+	}
+
+
 
 	public int getProgress() {
 		return progress;

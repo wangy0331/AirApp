@@ -32,7 +32,6 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center|right"
-                android:text="12-12 14:12"
                 />
 
         </LinearLayout>
@@ -68,7 +67,6 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:gravity="center"
-                        android:text="运行中"
                         />
 
                     <TextView
@@ -85,7 +83,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:text="123"/>
+                        />
 
 
                 </LinearLayout>
@@ -108,7 +106,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:text="压力"/>
+                        />
 
                     </LinearLayout>
 
@@ -129,7 +127,6 @@
                         android:id="@+id/wendu_yj"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="20MPa"
                         android:gravity="center"
                         android:layout_marginLeft="2dp"
                         />
@@ -156,7 +153,6 @@
                         android:id="@+id/yali_yj"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="60"
                         android:gravity="center"
                         android:layout_marginLeft="2dp"
                         />
@@ -183,7 +179,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:text="1234567889"/>
+                        />
 
                     <LinearLayout
                         android:layout_width="match_parent"

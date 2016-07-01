@@ -253,33 +253,117 @@
         android:visibility="gone"
         ></View>
 
-    <LinearLayout
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/bg_color"-->
+            <!-->-->
+
+        <RadioGroup
+            android:id="@+id/radio_group_chart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:background="@color/bg_color"
+            android:layout_gravity="center_horizontal"
+            >
+
+            <RadioButton
+                android:id="@+id/zhou_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:button="@null"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/radio"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:text="@string/zhou"/>
+
+            <RadioButton
+                android:id="@+id/yue_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:button="@null"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/radio"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginRight="2dp"
+                android:text="@string/yue"/>
+
+            <RadioButton
+                android:id="@+id/bannian_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:button="@null"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/radio"
+                android:text="@string/bannian"/>
+
+            <RadioButton
+                android:id="@+id/nian_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:button="@null"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/radio"
+                android:text="@string/nian"/>
+
+
+        </RadioGroup>
+
+        <!--</LinearLayout>-->
+
+        <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
-        android:orientation="vertical">
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/week_jn"-->
-            <!--android:textSize="18sp"-->
-            <!--android:layout_marginLeft="30dp"-->
-            <!--/>-->
+        >
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/jn_chart"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="5"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/week_jn"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:layout_marginLeft="30dp"
+            />
 
-    </LinearLayout>
+
+    </RelativeLayout>
 
     </LinearLayout>
 

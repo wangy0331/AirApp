@@ -28,6 +28,8 @@ public class YujingListAdapter extends ArrayAdapter<Device> {
 
     private Button quxiaoBtn;
 
+    private String mText = "无";
+
     public YujingListAdapter(Context context) {
         super(context, 0);
     }
@@ -60,11 +62,27 @@ public class YujingListAdapter extends ArrayAdapter<Device> {
         final Device item = getItem(position);
         int id = position + 1;
 
-        holder.coName.setText(id + "." + item.getCoName());
-        holder.jiqiSn.setText(item.getJiqiSn());
-        holder.mTime.setText(item.getShijian());
+        if ("".equals(item.getCoName())) {
+            holder.coName.setText(id + "." + mText);
+        } else {
+            holder.coName.setText(id + "." + item.getCoName());
+        }
+
+        if ("".equals(item.getJiqiSn())) {
+            holder.jiqiSn.setText(mText);
+        } else {
+            holder.jiqiSn.setText(item.getJiqiSn());
+        }
+
+        if ("".equals(item.getShijian())) {
+            holder.mTime.setText(mText);
+        } else {
+            holder.mTime.setText(item.getShijian());
+        }
         if (!"".equals(item.getXinxi())) {
             holder.mSta.setText(item.getXinxi().substring(5,item.getXinxi().length()));
+        } else {
+            holder.mSta.setText(mText);
         }
 
 
@@ -76,11 +94,29 @@ public class YujingListAdapter extends ArrayAdapter<Device> {
             holder.nscBtn.setVisibility(View.GONE);
 //        }
 
-        holder.icon.setText(item.getJqStatus());
+        if ("".equals(item.getJqStatus())) {
+            holder.icon.setText(mText);
+        } else {
+            holder.icon.setText(item.getJqStatus());
+        }
 
-        holder.mPress.setText(item.getPress());
-        holder.mTemp.setText(item.getTemp());
-        holder.mAirSn.setText(item.getAirSn());
+        if ("".equals(item.getPress())) {
+            holder.mPress.setText(mText);
+        } else {
+            holder.mPress.setText(Double.valueOf(item.getPress())/100 + " MPa");
+        }
+
+        if ("".equals(item.getTemp())) {
+            holder.mTemp.setText(mText);
+        } else {
+            holder.mTemp.setText(item.getTemp() + "℃");
+        }
+
+        if ("".equals(item.getAirSn())) {
+            holder.mAirSn.setText(mText);
+        } else {
+            holder.mAirSn.setText(item.getAirSn());
+        }
 
 
         holder.scBtn.setOnClickListener(new View.OnClickListener() {

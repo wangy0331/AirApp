@@ -20,6 +20,7 @@ import com.sohu110.airapp.bean.DeviceDetail;
 import com.sohu110.airapp.bean.Result;
 import com.sohu110.airapp.log.Logger;
 import com.sohu110.airapp.service.ServiceCenter;
+import com.sohu110.airapp.view.HorizontalProgressBarWithNumber;
 
 public class Fragment1 extends Fragment{
 	//排气压力(表盘)
@@ -132,10 +133,13 @@ public class Fragment1 extends Fragment{
 	//是否退出fragment了
 	private boolean isCancel = false;
 
-//	private                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        mProgressBar;
+	private HorizontalProgressBarWithNumber mProgressBar;
 
 	//倒计时
 	private CountDownTimer countDown;
+
+	//进度条
+	private CountDownTimer countDown1;
 
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -156,7 +160,7 @@ public class Fragment1 extends Fragment{
 		guid = this.getArguments().getString(GUID);
 		Log.e("fragment", guid);
 
-		countDown = new CountDownTimer(60000, 2000) {
+		countDown = new CountDownTimer(15000, 2000) {
 
 			@Override
 			public void onTick(long millisUntilFinished) {
@@ -165,6 +169,31 @@ public class Fragment1 extends Fragment{
 				refresh = false;
 
 //				mProgressBar.setProgress((int) (millisUntilFinished/1000));
+
+			}
+
+			/** 倒计时结束后在这里实现activity跳转  */
+			@Override
+			public void onFinish() {
+				Log.e("time", "stop");
+				refresh = true;
+			}
+		};
+
+
+
+		countDown1 = new CountDownTimer(16000, 1000) {
+
+			@Override
+			public void onTick(long millisUntilFinished) {
+				new DeviceDetailJubuTask(guid).execute();
+//				Log.e("time", String.valueOf(millisUntilFinished / 1000));
+//				refresh = false;
+				int progress = mProgressBar.getProgress();
+
+				mProgressBar.setMax(15);
+
+				mProgressBar.setProgress(++progress);
 
 			}
 
@@ -247,7 +276,7 @@ public class Fragment1 extends Fragment{
 		bjText = (TextView) view.findViewById(R.id.baojing_text);
 		yjText = (TextView) view.findViewById(R.id.yujing_text);
 
-//		mProgressBar = (HorizontalProgressBarWithNumber) view.findViewById(R.id.id_progressbar01);
+		mProgressBar = (HorizontalProgressBarWithNumber) view.findViewById(R.id.id_progressbar01);
 
 		mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.detail_list_refresh);
 
@@ -293,6 +322,7 @@ public class Fragment1 extends Fragment{
 		super.onStop();
 		try {
 			countDown.cancel();
+			countDown1.cancel();
 			isCancel = true;
 			Log.e("onStop", "close");
 		} catch (Exception e) {
@@ -305,6 +335,7 @@ public class Fragment1 extends Fragment{
 		super.onStop();
 		try {
 			countDown.cancel();
+			countDown1.cancel();
 			Log.e("onPause", "close");
 		} catch (Exception e) {
 			Log.e("time", "close");
@@ -345,6 +376,15 @@ public class Fragment1 extends Fragment{
 					DeviceDetail item = result.getData();
 
 					if (item != null) {
+
+
+
+						if (item.getDeviceGl() != null) {
+							String current = item.getDeviceGl().trim();
+							dashBoardView.setCurrent1(Double.valueOf(current.substring(0, current.indexOf("K"))));
+							dashBoardView.setCurrent2(Double.valueOf(current.substring(0, current.indexOf("K"))));
+						}
+
 
 						if (item.getZjdl() != null) {
 							dashBoardView.setSpeed(Integer.valueOf(item.getZjdl().trim()));
@@ -678,6 +718,43 @@ public class Fragment1 extends Fragment{
 							fengji2Sta.setText(item.getFengjiSta2().trim());
 						}
 
+
+						if (item.getFengji1Dl1() != null) {
+							fengji1Dl1.setText(item.getFengji1Dl1());
+						}
+
+						if (item.getFengji1Dl2() != null) {
+							fengji1Dl2.setText(item.getFengji1Dl2());
+						}
+
+						if (item.getFengji1Dl3() != null) {
+							fengji1Dl3.setText(item.getFengji1Dl3());
+						}
+
+						if (item.getFengji2Dl1() != null) {
+							fengji2Dl1.setText(item.getFengji2Dl1());
+						}
+
+						if (item.getFengji2Dl2() != null) {
+							fengji2Dl2.setText(item.getFengji2Dl2());
+						}
+
+						if (item.getFengji2Dl3() != null) {
+							fengji2Dl3.setText(item.getFengji2Dl3());
+						}
+
+						if (item.getZhujiDl1() != null) {
+							zhujiDl1.setText(item.getZhujiDl1());
+						}
+
+						if (item.getZhujiDl2() != null) {
+							zhujiDl2.setText(item.getZhujiDl2());
+						}
+
+						if (item.getZhujiDl3() != null) {
+							zhujiDl3.setText(item.getZhujiDl3());
+						}
+
 //						sn.setText(item.getJqQiSn().trim());
 //						paiqiPress.setText(item.getAirPress().trim() + mpa);
 //						zhujiDl.setText(item.getZjdl().trim() + dianliu);
@@ -737,6 +814,7 @@ public class Fragment1 extends Fragment{
 					Log.e("code", String.valueOf(result.getCode()));
 
 					countDown.start();
+					countDown1.start();
 
 
 				}

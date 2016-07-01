@@ -588,6 +588,15 @@ public class DeviceDetail implements Serializable {
             item.setAirSta(obj.getString("空压机状态"));
             item.setFengjiSta1(obj.getString("风机1状态"));
             item.setFengjiSta2(obj.getString("风机2状态"));
+            item.setFengji1Dl1(obj.getString("风机电流a"));
+            item.setFengji1Dl2(obj.getString("风机电流b"));
+            item.setFengji1Dl3(obj.getString("风机电流c"));
+            item.setZhujiDl1(obj.getString("主机电流a"));
+            item.setZhujiDl2(obj.getString("主机电流b"));
+            item.setZhujiDl3(obj.getString("主机电流c"));
+            item.setFengji2Dl1(obj.getString("风机电流2a"));
+            item.setFengji2Dl2(obj.getString("风机电流2b"));
+            item.setFengji2Dl3(obj.getString("风机电流2c"));
 
         } catch (Exception e) {
             Logger.e("", "", e);

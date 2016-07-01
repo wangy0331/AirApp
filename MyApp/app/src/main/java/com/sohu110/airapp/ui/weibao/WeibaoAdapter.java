@@ -28,6 +28,8 @@ public class WeibaoAdapter extends ArrayAdapter<Device> {
 
     private Button quxiaoBtn;
 
+    private String mText = "无";
+    
     public WeibaoAdapter(Context context) {
         super(context, 0);
     }
@@ -58,12 +60,22 @@ public class WeibaoAdapter extends ArrayAdapter<Device> {
         }
 
         final Device item = getItem(position);
-        holder.coName.setText(item.getCoName());
+
+//        holder.coName.setText(item.getCoName());
+
         int id = position + 1;
 
+        if ("".equals(item.getCoName())) {
+            holder.coName.setText(id + "." + mText);
+        } else {
+            holder.coName.setText(id + "." + item.getCoName());
+        }
 
-        holder.coName.setText(id + "." + item.getCoName());
-        holder.jiqiSn.setText(item.getJiqiSn());
+        if ("".equals(item.getJiqiSn())) {
+            holder.jiqiSn.setText(mText);
+        } else {
+            holder.jiqiSn.setText(item.getJiqiSn());
+        }
 
 
         if ("Y".equals(item.getfSta())) {
@@ -74,12 +86,35 @@ public class WeibaoAdapter extends ArrayAdapter<Device> {
             holder.nscBtn.setVisibility(View.GONE);
         }
 
-        holder.icon.setText(item.getJqStatus());
+        if ("".equals(item.getJqStatus())) {
+            holder.icon.setText(mText);
+        } else {
+            holder.icon.setText(item.getJqStatus());
+        }
 
-        holder.mPress.setText(item.getPress() + "MPa");
-        holder.mTemp.setText(item.getTemp());
-        holder.mAirSn.setText(item.getAirSn());
-        holder.mBysj.setText(item.getXcbysq());
+        if ("".equals(item.getPress())) {
+            holder.mPress.setText(mText);
+        } else {
+            holder.mPress.setText(Double.valueOf(item.getPress())/100 + " MPa");
+        }
+
+        if ("".equals(item.getTemp())) {
+            holder.mTemp.setText(mText);
+        } else {
+            holder.mTemp.setText(item.getTemp() + "℃");
+        }
+
+        if ("".equals(item.getAirSn())) {
+            holder.mAirSn.setText(mText);
+        } else {
+            holder.mAirSn.setText(item.getAirSn());
+        }
+
+        if ("".equals(item.getXcbysq())) {
+            holder.mBysj.setText(mText);
+        } else {
+            holder.mBysj.setText(item.getXcbysq());
+        }
 
         holder.scBtn.setOnClickListener(new View.OnClickListener() {
             @Override

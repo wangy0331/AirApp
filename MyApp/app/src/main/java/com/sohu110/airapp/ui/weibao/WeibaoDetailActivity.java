@@ -27,7 +27,7 @@ public class WeibaoDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_detail);
-        setTitle(R.string.yjxq);
+        setTitle(R.string.wbxq);
 
         initView();
     }
