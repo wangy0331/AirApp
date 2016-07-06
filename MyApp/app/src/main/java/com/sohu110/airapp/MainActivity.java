@@ -28,7 +28,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         Log.e("aaron", "MainActivity");
         setContentView(R.layout.activity_main);
-        UmengUpdateAgent.setUpdateCheckConfig(false);
+//        UmengUpdateAgent.setUpdateCheckConfig(true);
         UmengUpdateAgent.update(this);
         mContext = this;
         initView();

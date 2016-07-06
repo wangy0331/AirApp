@@ -20,6 +20,12 @@ public class DeviceLog implements Serializable {
     private String zt;
     //机器序列号
     private String xlh;
+    //流水号
+    private String lsh;
+    //事件记录
+    private String sjjl;
+    //事件时间
+    private String sjsj;
 
     public String getSj() {
         return sj;
@@ -43,6 +49,30 @@ public class DeviceLog implements Serializable {
 
     public void setXlh(String xlh) {
         this.xlh = xlh;
+    }
+
+    public String getLsh() {
+        return lsh;
+    }
+
+    public void setLsh(String lsh) {
+        this.lsh = lsh;
+    }
+
+    public String getSjjl() {
+        return sjjl;
+    }
+
+    public void setSjjl(String sjjl) {
+        this.sjjl = sjjl;
+    }
+
+    public String getSjsj() {
+        return sjsj;
+    }
+
+    public void setSjsj(String sjsj) {
+        this.sjsj = sjsj;
     }
 
     /**
@@ -136,6 +166,56 @@ public class DeviceLog implements Serializable {
         }
 
         return deviceList;
+    }
+
+    /**
+     * 解析JSON数据---设备日志
+     * @param json
+     * @return
+     */
+    public static Result<List<DeviceLog>> parseRZ(String json) {
+        Result<List<DeviceLog>> deviceList = null;
+        List<DeviceLog> list = null;
+
+        try {
+
+            JSONObject obj = new JSONObject(json);
+            deviceList = new Result<List<DeviceLog>>();
+            deviceList.setCode(1);
+
+            JSONArray array = obj.optJSONArray("设备历史日志");
+            if (array != null) {
+                list = new ArrayList<DeviceLog>();
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject arrItem = array.getJSONObject(i);
+                    list.add(fromJsonRZ(arrItem));
+                }
+                deviceList.setData(list);
+            }
+        } catch (Exception e) {
+            Logger.e("", "", e);
+        }
+
+        return deviceList;
+    }
+
+    /**
+     * 解析item---设备日志
+     * @return
+     */
+    public static DeviceLog fromJsonRZ(JSONObject obj) {
+        DeviceLog item = null;
+        try {
+            item = new DeviceLog();
+            item.sjsj = obj.optString("事件时间");
+            item.sjjl = obj.optString("事件记录");
+            item.xlh = obj.optString("设备序列号");
+            item.lsh = (obj.optString("事件流水号"));
+
+        } catch (Exception e) {
+            Logger.e("", "", e);
+        }
+        return item;
     }
 
     /**

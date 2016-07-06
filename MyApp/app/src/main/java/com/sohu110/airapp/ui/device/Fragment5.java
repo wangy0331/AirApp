@@ -1,4 +1,4 @@
-package com.sohu110.airapp.ui.baojing;
+package com.sohu110.airapp.ui.device;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,11 +22,17 @@ import com.sohu110.airapp.widget.LoadProcessDialog;
 import java.util.List;
 
 /**
- * Created by Aaron on 2016/5/29.
+ * 设备日志
+ * Created by Aaron on 2016/7/3.
  */
-public class BaojingFragment1 extends Fragment {
+public class Fragment5 extends Fragment  {
 
     private static String GUID = "guid";
+
+    //列表
+    private ListView mListView;
+    //适配器
+    private DeviceLogItemAdapter mAdapter;
 
     private String guid;
 
@@ -43,13 +49,8 @@ public class BaojingFragment1 extends Fragment {
     //
     private boolean shuaxin = false;
 
-    //列表
-    private ListView mListView;
-    //适配器
-    private BaojingLishiItemAdapter mAdapter;
-
-    public static BaojingFragment1 newInstance(String guid) {
-        BaojingFragment1 fragment = new BaojingFragment1();
+    public static Fragment5 newInstance(String guid) {
+        Fragment5 fragment = new Fragment5();
         Bundle bundle = new Bundle();
         bundle.putString(GUID, guid);
         fragment.setArguments(bundle);
@@ -70,20 +71,20 @@ public class BaojingFragment1 extends Fragment {
         new DeviceDetailTask(guid,condition).execute();
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_baojing_lishi,null );
-        mListView = (ListView) view.findViewById(R.id.bj_lishi_list);
+        View view = inflater.inflate(R.layout.device_log_fragment,null );
+        mListView = (ListView) view.findViewById(R.id.device_log_list);
 
-        mRadioGroup = (RadioGroup) view.findViewById(R.id.radio_group_bj_log);
 
-        sday =  (RadioButton) view.findViewById(R.id.zhou_bj_log);
-        moon =  (RadioButton) view.findViewById(R.id.yue_bj_log);
-        halfyear =  (RadioButton) view.findViewById(R.id.bannian_bj_log);
-        year =  (RadioButton) view.findViewById(R.id.nian_bj_log);
+        mRadioGroup = (RadioGroup) view.findViewById(R.id.radio_group_log);
+
+        sday =  (RadioButton) view.findViewById(R.id.zhou_log);
+        moon =  (RadioButton) view.findViewById(R.id.yue_log);
+        halfyear =  (RadioButton) view.findViewById(R.id.bannian_log);
+        year =  (RadioButton) view.findViewById(R.id.nian_log);
 
         sday.setTextColor(getResources().getColor(R.color.blue));
         moon.setTextColor(getResources().getColor(R.color.grey));
@@ -124,7 +125,7 @@ public class BaojingFragment1 extends Fragment {
             }
         });
 
-        mAdapter = new BaojingLishiItemAdapter(getActivity());
+        mAdapter = new DeviceLogItemAdapter(getActivity());
         return view;
     }
 
@@ -144,21 +145,21 @@ public class BaojingFragment1 extends Fragment {
         }
 
         @Override
-        protected Result<List<DeviceLog>> doInBackground(Void... params) {
-            try{
-                return ServiceCenter.getDetailLishiBJ(jiqiSn,mCondition);
-            } catch (Exception e) {
-                Logger.e("", "", e);
-            }
-            return null;
-        }
-
-        @Override
         protected void onPreExecute() {
             super.onPreExecute();
             if (shuaxin) {
                 mLoadDialog.show();
             }
+        }
+
+        @Override
+        protected Result<List<DeviceLog>> doInBackground(Void... params) {
+            try{
+                return ServiceCenter.getDeviceLog(jiqiSn,mCondition);
+            } catch (Exception e) {
+                Logger.e("", "", e);
+            }
+            return null;
         }
 
         @Override

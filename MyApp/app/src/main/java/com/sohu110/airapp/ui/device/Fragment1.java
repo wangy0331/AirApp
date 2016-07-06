@@ -115,6 +115,9 @@ public class Fragment1 extends Fragment{
 	private TextView bjText;
 	private TextView yjText;
 
+	//记录编号
+//	private TextView jlbh;
+
 	private String dianliu = "A";
 	private String wendu = "℃";
 	private String mpa = "MPa";
@@ -145,6 +148,12 @@ public class Fragment1 extends Fragment{
 
 	private String guid;
 
+	//时间变量
+	private String lshbs = "";
+
+	//离线表示（true-表示离线，false-表示不离线）
+	private boolean lixianTs = false;
+
 	public static Fragment1 newInstance(String guid) {
 		Fragment1 fragment = new Fragment1();
 		Bundle bundle = new Bundle();
@@ -160,7 +169,7 @@ public class Fragment1 extends Fragment{
 		guid = this.getArguments().getString(GUID);
 		Log.e("fragment", guid);
 
-		countDown = new CountDownTimer(15000, 2000) {
+		countDown = new CountDownTimer(11000, 2000) {
 
 			@Override
 			public void onTick(long millisUntilFinished) {
@@ -182,16 +191,16 @@ public class Fragment1 extends Fragment{
 
 
 
-		countDown1 = new CountDownTimer(16000, 1000) {
+		countDown1 = new CountDownTimer(11000, 1000) {
 
 			@Override
 			public void onTick(long millisUntilFinished) {
-				new DeviceDetailJubuTask(guid).execute();
+//				new DeviceDetailJubuTask(guid).execute();
 //				Log.e("time", String.valueOf(millisUntilFinished / 1000));
 //				refresh = false;
 				int progress = mProgressBar.getProgress();
 
-				mProgressBar.setMax(15);
+				mProgressBar.setMax(10);
 
 				mProgressBar.setProgress(++progress);
 
@@ -275,6 +284,7 @@ public class Fragment1 extends Fragment{
 		mYujing = (TextView) view.findViewById(R.id.yujing);
 		bjText = (TextView) view.findViewById(R.id.baojing_text);
 		yjText = (TextView) view.findViewById(R.id.yujing_text);
+//		jlbh = (TextView) view.findViewById(R.id.jlbh);
 
 		mProgressBar = (HorizontalProgressBarWithNumber) view.findViewById(R.id.id_progressbar01);
 
@@ -289,30 +299,13 @@ public class Fragment1 extends Fragment{
 					//局部刷新
 					if (refresh) {
 						new DeviceBiaoshiTask(guid).execute();
+						mProgressBar.setProgress(0);
 					} else {
 						mSwipeRefreshLayout.setRefreshing(true);
 						mSwipeRefreshLayout.setRefreshing(false);
 					}
 				}
 			});
-//		}
-
-
-
-//		countDown = new CountDownTimer(30000, 2000) {
-//
-//			@Override
-//			public void onTick(long millisUntilFinished) {
-////				new DeviceDetailJubuTask(guid).execute();
-//				Log.e("time", String.valueOf(millisUntilFinished/1000));
-//			}
-//
-//			/** 倒计时结束后在这里实现activity跳转  */
-//			@Override
-//			public void onFinish() {
-//				Log.e("time", "stop");
-//			}
-//		};
 
 		return view;
 	}
@@ -400,9 +393,11 @@ public class Fragment1 extends Fragment{
 //						dashBoardTempView.setSpeed(Integer.valueOf(item.getAirTemp().trim()));
 //						dashBoardPressView.setSpeed(Float.valueOf(item.getAirPress().trim()));
 
-						if (item.getNowTime() != null) {
-							caijiTime.setText(item.getNowTime().trim());
-						}
+//						if (item.getNowTime() != null) {
+//							if (!lshbs.equals(item.getJlbh())) {
+//								caijiTime.setText(item.getNowTime().trim());
+//							}
+//						}
 						if (item.getDianjiSta() != null) {
 							dianjiSta.setText(item.getDianjiSta().trim());
 						}
@@ -601,14 +596,20 @@ public class Fragment1 extends Fragment{
 						if (item.getStatus() != null) {
 							if (!"".equals(item.getStatus())) {
 
-								if ("无".equals(item.getStatus())) {
-									bjText.setText(item.getStatus());
+								if ("无预警".equals(item.getStatus())) {
+									bjText.setText("");
 									yjText.setText(item.getStatus());
-								} else {
-									if ("报警状态".equals(item.getStatus().trim().substring(0,4))) {
-										bjText.setText(item.getStatus().substring(5, item.getStatus().length()));
-									} else if ("预警状态".equals(item.getStatus().trim().substring(0,4))) {
-										yjText.setText(item.getStatus().substring(5, item.getStatus().length()));
+								} else if ("无报警".equals(item.getStatus())) {
+									bjText.setText(item.getStatus());
+									yjText.setText("");
+								} else if ("无".equals(item.getStatus())) {
+									bjText.setText("");
+									yjText.setText("");
+								}else {
+									if ("报".equals(item.getStatus().trim().substring(0,2))) {
+										bjText.setText(item.getStatus());
+									} else if ("预".equals(item.getStatus().trim().substring(0,2))) {
+										yjText.setText(item.getStatus());
 									}
 								}
 							}
@@ -669,22 +670,33 @@ public class Fragment1 extends Fragment{
 						dashBoardTempView.setSpeed(Integer.valueOf(item.getAirTemp().trim()));
 						dashBoardPressView.setSpeed(Float.valueOf(item.getAirPress().trim()));
 
-						if (!"".equals(item.getStatus())) {
-							if ("无".equals(item.getStatus())) {
-								bjText.setText(item.getStatus());
-								yjText.setText(item.getStatus());
-							} else {
-								if ("报警状态".equals(item.getStatus().trim().substring(0,4))) {
-									bjText.setText(item.getStatus().substring(5, item.getStatus().length()));
-								} else if ("预警状态".equals(item.getStatus().trim().substring(0,4))) {
-									yjText.setText(item.getStatus().substring(5, item.getStatus().length()));
+//						if (item.getJlbh() != null) {
+////							jlbh.setText("记录编号：" + item.getJlbh());
+//							lshbs = item.getJlbh();
+//						}
+
+
+
+						if (item.getStatus() != null) {
+							if (!"".equals(item.getStatus())) {
+
+								if ("无预警".equals(item.getStatus())) {
+									bjText.setText("");
+									yjText.setText(item.getStatus());
+								} else if ("无报警".equals(item.getStatus())) {
+									bjText.setText(item.getStatus());
+									yjText.setText("");
+								} else if ("无".equals(item.getStatus())) {
+									bjText.setText("");
+									yjText.setText("");
+								}else {
+									if ("报".equals(item.getStatus().trim().substring(0,2))) {
+										bjText.setText(item.getStatus());
+									} else if ("预".equals(item.getStatus().trim().substring(0,2))) {
+										yjText.setText(item.getStatus());
+									}
 								}
 							}
-//							if ("报警状态".equals(item.getStatus().trim().substring(0,4))) {
-//								bjText.setText(item.getStatus().substring(5, item.getStatus().length()));
-//							} else if ("预警状态".equals(item.getStatus().trim().substring(0,4))) {
-//								yjText.setText(item.getStatus().substring(5, item.getStatus().length()));
-//							}
 						}
 
 						if (item.getJqQiSn() != null) {
@@ -697,7 +709,13 @@ public class Fragment1 extends Fragment{
 							zhujiDl.setText(item.getZjdl().trim() + dianliu);
 						}
 						if (item.getNowTime() != null) {
-							caijiTime.setText(item.getNowTime().trim());
+							if (lixianTs) {
+								caijiTime.setText(item.getZxbsj().trim());
+							} else {
+								if (!lshbs.equals(item.getJlbh())) {
+									caijiTime.setText(item.getNowTime().trim());
+								}
+							}
 						}
 						if (item.getAirTemp() != null) {
 							paiqiTemp.setText(item.getAirTemp().trim() + wendu);
@@ -753,6 +771,13 @@ public class Fragment1 extends Fragment{
 
 						if (item.getZhujiDl3() != null) {
 							zhujiDl3.setText(item.getZhujiDl3());
+						}
+
+						if (item.getTongxunSta() != null) {
+							tongxunSta.setText(item.getTongxunSta().trim());
+							if ("离线".equals(item.getTongxunSta().trim())) {
+								lixianTs = true;
+							}
 						}
 
 //						sn.setText(item.getJqQiSn().trim());

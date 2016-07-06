@@ -25,6 +25,8 @@ public class DeviceChart implements Serializable {
     private int pqwd;
     //时间
     private String datetime;
+    //功率
+    private String gl;
 
     public String getJiqiSn() {
         return jiqiSn;
@@ -74,6 +76,14 @@ public class DeviceChart implements Serializable {
         this.datetime = datetime;
     }
 
+    public String getGl() {
+        return gl;
+    }
+
+    public void setGl(String gl) {
+        this.gl = gl;
+    }
+
     public static Result<List<DeviceChart>> parse(String json) {
         Result<List<DeviceChart>> deviceList = null;
         List<DeviceChart> list = null;
@@ -109,6 +119,7 @@ public class DeviceChart implements Serializable {
             item.djdl = obj.optInt("电机电流");
             item.djwd = obj.optInt("电机温度");
             item.pqwd = obj.optInt("排气温度");
+            item.gl = obj.optString("机器功率");
             String time = obj.optString("采集时间");
             item.datetime = time.substring(9, time.length()-3);
 

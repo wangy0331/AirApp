@@ -3,11 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/bg_color"
     >
 
     <RadioGroup
-        android:id="@+id/radio_group_bj_log"
+        android:id="@+id/radio_group_log"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -18,7 +17,7 @@
         >
 
         <RadioButton
-            android:id="@+id/zhou_bj_log"
+            android:id="@+id/zhou_log"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -34,7 +33,7 @@
             android:text="@string/zhou"/>
 
         <RadioButton
-            android:id="@+id/yue_bj_log"
+            android:id="@+id/yue_log"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -49,7 +48,7 @@
             android:text="@string/yue"/>
 
         <RadioButton
-            android:id="@+id/bannian_bj_log"
+            android:id="@+id/bannian_log"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -64,7 +63,7 @@
             android:text="@string/bannian"/>
 
         <RadioButton
-            android:id="@+id/nian_bj_log"
+            android:id="@+id/nian_log"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -82,12 +81,10 @@
     </RadioGroup>
 
     <ListView
-        android:id="@+id/bj_lishi_list"
+        android:id="@+id/device_log_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </ListView>
 
-
 </LinearLayout>
-

@@ -8,8 +8,8 @@ android {
         applicationId "com.sohu110.airapp"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 10
-        versionName "10.0"
+        versionCode 11
+        versionName "10.1"
     }
     buildTypes {
         release {

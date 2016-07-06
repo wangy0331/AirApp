@@ -43,7 +43,7 @@ public class DeviceDetailActivity extends BaseActivity {
         mAdapter = new DeviceDetialAdapter(getSupportFragmentManager(), mDevice.getJiqiSn());
 
         mViewPager.setAdapter(mAdapter);
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(4);
 
         mIndicator = (PagerSlidingTabStrip)findViewById(R.id.device_indicator);
         mIndicator.setTextSize(DpKit.dip2px(this, 16));

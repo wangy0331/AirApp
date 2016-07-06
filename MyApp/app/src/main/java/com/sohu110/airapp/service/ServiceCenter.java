@@ -690,7 +690,7 @@ public class ServiceCenter {
      * @param jiqiSn
      * @return
      */
-    public static Result<List<DeviceLog>> getDetailLishiYJ(String jiqiSn) throws Exception{
+    public static Result<List<DeviceLog>> getDetailLishiYJ(String jiqiSn, String mCondition) throws Exception{
 
         //接口路径
         String url = URLCenter.getApi("qsetyblog.asq");
@@ -701,6 +701,7 @@ public class ServiceCenter {
         obj.put("loginsta", "1");
         obj.put("setno", jiqiSn);
         obj.put("ybdata", "yj");
+        obj.put("datekind",mCondition);
         //发送请求
         String response = HttpService.post(url, obj);
 
@@ -715,7 +716,7 @@ public class ServiceCenter {
      * @param jiqiSn
      * @return
      */
-    public static Result<List<DeviceLog>> getDetailLishiBJ(String jiqiSn) throws Exception{
+    public static Result<List<DeviceLog>> getDetailLishiBJ(String jiqiSn, String condition) throws Exception{
 
         //接口路径
         String url = URLCenter.getApi("qsetyblog.asq");
@@ -726,6 +727,7 @@ public class ServiceCenter {
         obj.put("loginsta", "1");
         obj.put("setno", jiqiSn);
         obj.put("ybdata", "bj");
+        obj.put("datekind",condition);
         //发送请求
         String response = HttpService.post(url, obj);
 
@@ -942,7 +944,7 @@ public class ServiceCenter {
         obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
         obj.put("loginsta", "1");
         obj.put("setno", jiqiSn);
-//        obj.put("ybdata", "bj");
+//        obj.put("datekind", mCondition);
         //发送请求
         String response = HttpService.post(url, obj);
 
@@ -1022,6 +1024,30 @@ public class ServiceCenter {
 
         if (!TextUtils.isEmpty(response)) {
             return DeviceDetail.parseJB(response);
+        }
+        return null;
+    }
+
+    /**
+     * 设备日志
+     * @param jiqiSn
+     * @return
+     */
+    public static Result<List<DeviceLog>> getDeviceLog(String jiqiSn, String mCondition) throws Exception{
+        //接口路径
+        String url = URLCenter.getApi("qsetlogdata.asq");
+        //封装json
+        JSONObject obj = new JSONObject();
+        obj.put("databaseid", "AirApp");
+        obj.put("mobile", CacheCenter.getCurrentUser().getUserid());
+        obj.put("loginsta", "1");
+        obj.put("setno", jiqiSn);
+        obj.put("datekind", mCondition);
+        //发送请求
+        String response = HttpService.post(url, obj);
+
+        if (!TextUtils.isEmpty(response)) {
+            return DeviceLog.parseRZ(response);
         }
         return null;
     }

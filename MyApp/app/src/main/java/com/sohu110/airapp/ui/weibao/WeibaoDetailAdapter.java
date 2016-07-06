@@ -11,7 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 public class WeibaoDetailAdapter extends FragmentPagerAdapter {
 
-    String[] names = new String[] {"维保预警详情", "历史记录"};
+    String[] names = new String[] {"维保详情", "历史记录"};
 
     private WeibaoFragment fragment;
     private WeibaoFragment1 fragment1;

@@ -103,6 +103,11 @@ public class DeviceDetail implements Serializable {
     //状态
     private String status;
 
+    //记录编号
+    private String jlbh;
+    //最新包时间
+    private String zxbsj;
+
     public String getJqQiSn() {
         return jqQiSn;
     }
@@ -455,6 +460,22 @@ public class DeviceDetail implements Serializable {
         this.zjdl = zjdl;
     }
 
+    public String getJlbh() {
+        return jlbh;
+    }
+
+    public void setJlbh(String jlbh) {
+        this.jlbh = jlbh;
+    }
+
+    public String getZxbsj() {
+        return zxbsj;
+    }
+
+    public void setZxbsj(String zxbsj) {
+        this.zxbsj = zxbsj;
+    }
+
     /**
      * 解析json
      * @param response
@@ -597,6 +618,9 @@ public class DeviceDetail implements Serializable {
             item.setFengji2Dl1(obj.getString("风机电流2a"));
             item.setFengji2Dl2(obj.getString("风机电流2b"));
             item.setFengji2Dl3(obj.getString("风机电流2c"));
+            item.setJlbh(obj.getString("记录编号"));
+            item.setTongxunSta(obj.getString("通讯状况"));
+            item.setZxbsj(obj.getString("最新包时间"));
 
         } catch (Exception e) {
             Logger.e("", "", e);

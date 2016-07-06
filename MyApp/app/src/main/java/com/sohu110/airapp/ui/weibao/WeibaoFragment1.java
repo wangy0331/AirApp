@@ -33,6 +33,19 @@ public class WeibaoFragment1 extends Fragment {
     //适配器
     private WeixiuDetailItemAdapter mAdapter;
 
+//    //年、半年、月、周
+//    private RadioGroup mRadioGroup;
+//    private RadioButton sday;
+//    private RadioButton moon;
+//    private RadioButton halfyear;
+//    private RadioButton year;
+//
+//    //默认周
+//    private String condition = "week";
+//
+//    //
+//    private boolean shuaxin = false;
+
     public static WeibaoFragment1 newInstance(String guid) {
         WeibaoFragment1 fragment = new WeibaoFragment1();
         Bundle bundle = new Bundle();
@@ -61,6 +74,53 @@ public class WeibaoFragment1 extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_weibao_lishi,null );
         mListView = (ListView) view.findViewById(R.id.weibao_lishi_list);
+
+//        mRadioGroup = (RadioGroup) view.findViewById(R.id.radio_group_bj_log);
+//
+//        sday =  (RadioButton) view.findViewById(R.id.zhou_bj_log);
+//        moon =  (RadioButton) view.findViewById(R.id.yue_bj_log);
+//        halfyear =  (RadioButton) view.findViewById(R.id.bannian_bj_log);
+//        year =  (RadioButton) view.findViewById(R.id.nian_bj_log);
+//
+//        sday.setTextColor(getResources().getColor(R.color.blue));
+//        moon.setTextColor(getResources().getColor(R.color.grey));
+//        halfyear.setTextColor(getResources().getColor(R.color.grey));
+//        year.setTextColor(getResources().getColor(R.color.grey));
+//
+//        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//
+//                if (checkedId == sday.getId()) {//周
+//                    condition = "week";
+//                    sday.setTextColor(getResources().getColor(R.color.blue));
+//                    moon.setTextColor(getResources().getColor(R.color.grey));
+//                    halfyear.setTextColor(getResources().getColor(R.color.grey));
+//                    year.setTextColor(getResources().getColor(R.color.grey));
+//                } else if (checkedId == moon.getId()) {//月
+//                    condition = "moon";
+//                    sday.setTextColor(getResources().getColor(R.color.grey));
+//                    moon.setTextColor(getResources().getColor(R.color.blue));
+//                    halfyear.setTextColor(getResources().getColor(R.color.grey));
+//                    year.setTextColor(getResources().getColor(R.color.grey));
+//                } else if (checkedId == halfyear.getId()) {//半年
+//                    condition = "halfyear";
+//                    sday.setTextColor(getResources().getColor(R.color.grey));
+//                    moon.setTextColor(getResources().getColor(R.color.grey));
+//                    halfyear.setTextColor(getResources().getColor(R.color.blue));
+//                    year.setTextColor(getResources().getColor(R.color.grey));
+//                } else if (checkedId == year.getId()) {//年
+//                    condition = "year";
+//                    sday.setTextColor(getResources().getColor(R.color.grey));
+//                    moon.setTextColor(getResources().getColor(R.color.grey));
+//                    halfyear.setTextColor(getResources().getColor(R.color.grey));
+//                    year.setTextColor(getResources().getColor(R.color.blue));
+//                }
+//                shuaxin = true;
+//                new DeviceDetailTask(guid,condition).execute();
+//            }
+//        });
+
         mAdapter = new WeixiuDetailItemAdapter(getActivity());
         return view;
     }
@@ -71,10 +131,22 @@ public class WeibaoFragment1 extends Fragment {
     class DeviceDetailTask extends AsyncTask<Void, Void, Result<List<DeviceLog>>> {
 
         private String jiqiSn;
+        private String mCondition;
+//        LoadProcessDialog mLoadDialog;
 
         public DeviceDetailTask(String guid) {
             jiqiSn = guid;
+//            mCondition = condition;
+//            mLoadDialog = new LoadProcessDialog(getActivity());
         }
+
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            if (shuaxin) {
+//                mLoadDialog.show();
+//            }
+//        }
 
         @Override
         protected Result<List<DeviceLog>> doInBackground(Void... params) {
@@ -90,6 +162,7 @@ public class WeibaoFragment1 extends Fragment {
         protected void onPostExecute(Result<List<DeviceLog>> result) {
             super.onPostExecute(result);
 //            mSwipeRefreshLayout.setRefreshing(false);
+//            mLoadDialog.dismiss();
             if (result != null) {
                 if (result.isSuceed()) {
 

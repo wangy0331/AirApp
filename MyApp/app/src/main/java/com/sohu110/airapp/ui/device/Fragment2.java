@@ -174,7 +174,7 @@ public class Fragment2 extends Fragment {
 
 
 	// 设置显示的样式
-	private void showChart(LineChart lineChart, LineData lineData, int color) {
+	private void showChart(LineChart lineChart, LineData lineData, float min, float max) {
 		lineChart.setDrawBorders(false);  //是否在折线图上添加边框
 
 		// no description text
@@ -192,6 +192,11 @@ public class Fragment2 extends Fragment {
 
 		lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM); // 让x轴在下面
 		lineChart.getAxisRight().setEnabled(false);
+
+		//y轴范围
+		lineChart.getAxisLeft().setAxisMaxValue(max);
+		lineChart.getAxisLeft().setAxisMinValue(min);
+//		lineChart.getAxisLeft().setSpaceTop(100f);
 
 		if (isAdded()) {
 			lineChart.getXAxis().setGridColor(
@@ -514,16 +519,36 @@ public class Fragment2 extends Fragment {
 
 						Log.e("个数", String.valueOf(result.getData().size()));
 
+						//功率
+						String a = result.getData().get(0).getGl();
+
+						Double b = Double.valueOf(a.substring(0, a.indexOf("K")));
 
 						mLineDataPQ = getLineData1(result.getData());
 						mLineDataDJ = getLineData2(result.getData());
 						mLineDataHJ = getLineData3(result.getData());
 						mLineDataKQ = getLineData4(result.getData());
 
-						showChart(pqwdChart, mLineDataPQ, Color.rgb(255, 255, 255));
-						showChart(djwdChart, mLineDataDJ, Color.rgb(255, 255, 255));
-						showChart(hjwdChart, mLineDataHJ, Color.rgb(255, 255, 255));
-						showChart(kqylChart, mLineDataKQ, Color.rgb(255, 255, 255));
+						//排气压力 MPa
+						showChart(pqwdChart, mLineDataPQ, 0,2.2f);
+						//电机电流 A
+
+						if (b <= 30) {
+							showChart(djwdChart, mLineDataDJ, 0,300);
+						} else if (b >= 37 && b <= 55) {
+							showChart(djwdChart, mLineDataDJ, 0,500);
+						} else if (b >= 75 && b <= 110) {
+							showChart(djwdChart, mLineDataDJ, 0,700);
+						} else if (b >= 132 && b <= 220) {
+							showChart(djwdChart, mLineDataDJ, 0,1100);
+						} else if (b >= 250 && b <= 315) {
+							showChart(djwdChart, mLineDataDJ, 0,1600);
+						}
+
+						//排气温度 ℃
+						showChart(hjwdChart, mLineDataHJ, -55,255);
+						//电机温度 ℃
+						showChart(kqylChart, mLineDataKQ, -55,255);
 
 					}
 
