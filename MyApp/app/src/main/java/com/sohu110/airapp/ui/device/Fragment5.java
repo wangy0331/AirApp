@@ -49,6 +49,9 @@ public class Fragment5 extends Fragment  {
     //
     private boolean shuaxin = false;
 
+    //是否退出fragment了
+    private boolean isCancel = false;
+
     public static Fragment5 newInstance(String guid) {
         Fragment5 fragment = new Fragment5();
         Bundle bundle = new Bundle();

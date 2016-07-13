@@ -45,6 +45,9 @@ public class DashBoardView extends View {
 			300, 400, 500, 600, 700, 800, 900,
 			1000 };
 
+	//功率
+	private Double gl;
+
 	private int progress;
 	private int toProgress;
 
@@ -402,7 +405,7 @@ public class DashBoardView extends View {
 	}
 
 	public String[] setCurrent1(double kw) {
-
+		gl = kw;
 		if (kw <= 30) {
 			FIXED_SPEED_LEVEL = new String[]{"0", "20", "40", "60", "80", "100", "120", "140", "160", "180", "200"};
 		} else if (kw >= 37 && kw <= 55) {
@@ -465,10 +468,39 @@ public class DashBoardView extends View {
 	 * @param inSpeed
 	 */
 	public void setSpeed(int inSpeed) {
-		if (inSpeed < 1000) {
-			this.speed = inSpeed;
-		} else
-			this.speed = 1000;
+
+		if (gl <= 30) {
+			if (inSpeed < 200) {
+				this.speed = inSpeed;
+			} else {
+				this.speed = 200;
+			}
+		} else if (gl >= 37 && gl <= 55) {
+			if (inSpeed < 400) {
+				this.speed = inSpeed;
+			} else {
+				this.speed = 400;
+			}
+		} else if (gl >= 75 && gl <= 110) {
+			if (inSpeed < 600) {
+				this.speed = inSpeed;
+			} else {
+				this.speed = 600;
+			}
+		} else if (gl >= 132 && gl <= 220) {
+			if (inSpeed < 1000) {
+				this.speed = inSpeed;
+			} else {
+				this.speed = 1000;
+			}
+		} else if (gl >= 250 && gl <= 315) {
+			if (inSpeed < 1500) {
+				this.speed = inSpeed;
+			} else {
+				this.speed = 1500;
+			}
+		}
+
 
 		calcpointerSweepAngle();
 		postInvalidate();

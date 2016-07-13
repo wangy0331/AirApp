@@ -378,6 +378,9 @@ public class Fragment1 extends Fragment{
 							dashBoardView.setCurrent2(Double.valueOf(current.substring(0, current.indexOf("K"))));
 						}
 
+						Log.e("电流", item.getZjdl().trim());
+						Log.e("温度", item.getAirTemp().trim());
+						Log.e("压力", item.getAirPress().trim());
 
 						if (item.getZjdl() != null) {
 							dashBoardView.setSpeed(Integer.valueOf(item.getZjdl().trim()));

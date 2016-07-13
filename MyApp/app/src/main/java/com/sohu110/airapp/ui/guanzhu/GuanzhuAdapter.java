@@ -49,6 +49,7 @@ public class GuanzhuAdapter extends ArrayAdapter<Device> {
             holder.mTemp = (TextView) convertView.findViewById(R.id.wendu);
             holder.mPress = (TextView) convertView.findViewById(R.id.yali);
             holder.mAirSn = (TextView) convertView.findViewById(R.id.kyj_sn);
+            holder.jqStatus = (ImageView) convertView.findViewById(R.id.map_icon);
 
             guanzhuBtn = (Button) convertView.findViewById(R.id.shoucang_btn);
             quxiaoBtn = (Button) convertView.findViewById(R.id.not_shoucang_btn);
@@ -77,7 +78,7 @@ public class GuanzhuAdapter extends ArrayAdapter<Device> {
         holder.icon.setText(item.getJqStatus());
 
         if (!"".equals(item.getPress())) {
-            holder.mPress.setText(item.getPress() + " MPa");
+            holder.mPress.setText(Double.valueOf(item.getPress())/100 + " MPa");
         } else {
             holder.mPress.setText("0 MPa");
         }
@@ -93,6 +94,21 @@ public class GuanzhuAdapter extends ArrayAdapter<Device> {
         final String jqid = item.getJiqiSn();
 
 
+        if ("停止中".equals(item.getJqStatus())) {
+            holder.jqStatus.setImageResource(R.drawable.map_tzz);
+        } else if ("节能停机".equals(item.getJqStatus())) {
+            holder.jqStatus.setImageResource(R.drawable.map_jntj);
+        } else if ("卸载运行".equals(item.getJqStatus())) {
+            holder.jqStatus.setImageResource(R.drawable.map_xzyx);
+        } else if ("加载运行".equals(item.getJqStatus())) {
+            holder.jqStatus.setImageResource(R.drawable.map_jzyx);
+        } else if ("系统报警".equals(item.getJqStatus())) {
+            holder.jqStatus.setImageResource(R.drawable.map_xtbj);
+        } else if ("系统测试".equals(item.getJqStatus())) {
+            holder.jqStatus.setImageResource(R.drawable.map_xtcs);
+        } else if ("紧急停机".equals(item.getJqStatus())) {
+            holder.jqStatus.setImageResource(R.drawable.map_jjtj);
+        }
 
         holder.nscBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +142,7 @@ public class GuanzhuAdapter extends ArrayAdapter<Device> {
             //机器序列号
             TextView jiqiSn;
             //运行状态
-            TextView jqStatus;
+            ImageView jqStatus;
             //客户名称
             TextView coName;
             //运行状态

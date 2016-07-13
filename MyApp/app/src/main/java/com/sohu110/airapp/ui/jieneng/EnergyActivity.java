@@ -100,6 +100,9 @@ public class EnergyActivity extends BaseActivity {
     private TextView lText;
     private TextView ljText;
 
+    //节能和收益
+    private String status = "jieneng";
+
     private double jiage = 0.8;
 
     LineData mLineData;
@@ -163,6 +166,30 @@ public class EnergyActivity extends BaseActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         inputServer.getText().toString();
                         mJiage.setText(inputServer.getText().toString() + "元/度");
+                        jiage = Double.valueOf(inputServer.getText().toString());
+
+                        if ("shouyi".equals(status)) {
+                            mJieneng.setTextColor(getResources().getColor(R.color.notCheck));
+                            mShouyi.setTextColor(getResources().getColor(R.color.check));
+                            mZrjn.setText(String.valueOf(zrjn));
+                            mZrjn.setText("昨日收益 " + String.format("%.2f", zrjn * jiage) + "(元)");
+                            mDanwei.setText(getResources().getString(R.string.yuan));
+                            zsjText.setText(getResources().getString(R.string.zsjyd));
+                            ljText.setText(getResources().getString(R.string.ljsy));
+                            lText.setText(getResources().getString(R.string.syl));
+                            mJrjn.setText(String.format("%.2f", jrjn * jiage));
+                            mMaxHN.setText(String.format("%.2f", sjjn * jiage));
+                            mLeiji.setText(String.format("%.2f", ljjn * jiage));
+                            double a = ljjn;
+                            double b = sjjn;
+                            double db = a / (a+b);
+                            String lv = "0.0";
+                            if (!Double.valueOf(db).isNaN()) {
+                                lv = String.format("%.2f", db * 100);
+                            }
+                            mJnl.setText(lv);
+                        }
+
                     }
                 });
                 builder.show();
@@ -190,6 +217,9 @@ public class EnergyActivity extends BaseActivity {
         mJieneng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                status = "jieneng";
+
                 mJieneng.setTextColor(getResources().getColor(R.color.check));
                 mShouyi.setTextColor(getResources().getColor(R.color.notCheck));
 
@@ -224,6 +254,9 @@ public class EnergyActivity extends BaseActivity {
         mShouyi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                status = "shouyi";
+
                 mJieneng.setTextColor(getResources().getColor(R.color.notCheck));
                 mShouyi.setTextColor(getResources().getColor(R.color.check));
 

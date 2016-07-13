@@ -50,6 +50,7 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
             holder.mTemp = (TextView) convertView.findViewById(R.id.wendu);
             holder.mPress = (TextView) convertView.findViewById(R.id.yali);
             holder.mAirSn = (TextView) convertView.findViewById(R.id.kyj_sn);
+            holder.mapIcon = (ImageView) convertView.findViewById(R.id.map_icon);
 
             guanzhuBtn = (Button) convertView.findViewById(R.id.shoucang_btn);
             quxiaoBtn = (Button) convertView.findViewById(R.id.not_shoucang_btn);
@@ -108,6 +109,22 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
             holder.mAirSn.setText(item.getAirSn());
         }
 
+        if ("停止中".equals(item.getJqStatus())) {
+            holder.mapIcon.setImageResource(R.drawable.map_tzz);
+        } else if ("节能停机".equals(item.getJqStatus())) {
+            holder.mapIcon.setImageResource(R.drawable.map_jntj);
+        } else if ("卸载运行".equals(item.getJqStatus())) {
+            holder.mapIcon.setImageResource(R.drawable.map_xzyx);
+        } else if ("加载运行".equals(item.getJqStatus())) {
+            holder.mapIcon.setImageResource(R.drawable.map_jzyx);
+        } else if ("系统报警".equals(item.getJqStatus())) {
+            holder.mapIcon.setImageResource(R.drawable.map_xtbj);
+        } else if ("系统测试".equals(item.getJqStatus())) {
+            holder.mapIcon.setImageResource(R.drawable.map_xtcs);
+        } else if ("紧急停机".equals(item.getJqStatus())) {
+            holder.mapIcon.setImageResource(R.drawable.map_jjtj);
+        }
+
 //        final String jqid = item.getJiqiSn();
 
         holder.scBtn.setOnClickListener(new View.OnClickListener() {
@@ -149,6 +166,8 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
         TextView mPress;
         //空压机编号
         TextView mAirSn;
+        //地图标识
+        ImageView mapIcon;
     }
 
     class ShoucangTask extends AsyncTask<Void, Void, Result> {

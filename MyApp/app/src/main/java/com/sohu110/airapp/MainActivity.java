@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.sohu110.airapp.cache.CacheCenter;
-import com.sohu110.airapp.ui.BusinessFragment;
 import com.sohu110.airapp.ui.CustomerFragment;
+import com.sohu110.airapp.ui.FindMapFragment;
 import com.sohu110.airapp.ui.HomeFragment;
 import com.sohu110.airapp.ui.LoginActivity;
 import com.sohu110.airapp.ui.MemberFragment;
@@ -83,9 +83,10 @@ public class MainActivity extends FragmentActivity {
                 break;
             case R.id.main_tab_3: // 地图
                 Log.e("tab3", String.valueOf(tab.getId()));
-                id = BusinessFragment.class.getName();
+                id = FindMapFragment
+                        .class.getName();
                 if (CacheCenter.getCurrentUser() != null) {
-                    intent = new Intent(getApplicationContext(), BusinessFragment.class);
+                    intent = new Intent(getApplicationContext(), FindMapFragment.class);
                 } else {
                     LoginActivity.open(MainActivity.this);
                 }

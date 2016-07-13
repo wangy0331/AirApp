@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class WeixiuAdapter extends ArrayAdapter<Device> {
             holder.mPress = (TextView) convertView.findViewById(R.id.yali_wx);
             holder.mAirSn = (TextView) convertView.findViewById(R.id.kyj_sn_wx);
             holder.mSta = (TextView) convertView.findViewById(R.id.bjzt_wx);
+            holder.jqStatus = (ImageView) convertView.findViewById(R.id.map_icon_WBYJ);
 
             guanzhuBtn = (Button) convertView.findViewById(R.id.shoucang_btn);
             quxiaoBtn = (Button) convertView.findViewById(R.id.not_shoucang_btn);
@@ -61,6 +63,21 @@ public class WeixiuAdapter extends ArrayAdapter<Device> {
         holder.coName.setText(id + "." + item.getCoName());
         holder.jiqiSn.setText(item.getJiqiSn());
 
+        if ("停止中".equals(item.getJqStatus())) {
+            holder.jqStatus.setImageResource(R.drawable.map_tzz);
+        } else if ("节能停机".equals(item.getJqStatus())) {
+            holder.jqStatus.setImageResource(R.drawable.map_jntj);
+        } else if ("卸载运行".equals(item.getJqStatus())) {
+            holder.jqStatus.setImageResource(R.drawable.map_xzyx);
+        } else if ("加载运行".equals(item.getJqStatus())) {
+            holder.jqStatus.setImageResource(R.drawable.map_jzyx);
+        } else if ("系统报警".equals(item.getJqStatus())) {
+            holder.jqStatus.setImageResource(R.drawable.map_xtbj);
+        } else if ("系统测试".equals(item.getJqStatus())) {
+            holder.jqStatus.setImageResource(R.drawable.map_xtcs);
+        } else if ("紧急停机".equals(item.getJqStatus())) {
+            holder.jqStatus.setImageResource(R.drawable.map_jjtj);
+        }
 
         if ("Y".equals(item.getfSta())) {
             holder.scBtn.setVisibility(View.GONE);
@@ -97,7 +114,7 @@ public class WeixiuAdapter extends ArrayAdapter<Device> {
         //机器序列号
         TextView jiqiSn;
         //运行状态
-        TextView jqStatus;
+        ImageView jqStatus;
         //客户名称
         TextView coName;
         //运行状态
