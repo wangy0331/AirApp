@@ -169,7 +169,7 @@ public class Fragment1 extends Fragment{
 		guid = this.getArguments().getString(GUID);
 		Log.e("fragment", guid);
 
-		countDown = new CountDownTimer(11000, 2000) {
+		countDown = new CountDownTimer(14000, 2000) {
 
 			@Override
 			public void onTick(long millisUntilFinished) {

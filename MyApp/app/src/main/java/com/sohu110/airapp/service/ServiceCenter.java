@@ -324,6 +324,9 @@ public class ServiceCenter {
      * @throws Exception
      */
     public static Result<List<Energy>> getEnergy(String mCondition) throws Exception{
+
+        Log.e("mCondition", mCondition);
+
         //接口路径
         String url = URLCenter.getApi("querynh.asq");
         //封装json
@@ -336,7 +339,15 @@ public class ServiceCenter {
         String response = HttpService.post(url, obj);
 
         if (!TextUtils.isEmpty(response)) {
-            return Energy.parse(response);
+            if ("sday".equals(mCondition)) {
+                return Energy.parseSday(response);
+            } else if ("moon".equals(mCondition)) {
+                return Energy.parseMoon(response);
+            } else if ("halfyear".equals(mCondition)) {
+                return Energy.parseHeafyear(response);
+            } else if ("year".equals(mCondition)) {
+                return Energy.parseYear(response);
+            }
         }
         return null;
     }
@@ -361,7 +372,7 @@ public class ServiceCenter {
         String response = HttpService.post(url, obj);
 
         if (!TextUtils.isEmpty(response)) {
-            return Energy.parse1(response);
+            return Energy.parseDay(response);
         }
         return null;
     }
@@ -386,7 +397,7 @@ public class ServiceCenter {
         String response = HttpService.post(url, obj);
 
         if (!TextUtils.isEmpty(response)) {
-            return Energy.parse2(response);
+            return Energy.parseDay(response);
         }
         return null;
     }
@@ -611,11 +622,13 @@ public class ServiceCenter {
      * @param mInfo
      * @return
      */
+
     public static Result<DeviceReform> submitDevice(DeviceReform mInfo) throws Exception{
 
         //接口路径
         String url = URLCenter.getApi("setdesign.asq");
         //封装json
+
         JSONObject obj = new JSONObject();
         obj.put("databaseid", "AirApp");
         obj.put("mobile", CacheCenter.getCurrentUser().getUserid());

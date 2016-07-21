@@ -136,9 +136,15 @@ public class Fragment3 extends Fragment implements LocationSource,
 					if (item != null) {
 
 						if (item.getJqWd() != null || item.getJqJd() != null) {
-							Log.e("",item.getJqWd().toString());
-							Log.e("",item.getJqJd().toString());
-							drawMarkers(new LatLng(item.getJqWd(), item.getJqJd()),item.getAirSta());
+							Double jd = 0.0;
+							Double wd = 0.0;
+							if (item.getJqWd() != null) {
+								jd = item.getJqJd();
+							}
+							if (item.getJqJd() != null) {
+								wd = item.getJqWd();
+							}
+							drawMarkers(new LatLng(wd,jd),item.getAirSta());
 						}
 					}
 

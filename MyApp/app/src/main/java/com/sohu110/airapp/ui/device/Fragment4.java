@@ -260,9 +260,13 @@ public class Fragment4 extends Fragment {
                     mSubmitBtn.setVisibility(View.GONE);
                     mEditBtn.setVisibility(View.VISIBLE);
                 } else if(StringKit.isNotEmpty(result.getMessage())) {
-                    LibToast.show(getActivity(), result.getMessage());
+                    if (!isCancel) {
+                        LibToast.show(getActivity(), result.getMessage());
+                    }
                 } else {
-                    LibToast.show(getActivity(), R.string.member_detail_failure);
+                    if (!isCancel) {
+                        LibToast.show(getActivity(), R.string.member_detail_failure);
+                    }
                 }
             } else {
                 if (!isCancel) {

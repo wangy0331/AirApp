@@ -57,7 +57,6 @@ public class Fragment2 extends Fragment {
 	private RadioButton mPress;
 
 
-
 	LineData mLineDataPQ;
 	LineData mLineDataDJ;
 	LineData mLineDataHJ;
@@ -532,7 +531,6 @@ public class Fragment2 extends Fragment {
 						//排气压力 MPa
 						showChart(pqwdChart, mLineDataPQ, 0,2.2f);
 						//电机电流 A
-
 						if (b <= 30) {
 							showChart(djwdChart, mLineDataDJ, 0,300);
 						} else if (b >= 37 && b <= 55) {

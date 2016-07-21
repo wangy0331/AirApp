@@ -66,7 +66,7 @@
     <string name="hint_code_for_reset_password">请输入验证码</string>
     <string name="hint_pwd_for_reset_password">请输入新密码</string>
     <string name="hint_old_pwd_not">旧密码不能为空</string>
-    <string name="hint_old_pwd_error">新密码输入错误</string>
+    <string name="hint_old_pwd_error">旧密码输入错误</string>
     <string name="hint_new_pwd_for_reset_password">请重复新密码</string>
     <string name="hint_pwd_not_match">两次密码输入不一致</string>
     <string name="hint_pwd_too_short">密码至少六位</string>

@@ -290,19 +290,17 @@ public class FindMapFragment extends Fragment implements LocationSource,
         @Override
         protected void onPostExecute(Result<List<Device>> result) {
             super.onPostExecute(result);
-//            mLoadDialog.dismiss();[]
+//            mLoadDialog.dismiss();
             if (result != null) {
                 if (result.isSuceed()) {
                     if (result.getData() != null) {
 
                         //构建Marker图标
-                        BitmapDescriptor bitmap = BitmapDescriptorFactory
-                                .fromResource(R.drawable.yuxing);
+//                        BitmapDescriptor bitmap = BitmapDescriptorFactory
+//                                .fromResource(R.drawable.yuxing);
 
                         //定义Maker坐标点
                         if (result.getData() != null) {
-
-
                             for (int i = 0; i < result.getData().size(); i++) {
 
                                 Log.e("纬度", result.getData().get(i).getJqWD().toString());

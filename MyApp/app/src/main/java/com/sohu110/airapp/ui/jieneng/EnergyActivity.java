@@ -1,17 +1,23 @@
 package com.sohu110.airapp.ui.jieneng;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
+import android.view.Surface;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -34,18 +40,12 @@ import com.sohu110.airapp.cn.sharesdk.onekeyshare.OnekeyShare;
 import com.sohu110.airapp.cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 import com.sohu110.airapp.service.ServiceCenter;
 import com.sohu110.airapp.ui.BaseActivity;
-import com.sohu110.airapp.utils.SortComparator;
 import com.sohu110.airapp.widget.LibToast;
 import com.sohu110.airapp.widget.LoadProcessDialog;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import cn.sharesdk.framework.Platform;
@@ -106,6 +106,8 @@ public class EnergyActivity extends BaseActivity {
     private double jiage = 0.8;
 
     LineData mLineData;
+
+
 
 
     @Override
@@ -212,7 +214,6 @@ public class EnergyActivity extends BaseActivity {
         mJnl.setText("0.0");
 
 
-
         //节能
         mJieneng.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,7 +239,7 @@ public class EnergyActivity extends BaseActivity {
 
                 double a = ljjn;
                 double b = sjjn;
-                double db = a / (a+b);
+                double db = a / (a + b);
 
 
                 String lv = "0.0";
@@ -276,7 +277,7 @@ public class EnergyActivity extends BaseActivity {
                 double a = ljjn;
                 double b = sjjn;
 
-                double db = a / (a+b);
+                double db = a / (a + b);
 
 //                String lv = String.format("%.2f", db * 100);
 
@@ -321,12 +322,17 @@ public class EnergyActivity extends BaseActivity {
 
         getBtnRight().setImageDrawable(getResources().getDrawable(R.drawable.fenxiang));
 
+
         getBtnRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showShare();
+//                showShare();
+
             }
         });
+
+
+
 
 
 
@@ -365,6 +371,7 @@ public class EnergyActivity extends BaseActivity {
         });
 
     }
+
 
     class EnergyTodayTask extends AsyncTask<Void, Void, Result<Energy>> {
 
@@ -539,6 +546,9 @@ public class EnergyActivity extends BaseActivity {
         //隐藏X轴竖网格线
         lineChart.getXAxis().setDrawGridLines(false);
 
+        lineChart.getXAxis().resetLabelsToSkip();
+
+
         lineChart.getLegend().setEnabled(false);
 
         lineChart.getXAxis().setTextSize(12f);
@@ -554,7 +564,7 @@ public class EnergyActivity extends BaseActivity {
 
 //        lineChart.getXAxis().resetLabelsToSkip();
 //        lineChart.getXAxis().setSpaceBetweenLabels(3);
-        lineChart.getXAxis().setLabelsToSkip(0);
+//        lineChart.getXAxis().setLabelsToSkip(1);
 //        xAxis.resetLabelsToSkip(); setSpaceBetweenLabels(int characters)
 
         // enable scaling and dragging
@@ -618,9 +628,9 @@ public class EnergyActivity extends BaseActivity {
 //        Comparator comp = new SortComparator();
 //        Collections.sort(result, comp);
 
-        for (int a = 0; a < result.size(); a++) {
-            Log.e("day", String.valueOf(result.get(a).getsDay()));
-        }
+//        for (int a = 0; a < result.size(); a++) {
+//            Log.e("day", String.valueOf(result.get(a).getsDay()));
+//        }
 
         ArrayList<String> xValues = new ArrayList<String>();
             for (int i = 0; i <result.size(); i++) {
@@ -715,7 +725,7 @@ public class EnergyActivity extends BaseActivity {
         oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
             @Override
             public void onShare(Platform platform, Platform.ShareParams paramsToShare) {
-                Log.d("leo", "platForm:" + platform.getName());
+                Log.d("Aaron", "platForm:" + platform.getName());
 
                 // 重写新浪微博的 title
                 if ("SinaWeibo".equals(platform.getName())) {

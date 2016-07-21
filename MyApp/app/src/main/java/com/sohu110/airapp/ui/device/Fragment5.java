@@ -75,6 +75,12 @@ public class Fragment5 extends Fragment  {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        isCancel = true;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -184,10 +190,14 @@ public class Fragment5 extends Fragment  {
                     mAdapter.notifyDataSetChanged();
 
                 } else {
-                    Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+                    if (!isCancel) {
+                        Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+                    }
                 }
             } else {
-                Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+                if (!isCancel) {
+                    Toast.makeText(getActivity(), "网络错误！", Toast.LENGTH_SHORT).show();
+                }
             }
         }
 

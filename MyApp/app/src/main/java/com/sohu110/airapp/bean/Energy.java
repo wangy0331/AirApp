@@ -75,7 +75,12 @@ public class Energy implements Serializable {
         this.sDay = sDay;
     }
 
-    public static Result<List<Energy>> parse(String json) {
+    /**
+     * 七日
+     * @param json
+     * @return
+     */
+    public static Result<List<Energy>> parseSday(String json) {
         Result<List<Energy>> deviceList = null;
         List<Energy> list = null;
 
@@ -90,7 +95,7 @@ public class Energy implements Serializable {
                 list = new ArrayList<Energy>();
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject arrItem = array.getJSONObject(i);
-                    list.add(fromJson(arrItem));
+                    list.add(fromJsonSday(arrItem));
                 }
                 deviceList.setData(list);
             }
@@ -101,7 +106,7 @@ public class Energy implements Serializable {
         return deviceList;
     }
 
-    private static Energy fromJson(JSONObject obj) {
+    private static Energy fromJsonSday(JSONObject obj) {
         Energy item = null;
         try {
             item = new Energy();
@@ -117,32 +122,156 @@ public class Energy implements Serializable {
         return item;
     }
 
-    public static Result<Energy> parse1(String response) {
+
+    /**
+     * 月
+     * @param json
+     * @return
+     */
+    public static Result<List<Energy>> parseMoon(String json) {
+        Result<List<Energy>> deviceList = null;
         List<Energy> list = null;
 
-        Result<Energy> result = null;
         try {
-            JSONObject obj = new JSONObject(response);
-            result = new Result<Energy>();
-            result.setCode(1);
 
+            JSONObject obj = new JSONObject(json);
+            deviceList = new Result<List<Energy>>();
+            deviceList.setCode(1);
 
-            JSONArray array = obj.optJSONArray("Yesterday data");
+            JSONArray array = obj.optJSONArray("Moon data");
             if (array != null) {
                 list = new ArrayList<Energy>();
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject arrItem = array.getJSONObject(i);
-                    result.setData(fromJson(arrItem));
+                    list.add(fromJsonMoon(arrItem));
                 }
+                deviceList.setData(list);
             }
+        } catch (Exception e) {
+            Logger.e("", "", e);
+        }
+
+        return deviceList;
+    }
+
+    private static Energy fromJsonMoon(JSONObject obj) {
+        Energy item = null;
+        try {
+            item = new Energy();
+            item.sjhn = obj.optDouble("sjhn");
+            item.jyhn = obj.optDouble("jyhn");
+            item.zrjn = obj.optDouble("zrjn");
+            item.jrjn = obj.optDouble("jrjn");
+            item.sDay = obj.optInt("Moon");
 
         } catch (Exception e) {
             Logger.e("", "", e);
         }
-        return result;
+        return item;
     }
 
-    public static Result<Energy> parse2(String response) {
+    /**
+     * 半年
+     * @param json
+     * @return
+     */
+    public static Result<List<Energy>> parseHeafyear(String json) {
+        Result<List<Energy>> deviceList = null;
+        List<Energy> list = null;
+
+        try {
+
+            JSONObject obj = new JSONObject(json);
+            deviceList = new Result<List<Energy>>();
+            deviceList.setCode(1);
+
+            JSONArray array = obj.optJSONArray("Halfyear data");
+            if (array != null) {
+                list = new ArrayList<Energy>();
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject arrItem = array.getJSONObject(i);
+                    list.add(fromJsonHeafyear(arrItem));
+                }
+                deviceList.setData(list);
+            }
+        } catch (Exception e) {
+            Logger.e("", "", e);
+        }
+
+        return deviceList;
+    }
+
+    private static Energy fromJsonHeafyear(JSONObject obj) {
+        Energy item = null;
+        try {
+            item = new Energy();
+            item.sjhn = obj.optDouble("sjhn");
+            item.jyhn = obj.optDouble("jyhn");
+            item.zrjn = obj.optDouble("zrjn");
+            item.jrjn = obj.optDouble("jrjn");
+            item.sDay = obj.optInt("halfyear");
+
+        } catch (Exception e) {
+            Logger.e("", "", e);
+        }
+        return item;
+    }
+
+    /**
+     * 年
+     * @param json
+     * @return
+     */
+    public static Result<List<Energy>> parseYear(String json) {
+        Result<List<Energy>> deviceList = null;
+        List<Energy> list = null;
+
+        try {
+
+            JSONObject obj = new JSONObject(json);
+            deviceList = new Result<List<Energy>>();
+            deviceList.setCode(1);
+
+            JSONArray array = obj.optJSONArray("Year data");
+            if (array != null) {
+                list = new ArrayList<Energy>();
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject arrItem = array.getJSONObject(i);
+                    list.add(fromJsonYear(arrItem));
+                }
+                deviceList.setData(list);
+            }
+        } catch (Exception e) {
+            Logger.e("", "", e);
+        }
+
+        return deviceList;
+    }
+
+    private static Energy fromJsonYear(JSONObject obj) {
+        Energy item = null;
+        try {
+            item = new Energy();
+            item.sjhn = obj.optDouble("sjhn");
+            item.jyhn = obj.optDouble("jyhn");
+            item.zrjn = obj.optDouble("zrjn");
+            item.jrjn = obj.optDouble("jrjn");
+            item.sDay = obj.optInt("year");
+
+        } catch (Exception e) {
+            Logger.e("", "", e);
+        }
+        return item;
+    }
+
+
+
+    /**
+     * 今日
+     * @param response
+     * @return
+     */
+    public static Result<Energy> parseDay(String response) {
         List<Energy> list = null;
 
         Result<Energy> result = null;
@@ -157,7 +286,7 @@ public class Energy implements Serializable {
                 list = new ArrayList<Energy>();
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject arrItem = array.getJSONObject(i);
-                    result.setData(fromJson(arrItem));
+                    result.setData(fromJsonDay(arrItem));
                 }
             }
 
@@ -165,5 +294,21 @@ public class Energy implements Serializable {
             Logger.e("", "", e);
         }
         return result;
+    }
+
+    private static Energy fromJsonDay(JSONObject obj) {
+        Energy item = null;
+        try {
+            item = new Energy();
+            item.sjhn = obj.optDouble("sjhn");
+            item.jyhn = obj.optDouble("jyhn");
+            item.zrjn = obj.optDouble("zrjn");
+            item.jrjn = obj.optDouble("jrjn");
+//            item.sDay = obj.optInt("Sday");
+
+        } catch (Exception e) {
+            Logger.e("", "", e);
+        }
+        return item;
     }
 }
