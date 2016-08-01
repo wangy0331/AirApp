@@ -64,7 +64,7 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
         int id = position + 1;
 
         if ("".equals(item.getCoName())) {
-            holder.coName.setText(mText);
+            holder.coName.setText(id + "." + mText);
         } else {
             holder.coName.setText(id + "." + item.getCoName());
         }

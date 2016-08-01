@@ -273,7 +273,7 @@ public class Fragment2 extends Fragment {
 
 
 		ArrayList<String> xValues = new ArrayList<String>();
-		for (int i = result.size()-1; i >= 0; i--) {
+		for (int i = 0; i < result.size(); i++) {
 			// x轴显示的数据，这里默认使用数字下标显示
 			xValues.add("" + result.get(i).getDatetime());
 		}
@@ -328,7 +328,7 @@ public class Fragment2 extends Fragment {
 
 
 		ArrayList<String> xValues = new ArrayList<String>();
-		for (int i = result.size()-1; i >= 0; i--) {
+		for (int i = 0; i < result.size(); i++) {
 			// x轴显示的数据，这里默认使用数字下标显示
 			xValues.add("" + result.get(i).getDatetime());
 		}
@@ -383,7 +383,7 @@ public class Fragment2 extends Fragment {
 
 
 		ArrayList<String> xValues = new ArrayList<String>();
-		for (int i = result.size()-1; i >= 0; i--) {
+		for (int i = 0; i < result.size(); i++) {
 			// x轴显示的数据，这里默认使用数字下标显示
 			xValues.add("" + result.get(i).getDatetime());
 		}
@@ -435,10 +435,11 @@ public class Fragment2 extends Fragment {
 
 
 		ArrayList<String> xValues = new ArrayList<String>();
-		for (int i = result.size()-1; i >= 0; i--) {
+		for (int i = 0; i < result.size(); i++) {
 			// x轴显示的数据，这里默认使用数字下标显示
 			xValues.add("" + result.get(i).getDatetime());
 		}
+
 
 
 

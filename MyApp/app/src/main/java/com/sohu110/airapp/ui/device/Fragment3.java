@@ -45,6 +45,8 @@ public class Fragment3 extends Fragment implements LocationSource,
 	private AMapLocationClient mlocationClient;
 	private AMapLocationClientOption mLocationOption;
 
+	private MarkerOptions markerOption;
+
 
 	public static Fragment3 newInstance(String guid) {
 		Fragment3 fragment = new Fragment3();
@@ -269,6 +271,8 @@ public class Fragment3 extends Fragment implements LocationSource,
 				.position(latlng)
 				.icon(bitmap)
 				.draggable(true));
-
+		//跳转到指定位置
+		aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 18));
 	}
+
 }

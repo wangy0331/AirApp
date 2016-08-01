@@ -66,6 +66,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:maxLines="1"
+            android:singleLine="true"
             android:background="@drawable/input_white"
             android:layout_weight="3"/>
 
@@ -81,7 +82,7 @@
 
     </LinearLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
+        <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/list_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

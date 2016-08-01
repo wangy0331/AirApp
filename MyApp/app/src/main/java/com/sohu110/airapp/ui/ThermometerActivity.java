@@ -12,5 +12,7 @@ public class ThermometerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test2);
         setTitle("节能之星");
+
+
     }
 }

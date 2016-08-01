@@ -1,23 +1,17 @@
 package com.sohu110.airapp.ui.jieneng;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.Surface;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -106,7 +100,6 @@ public class EnergyActivity extends BaseActivity {
     private double jiage = 0.8;
 
     LineData mLineData;
-
 
 
 
@@ -323,13 +316,20 @@ public class EnergyActivity extends BaseActivity {
         getBtnRight().setImageDrawable(getResources().getDrawable(R.drawable.fenxiang));
 
 
+
         getBtnRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                showShare();
+                showShare();
+
+Log.e("aaron", "clcik");
+
+
+
 
             }
         });
+
 
 
 
@@ -705,51 +705,80 @@ public class EnergyActivity extends BaseActivity {
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
 
-        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
-        oks.setTitle("开创空压机第3种节能方式");
-        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-        oks.setTitleUrl("http://www.dzjn88.com/kyjezs.html");
-        // text是分享文本，所有平台都需要这个字段
+//        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+//        oks.setTitle("开创空压机第3种节能方式");
+//        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+//        oks.setTitleUrl("http://www.dzjn88.com/kyjezs.html");
+//        // text是分享文本，所有平台都需要这个字段
+//        oks.setText("空压机e助手打造全新的工作方式，为您带来便捷、轻松的工作体验。");
+//        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+////        oks.setImagePath("/storage/emulated/0/image/20160725_104111.jpg");//确保SDcard下面存在此张图片
+//
+//        oks.setViewToShare(getWindow().getDecorView());
+//
+//        oks.setImageUrl("https://mmbiz.qlogo.cn/mmbiz/iaHaBOvKY12lqeS03Dl35vq9qia6K8HDxwdXRjD8h5IrY6uicR0MVBS2pZW5oW7onZr0fnkr0Ko5SBWfHhxltqHIQ/0?wx_fmt=png");
+//        // url仅在微信（包括好友和朋友圈）中使用
+//        oks.setUrl("http://www.dzjn88.com/kyjezs.html");
+//        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+////        oks.setComment("");
+//        // site是分享此内容的网站名称，仅在QQ空间使用
+//        oks.setSite(getString(R.string.app_name));
+//        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+//        oks.setSiteUrl("http://www.dzjn88.com/kyjezs.html");
+//        oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
+//            @Override
+//            public void onShare(Platform platform, Platform.ShareParams paramsToShare) {
+//                Log.d("Aaron", "platForm:" + platform.getName());
+//
+//                // 重写新浪微博的 title
+//                if ("SinaWeibo".equals(platform.getName())) {
+//                    paramsToShare.setText("空压机e助手打造全新的工作方式，为您带来便捷、轻松的工作体验。 http://www.dzjn88.com/kyjezs.html");
+//                    paramsToShare.setUrl(null);
+//                }
+//
+//
+//
+//                // 重写朋友圈的 title
+//                if ("WechatMoments".equals(platform.getName())) {
+//
+//
+//                    paramsToShare.setTitle("开创空压机第3种节能方式");
+//                    paramsToShare.setText("空压机e助手打造全新的工作方式，为您带来便捷、轻松的工作体验。");
+//                }
+//            }
+//        });
+
+
+
+
+        // 设置一个用于截屏分享的View
+        View windowView = getWindow().getDecorView();
+        oks.setViewToShare(windowView);
         oks.setText("空压机e助手打造全新的工作方式，为您带来便捷、轻松的工作体验。");
-        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-//        oks.setImagePath("file:///android_asset/share_icon.png");//确保SDcard下面存在此张图片
-        oks.setImageUrl("https://mmbiz.qlogo.cn/mmbiz/iaHaBOvKY12lqeS03Dl35vq9qia6K8HDxwdXRjD8h5IrY6uicR0MVBS2pZW5oW7onZr0fnkr0Ko5SBWfHhxltqHIQ/0?wx_fmt=png");
-        // url仅在微信（包括好友和朋友圈）中使用
+
         oks.setUrl("http://www.dzjn88.com/kyjezs.html");
-        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
-//        oks.setComment("");
         // site是分享此内容的网站名称，仅在QQ空间使用
         oks.setSite(getString(R.string.app_name));
         // siteUrl是分享此内容的网站地址，仅在QQ空间使用
         oks.setSiteUrl("http://www.dzjn88.com/kyjezs.html");
+
         oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
             @Override
             public void onShare(Platform platform, Platform.ShareParams paramsToShare) {
-                Log.d("Aaron", "platForm:" + platform.getName());
-
                 // 重写新浪微博的 title
                 if ("SinaWeibo".equals(platform.getName())) {
                     paramsToShare.setText("空压机e助手打造全新的工作方式，为您带来便捷、轻松的工作体验。 http://www.dzjn88.com/kyjezs.html");
                     paramsToShare.setUrl(null);
                 }
-
-
-
                 // 重写朋友圈的 title
                 if ("WechatMoments".equals(platform.getName())) {
-
-
                     paramsToShare.setTitle("开创空压机第3种节能方式");
                     paramsToShare.setText("空压机e助手打造全新的工作方式，为您带来便捷、轻松的工作体验。");
                 }
             }
         });
-
         // 启动分享GUI
         oks.show(EnergyActivity.this);
-
-//// 启动分享GUI
-//        oks.show(this);
     }
 
 
@@ -774,6 +803,22 @@ public class EnergyActivity extends BaseActivity {
 
         return image;
 
+    }
+
+
+    /**
+     * @return the current display rotation in degrees
+     */
+    private float getDegreesForRotation(int value) {
+        switch (value) {
+            case Surface.ROTATION_90:
+                return 360f - 90f;
+            case Surface.ROTATION_180:
+                return 360f - 180f;
+            case Surface.ROTATION_270:
+                return 360f - 270f;
+        }
+        return 0f;
     }
 
 }

@@ -133,7 +133,8 @@ public class DeviceRegisterActivity extends BaseActivity {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("deviceThree", result.getData());
                     intent.putExtras(bundle);
-                    showDialog(intent);
+                    startActivity(intent);
+//                    showDialog(intent);
 //                    DeviceRegisterActivity.this.finish();
                 } else if(StringKit.isNotEmpty(result.getMessage())) {
                     LibToast.show(DeviceRegisterActivity.this, result.getMessage());

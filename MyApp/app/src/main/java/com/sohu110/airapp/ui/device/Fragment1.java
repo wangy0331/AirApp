@@ -297,7 +297,7 @@ public class Fragment1 extends Fragment{
 //				new DeviceDetailTask(guid).execute();
 					Log.e("refresh", String.valueOf(refresh));
 					//局部刷新
-					if (refresh) {
+					if (refresh && !lixianTs) {
 						new DeviceBiaoshiTask(guid).execute();
 						mProgressBar.setProgress(0);
 					} else {
